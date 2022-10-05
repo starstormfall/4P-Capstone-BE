@@ -4,6 +4,8 @@ module.exports = (sequelize, DataTypes) => {
   class Pin extends Model {
     static associate(models) {
       // define association here
+      this.hasMany(models.crowd);
+      this.belongsToMany(models.post);
     }
   }
   Pin.init(

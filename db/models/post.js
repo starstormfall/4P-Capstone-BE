@@ -4,6 +4,14 @@ module.exports = (sequelize, DataTypes) => {
   class Post extends Model {
     static associate(models) {
       // define association here
+      this.hasOne(models.area);
+      this.belongsToMany(models.category, { through: models.postCategory });
+      this.belongsToMany(models.hashtag, { through: models.hashtag });
+      this.hasOne(models.user);
+      this.belongsToMany(models.user, { through: models.favourite });
+      this.belongsToMany(models.user, { through: models.like });
+      this.belongsToMany(models.thread, { through: models.threadPost });
+      this.hasMany(models.friendship);
     }
   }
   Post.init(
@@ -15,6 +23,13 @@ module.exports = (sequelize, DataTypes) => {
         type: DataTypes.INTEGER,
         references: {
           model: "areas",
+          key: "id",
+        },
+      },
+      pinId: {
+        type: DataTypes.INTEGER,
+        references: {
+          model: "pins",
           key: "id",
         },
       },

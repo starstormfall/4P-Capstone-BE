@@ -4,6 +4,8 @@ module.exports = (sequelize, DataTypes) => {
   class Friendship extends Model {
     static associate(models) {
       // define association here
+      this.hasMany(models.user);
+      this.belongsTo(models.post);
     }
   }
   Friendship.init(

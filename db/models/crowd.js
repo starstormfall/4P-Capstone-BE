@@ -4,6 +4,9 @@ module.exports = (sequelize, DataTypes) => {
   class Crowd extends Model {
     static associate(models) {
       // define association here
+      this.belongsTo(models.user);
+      this.belongsTo(models.area);
+      this.belongsTo(models.pin);
     }
   }
   Crowd.init(

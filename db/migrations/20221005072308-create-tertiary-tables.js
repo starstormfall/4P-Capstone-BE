@@ -21,6 +21,14 @@ module.exports = {
           key: "id",
         },
       },
+      pin_id: {
+        type: Sequelize.INTEGER,
+        references: {
+          model: "pins",
+          key: "id",
+        },
+      },
+
       location_name: Sequelize.STRING,
       forum_post: Sequelize.BOOLEAN,
       explore_post: Sequelize.STRING,
