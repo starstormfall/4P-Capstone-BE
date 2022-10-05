@@ -5,6 +5,7 @@ module.exports = (sequelize, DataTypes) => {
     static associate(models) {
       // define association here
       this.belongsTo(models.chatroom);
+      this.belongsTo(models.user);
     }
   }
   Message.init(

@@ -50,14 +50,14 @@ module.exports = {
           key: "id",
         },
       },
-      initiator_user_id: {
+      initiated_user_id: {
         type: Sequelize.INTEGER,
         references: {
           model: "users",
           key: "id",
         },
       },
-      friend_user_id: {
+      added_user_id: {
         type: Sequelize.INTEGER,
         references: {
           model: "users",

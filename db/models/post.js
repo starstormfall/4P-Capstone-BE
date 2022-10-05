@@ -4,14 +4,15 @@ module.exports = (sequelize, DataTypes) => {
   class Post extends Model {
     static associate(models) {
       // define association here
-      this.hasOne(models.area);
+      this.belongsTo(models.area);
       this.belongsToMany(models.category, { through: models.postCategory });
       this.belongsToMany(models.hashtag, { through: models.hashtag });
-      this.hasOne(models.user);
+      this.belongsTo(models.user);
       this.belongsToMany(models.user, { through: models.favourite });
       this.belongsToMany(models.user, { through: models.like });
       this.belongsToMany(models.thread, { through: models.threadPost });
       this.hasMany(models.friendship);
+      this.belongsTo(models.pin);
     }
   }
   Post.init(

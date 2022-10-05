@@ -8,8 +8,16 @@ module.exports = (sequelize, DataTypes) => {
       this.hasMany(models.post);
       this.belongsToMany(models.post, { through: models.favourite });
       this.belongsToMany(models.post, { through: models.like });
-      this.hasMany(models.friendship);
+      this.hasMany(models.friendship, {
+        as: "initiatedUser",
+        foreignKey: "initiatedUserId",
+      });
+      this.hasMany(models.friendship, {
+        as: "addedUser",
+        foreignKey: "addedUserId",
+      });
       this.belongsToMany(models.chatroom, { through: models.chatroomUser });
+      this.hasMany(models.message);
     }
   }
   User.init(

@@ -83,6 +83,41 @@ module.exports = {
       },
     });
 
+    // CROWD MODEL
+    await queryInterface.createTable("crowds", {
+      id: {
+        allowNull: false,
+        autoIncrement: true,
+        primaryKey: true,
+        type: Sequelize.INTEGER,
+      },
+      recorded_at: Sequelize.DATE,
+      user_id: {
+        type: Sequelize.INTEGER,
+        references: {
+          model: "users",
+          key: "id",
+        },
+      },
+      pin_id: {
+        type: Sequelize.INTEGER,
+        references: {
+          model: "pins",
+          key: "id",
+        },
+      },
+      crowd_size: Sequelize.STRING,
+      crowd_intensity: Sequelize.STRING,
+      created_at: {
+        allowNull: false,
+        type: Sequelize.DATE,
+      },
+      updated_at: {
+        allowNull: false,
+        type: Sequelize.DATE,
+      },
+    });
+
     // MESSAGES MODEL
     await queryInterface.createTable("messages", {
       id: {
@@ -121,5 +156,6 @@ module.exports = {
     await queryInterface.dropTable("posts");
     await queryInterface.dropTable("chatroom_users");
     await queryInterface.dropTable("messages");
+    await queryInterface.dropTable("crowds");
   },
 };

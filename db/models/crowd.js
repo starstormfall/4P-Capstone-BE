@@ -5,20 +5,13 @@ module.exports = (sequelize, DataTypes) => {
     static associate(models) {
       // define association here
       this.belongsTo(models.user);
-      this.belongsTo(models.area);
       this.belongsTo(models.pin);
     }
   }
   Crowd.init(
     {
       recordedAt: DataTypes.DATE,
-      areaId: {
-        type: DataTypes.INTEGER,
-        references: {
-          model: "areas",
-          key: "id",
-        },
-      },
+
       userId: {
         type: DataTypes.INTEGER,
         references: {

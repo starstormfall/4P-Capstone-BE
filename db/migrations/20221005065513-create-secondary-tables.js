@@ -32,15 +32,26 @@ module.exports = {
       },
     });
 
-    // CROWD MODEL
-    await queryInterface.createTable("crowds", {
+    // PINS MODEL --> mapItems
+    await queryInterface.createTable("pins", {
       id: {
         allowNull: false,
         autoIncrement: true,
         primaryKey: true,
         type: Sequelize.INTEGER,
       },
-      recorded_at: Sequelize.DATE,
+      lat: {
+        allowNull: false,
+        type: Sequelize.INTEGER,
+      },
+      lng: {
+        allowNull: false,
+        type: Sequelize.INTEGER,
+      },
+      place_name: {
+        allowNull: false,
+        type: Sequelize.STRING,
+      },
       area_id: {
         type: Sequelize.INTEGER,
         references: {
@@ -48,22 +59,6 @@ module.exports = {
           key: "id",
         },
       },
-      user_id: {
-        type: Sequelize.INTEGER,
-        references: {
-          model: "users",
-          key: "id",
-        },
-      },
-      pin_id: {
-        type: Sequelize.INTEGER,
-        references: {
-          model: "pins",
-          key: "id",
-        },
-      },
-      crowd_size: Sequelize.STRING,
-      crowd_intensity: Sequelize.STRING,
       created_at: {
         allowNull: false,
         type: Sequelize.DATE,
@@ -104,7 +99,7 @@ module.exports = {
 
   async down(queryInterface, Sequelize) {
     await queryInterface.dropTable("hashtags");
-    await queryInterface.dropTable("crowds");
+    await queryInterface.dropTable("pins");
     await queryInterface.dropTable("chatrooms");
   },
 };
