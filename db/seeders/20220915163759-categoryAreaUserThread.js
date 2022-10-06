@@ -35,7 +35,7 @@ module.exports = {
     ]);
     await queryInterface.bulkInsert("users", [
       {
-        name: "test",
+        name: "Test",
         email: "test@test.com",
         photo_link:
           "https://firebasestorage.googleapis.com/v0/b/project4-capstone-tdfl.appspot.com/o/users%2Fseed%2Ftest.jpg?alt=media&token=44466334-36a0-4d18-a517-a0a8a20b6349",
