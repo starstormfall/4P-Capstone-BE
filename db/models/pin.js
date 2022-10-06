@@ -4,6 +4,9 @@ module.exports = (sequelize, DataTypes) => {
   class Pin extends Model {
     static associate(models) {
       // define association here
+      this.hasMany(models.crowd);
+      this.hasMany(models.post);
+      this.belongsTo(models.area);
     }
   }
   Pin.init(
@@ -11,6 +14,13 @@ module.exports = (sequelize, DataTypes) => {
       lat: DataTypes.INTEGER,
       lng: DataTypes.INTEGER,
       placeName: DataTypes.STRING,
+      areaId: {
+        type: DataTypes.INTEGER,
+        references: {
+          model: "areas",
+          key: "id",
+        },
+      },
     },
     {
       sequelize,

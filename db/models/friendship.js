@@ -4,6 +4,15 @@ module.exports = (sequelize, DataTypes) => {
   class Friendship extends Model {
     static associate(models) {
       // define association here
+      this.belongsTo(models.post);
+      this.belongsTo(models.user, {
+        as: "initiatedUser",
+        foreignKey: "initiatedUserId",
+      });
+      this.belongsTo(models.user, {
+        as: "addedUser",
+        foreignKey: "addedUserId",
+      });
     }
   }
   Friendship.init(
@@ -15,14 +24,14 @@ module.exports = (sequelize, DataTypes) => {
           key: "id",
         },
       },
-      initiatorUserId: {
+      initiatedUserId: {
         type: DataTypes.INTEGER,
         references: {
           model: "users",
           key: "id",
         },
       },
-      userId: {
+      addedUserId: {
         type: DataTypes.INTEGER,
         references: {
           model: "users",
