@@ -5,12 +5,12 @@ module.exports = (sequelize, DataTypes) => {
     static associate(models) {
       // define association here
       this.belongsTo(models.area);
-      this.belongsToMany(models.category, { through: models.postCategory });
-      this.belongsToMany(models.hashtag, { through: models.hashtag });
+      this.belongsToMany(models.category, { through: "post_categories" });
+      this.belongsToMany(models.hashtag, { through: "post_hashtags" });
       this.belongsTo(models.user);
       this.belongsToMany(models.user, { through: models.favourite });
       this.belongsToMany(models.user, { through: models.like });
-      this.belongsToMany(models.thread, { through: models.threadPost });
+      this.belongsToMany(models.thread, { through: "thread_posts" });
       this.hasMany(models.friendship);
       this.belongsTo(models.pin);
     }

@@ -1,0 +1,163 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "version": "1.0.0",
+    "title": "REST API",
+    "description": ""
+  },
+  "host": "localhost:3000",
+  "basePath": "/",
+  "schemes": [
+    "http"
+  ],
+  "paths": {
+    "/chats/": {
+      "get": {
+        "description": "",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/chats/{userId}/allchat": {
+      "get": {
+        "description": "",
+        "parameters": [
+          {
+            "name": "userId",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "Created"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      }
+    },
+    "/chats/{userId}/{chatroomId}": {
+      "get": {
+        "description": "",
+        "parameters": [
+          {
+            "name": "userId",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "chatroomId",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {}
+      }
+    },
+    "/chats/createchatroom": {
+      "post": {
+        "description": "",
+        "parameters": [],
+        "responses": {}
+      }
+    },
+    "/chats/{chatroomId}/": {
+      "put": {
+        "description": "",
+        "parameters": [
+          {
+            "name": "chatroomId",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {}
+      }
+    },
+    "/chats/{chatroomId}/allmessage": {
+      "get": {
+        "description": "",
+        "parameters": [
+          {
+            "name": "chatroomId",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {}
+      }
+    },
+    "/chats/{chatroomId}/onemessage": {
+      "post": {
+        "description": "",
+        "parameters": [
+          {
+            "name": "chatroomId",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {}
+      }
+    },
+    "/users/{userId}": {
+      "get": {
+        "description": "",
+        "parameters": [
+          {
+            "name": "userId",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {}
+      }
+    },
+    "/users/all": {
+      "get": {
+        "description": "",
+        "parameters": [],
+        "responses": {}
+      }
+    },
+    "/users/": {
+      "post": {
+        "description": "",
+        "parameters": [],
+        "responses": {}
+      },
+      "put": {
+        "description": "",
+        "parameters": [],
+        "responses": {}
+      }
+    },
+    "/users/{userId}/favourite": {
+      "get": {
+        "description": "",
+        "parameters": [
+          {
+            "name": "userId",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {}
+      }
+    }
+  }
+}

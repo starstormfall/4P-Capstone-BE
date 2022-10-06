@@ -6,26 +6,6 @@ const bodyParser = require("body-parser");
 const swaggerUi = require("swagger-ui-express");
 const swaggerFile = require("./swagger_output.json");
 
-//import routers
-const chatsRouter = require("./routers/chatsRouter");
-const friendsRouter = require("./routers/friendsRouter");
-const mapsRouter = require("./routers/mapsRouter");
-const postsRouter = require("./routers/postsRouter");
-const usersRouters = require("./routers/usersRouter");
-
-//import controllers
-const chatsController = require("./controllers/chatsController");
-const friendsController = require("./controllers/friendsController");
-const mapsController = require("./controllers/mapsController");
-const postsController = require("./controllers/postsController");
-const usersController = require("./controllers/usersController");
-
-// import DB
-const db = require("./db/models/index");
-
-// decostruct models here
-// const {} = db;
-
 // const checkJwt = auth({
 //   audience: process.env.AUDIENCE,
 //   issuerBaseURL: process.env.ISSUER,
@@ -44,6 +24,18 @@ app.use(cors());
 
 // Enable express to parse JSON bodies of incoming POST requests
 app.use(express.json());
+
+//import routers
+const chatsRouter = require("./routers/chatsRouter");
+// const friendsRouter = require("./routers/friendsRouter");
+// const mapsRouter = require("./routers/mapsRouter");
+// const postsRouter = require("./routers/postsRouter");
+const usersRouters = require("./routers/usersRouter");
+app.use("/chats", chatsRouter);
+// app.use("/friends", friendsRouter);
+// app.use("/maps", mapsRouter);
+app.use("/users", usersRouters);
+// app.use("/posts", postsRouter);
 
 //Enable Routers here.
 app.use("/doc", swaggerUi.serve, swaggerUi.setup(swaggerFile));
