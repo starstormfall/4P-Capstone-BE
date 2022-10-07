@@ -323,6 +323,33 @@ module.exports = {
         updated_at: new Date(),
         area_id: 3,
       },
+      {
+        //Imperial Palace Grounds
+        lat: 35.68309653980229,
+        lng: 139.7525871479461,
+        place_name: "General Tokyo",
+        created_at: new Date(),
+        updated_at: new Date(),
+        area_id: 1,
+      },
+      {
+        //Middle of Hokkaido
+        lat: 43.27748330255431,
+        lng: 142.61770892207522,
+        place_name: "General Hokkaido",
+        created_at: new Date(),
+        updated_at: new Date(),
+        area_id: 2,
+      },
+      {
+        //Osaka Namba area
+        lat: 34.66801615290104,
+        lng: 135.49706560580577,
+        place_name: "General Osaka",
+        created_at: new Date(),
+        updated_at: new Date(),
+        area_id: 3,
+      },
     ]);
     await queryInterface.bulkInsert("hashtags", [
       {
