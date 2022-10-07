@@ -13,7 +13,7 @@ module.exports = {
       },
       title: Sequelize.STRING,
       photo_link: Sequelize.STRING,
-      content: Sequelize.STRING,
+      content: Sequelize.TEXT,
       area_id: {
         type: Sequelize.INTEGER,
         references: {
