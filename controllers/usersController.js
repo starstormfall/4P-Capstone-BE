@@ -3,9 +3,14 @@ const { User, Favourite, Like } = require("../db/models");
 // get one user
 const getOnePk = async (req, res) => {
   const { userId } = req.params;
+  console.log(userId);
+  console.log(User);
+  console.log(Favourite);
+  console.log(Like);
   try {
-    const user = await User.findByPk(userId);
-    return res.json(user);
+    const userInfo = await User.findByPk(userId);
+    console.log(userInfo);
+    return res.json(userInfo);
   } catch (err) {
     return res.status(400).json({ error: true, msg: err });
   }
@@ -36,14 +41,19 @@ const insertOne = async (req, res) => {
 
 // update user's informations
 const updateOneUser = async (req, res) => {
+  const { userId } = req.params;
   const { email, name, nationality, score, lastLogin, photoLink, loginStreak } =
     req.body;
+  console.log("request body", req.body);
   try {
+    // const currentUser = await User.findByPk(userId);
     const currentUser = await User.findOne({
       where: { email: email },
     });
     console.log(currentUser);
-    const response = await currentUser.update({
+
+    await currentUser.update({
+      updatedAt: new Date(),
       name: name,
       nationality: nationality,
       score: score,
@@ -53,7 +63,8 @@ const updateOneUser = async (req, res) => {
       // (put) when users logins in.
       loginStreak: loginStreak,
     });
-    return res.json(response);
+    // await currentUser.save();
+    return res.json(currentUser);
   } catch (err) {
     return res.status(400).json({ error: true, msg: err });
   }
@@ -61,10 +72,12 @@ const updateOneUser = async (req, res) => {
 
 // get all user's favourites
 const getAllFavourite = async (req, res) => {
-  const { userId, postId } = req.params;
+  const { userId } = req.params;
+  console.log(Favourite);
+
   try {
-    const allFavourites = Favourite.findAll({
-      where: { userId: userId, postId: postId },
+    const allFavourites = await Favourite.findAll({
+      where: { userId: userId },
     });
     return res.json(allFavourites);
   } catch (err) {
@@ -74,10 +87,10 @@ const getAllFavourite = async (req, res) => {
 
 // get all post's likes
 const getAllLikes = async (req, res) => {
-  const { userId, postId } = req.params;
+  const { postId } = req.params;
   try {
-    const allLikes = Like.findAll({
-      where: { userId: userId, postId: postId },
+    const allLikes = await Like.findAll({
+      where: { postId: postId },
     });
     return res.json(allLikes);
   } catch (err) {
@@ -87,11 +100,20 @@ const getAllLikes = async (req, res) => {
 
 // create likes for user
 const addLikes = async (req, res) => {
-  const { userId, postId } = req.body;
+  const { postId } = req.params;
+  const { userId } = req.body;
+  console.log(postId);
+  console.log(Like);
   try {
-    const addLikes = await Like.findorCreate({
-      where: { userId: userId, postId: postId },
+    const [addLikes, created] = await Like.findorCreate({
+      where: { userId: userId },
+      defaults: {
+        postId: postId,
+      },
     });
+    console.log("created", created);
+    console.log("addLikes", addLikes);
+
     return res.json(addLikes);
   } catch (err) {
     return res.status(400).json({ error: true, msg: err });
@@ -212,8 +234,10 @@ const deleteFavourites = async (req, res) => {
 //   }
 // };
 
+// find by ID of the likes of the post
 // const addLikes = async (req, res) => {
-//   const { userId, postId } = req.body;
+//   const { postId } = req.params;
+//   const { userId } = req.body;
 //   try {
 //     const likeExists = await Like.findOne({
 //       where: { userId: userId, postId: postId },

@@ -4,9 +4,9 @@ module.exports = (sequelize, DataTypes) => {
   class Pin extends Model {
     static associate(models) {
       // define association here
-      this.hasMany(models.crowd);
-      this.hasMany(models.post);
-      this.belongsTo(models.area);
+      this.hasMany(models.Crowd);
+      this.hasMany(models.Post);
+      this.belongsTo(models.Area);
     }
   }
   Pin.init(
@@ -17,14 +17,14 @@ module.exports = (sequelize, DataTypes) => {
       areaId: {
         type: DataTypes.INTEGER,
         references: {
-          model: "areas",
+          model: "Areas",
           key: "id",
         },
       },
     },
     {
       sequelize,
-      modelName: "pin",
+      modelName: "Pin",
       underscored: true,
     }
   );

@@ -4,8 +4,8 @@ module.exports = (sequelize, DataTypes) => {
   class Like extends Model {
     static associate(models) {
       // define association here
-      this.belongsTo(models.user);
-      this.belongsTo(models.post);
+      this.belongsTo(models.User);
+      this.belongsTo(models.Post);
     }
   }
   Like.init(
@@ -13,21 +13,21 @@ module.exports = (sequelize, DataTypes) => {
       postId: {
         type: DataTypes.INTEGER,
         references: {
-          model: "posts",
+          model: "Posts",
           key: "id",
         },
       },
       userId: {
         type: DataTypes.INTEGER,
         references: {
-          model: "users",
+          model: "Users",
           key: "id",
         },
       },
     },
     {
       sequelize,
-      modelName: "like",
+      modelName: "Like",
       underscored: true,
     }
   );

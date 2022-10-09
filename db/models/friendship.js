@@ -4,12 +4,12 @@ module.exports = (sequelize, DataTypes) => {
   class Friendship extends Model {
     static associate(models) {
       // define association here
-      this.belongsTo(models.post);
-      this.belongsTo(models.user, {
+      this.belongsTo(models.Post);
+      this.belongsTo(models.User, {
         as: "initiatedUser",
         foreignKey: "initiatedUserId",
       });
-      this.belongsTo(models.user, {
+      this.belongsTo(models.User, {
         as: "addedUser",
         foreignKey: "addedUserId",
       });
@@ -20,21 +20,21 @@ module.exports = (sequelize, DataTypes) => {
       postId: {
         type: DataTypes.INTEGER,
         references: {
-          model: "posts",
+          model: "Posts",
           key: "id",
         },
       },
       initiatedUserId: {
         type: DataTypes.INTEGER,
         references: {
-          model: "users",
+          model: "Users",
           key: "id",
         },
       },
       addedUserId: {
         type: DataTypes.INTEGER,
         references: {
-          model: "users",
+          model: "Users",
           key: "id",
         },
       },
@@ -43,7 +43,7 @@ module.exports = (sequelize, DataTypes) => {
     },
     {
       sequelize,
-      modelName: "friendship",
+      modelName: "Friendship",
       underscored: true,
     }
   );

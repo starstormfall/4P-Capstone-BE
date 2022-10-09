@@ -4,8 +4,8 @@ module.exports = (sequelize, DataTypes) => {
   class ChatroomUser extends Model {
     static associate(models) {
       // define association here
-      this.belongsTo(models.chatroom);
-      this.belongsTo(models.user);
+      this.belongsTo(models.Chatroom);
+      this.belongsTo(models.User);
     }
   }
   ChatroomUser.init(
@@ -13,21 +13,21 @@ module.exports = (sequelize, DataTypes) => {
       chatroomId: {
         type: DataTypes.INTEGER,
         references: {
-          model: "chatrooms",
+          model: "Chatrooms",
           key: "id",
         },
       },
       userId: {
         type: DataTypes.INTEGER,
         references: {
-          model: "users",
+          model: "Users",
           key: "id",
         },
       },
     },
     {
       sequelize,
-      modelName: "chatroomUser",
+      modelName: "ChatroomUser",
       underscored: true,
     }
   );
