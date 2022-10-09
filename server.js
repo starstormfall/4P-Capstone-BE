@@ -26,12 +26,12 @@ app.use(cors());
 app.use(express.json());
 
 //import routers
-const chatsRouter = require("./routers/chatsRouter");
+// const chatsRouter = require("./routers/chatsRouter");
 // const friendsRouter = require("./routers/friendsRouter");
 // const mapsRouter = require("./routers/mapsRouter");
 // const postsRouter = require("./routers/postsRouter");
 const usersRouters = require("./routers/usersRouter");
-app.use("/chats", chatsRouter);
+// app.use("/chats", chatsRouter);
 // app.use("/friends", friendsRouter);
 // app.use("/maps", mapsRouter);
 app.use("/users", usersRouters);
