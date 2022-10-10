@@ -28,9 +28,9 @@ router.post(`/:postId/like`, controllers.addLikes);
 router.post(`/:userId/favourites`, controllers.addFavourites);
 
 // delete likes for user
-router.put(`/:postId/like`, controllers.deleteLikes);
+router.delete(`/:postId/like`, controllers.deleteLikes);
 
 //delete favourites for user
-router.put(`/:userId/favourites`, controllers.deleteFavourites);
+router.delete(`/:userId/favourites`, controllers.deleteFavourites);
 
 module.exports = router;
