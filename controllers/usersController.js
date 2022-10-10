@@ -1,5 +1,5 @@
 const { user, favourite, like } = require("../db/models");
-const { Op } = require("sequelize");
+
 const e = require("express");
 
 // get one user
