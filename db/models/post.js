@@ -23,14 +23,14 @@ module.exports = (sequelize, DataTypes) => {
       areaId: {
         type: DataTypes.INTEGER,
         references: {
-          model: "Areas",
+          model: "areas",
           key: "id",
         },
       },
       pinId: {
         type: DataTypes.INTEGER,
         references: {
-          model: "Pins",
+          model: "pins",
           key: "id",
         },
       },
@@ -42,7 +42,7 @@ module.exports = (sequelize, DataTypes) => {
       userId: {
         type: DataTypes.INTEGER,
         references: {
-          model: "Users",
+          model: "users",
           key: "id",
         },
       },

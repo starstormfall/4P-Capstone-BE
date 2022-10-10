@@ -2,6 +2,8 @@ const { User, Favourite, Like } = require("../db/models");
 
 // get one user
 const getOnePk = async (req, res) => {
+  // #swagger.tags = ['User']
+
   const { userId } = req.params;
   console.log(userId);
   console.log(User);
@@ -18,6 +20,7 @@ const getOnePk = async (req, res) => {
 
 // get all users
 const getAll = async (req, res) => {
+  // #swagger.tags = ['User']
   try {
     const allUser = await User.findAll();
     return res.json(allUser);

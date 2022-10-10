@@ -17,7 +17,7 @@ module.exports = (sequelize, DataTypes) => {
       areaId: {
         type: DataTypes.INTEGER,
         references: {
-          model: "Areas",
+          model: "areas",
           key: "id",
         },
       },
