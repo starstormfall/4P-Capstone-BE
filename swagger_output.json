@@ -356,7 +356,7 @@
     "/posts/{postId}": {
       "get": {
         "tags": [
-          "User"
+          "Post"
         ],
         "description": "",
         "parameters": [
@@ -364,7 +364,7 @@
             "name": "postId",
             "in": "path",
             "required": true,
-            "type": "string"
+            "type": "integer"
           }
         ],
         "responses": {

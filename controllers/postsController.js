@@ -58,9 +58,12 @@ const getAllForum = async (req, res) => {
 };
 
 const getAssocThread = async (req, res) => {
-  // #swagger.tags = ['User']
+  // #swagger.tags = ['Post']
+  /* #swagger.parameters['postId'] = {
+	      in: 'path',
+        type: 'integer'
+        } */
 
-  const { postId } = req.params;
   console.log("postId", req.params);
   try {
     const thread = await Post.findAll({
