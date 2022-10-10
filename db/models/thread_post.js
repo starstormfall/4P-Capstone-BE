@@ -13,14 +13,14 @@ module.exports = (sequelize, DataTypes) => {
       postId: {
         type: DataTypes.INTEGER,
         references: {
-          model: "Posts",
+          model: "posts",
           key: "id",
         },
       },
       threadId: {
         type: DataTypes.INTEGER,
         references: {
-          model: "Threads",
+          model: "threads",
           key: "id",
         },
       },

@@ -20,21 +20,21 @@ module.exports = (sequelize, DataTypes) => {
       postId: {
         type: DataTypes.INTEGER,
         references: {
-          model: "Posts",
+          model: "posts",
           key: "id",
         },
       },
       initiatedUserId: {
         type: DataTypes.INTEGER,
         references: {
-          model: "Users",
+          model: "users",
           key: "id",
         },
       },
       addedUserId: {
         type: DataTypes.INTEGER,
         references: {
-          model: "Users",
+          model: "users",
           key: "id",
         },
       },
