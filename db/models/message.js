@@ -14,14 +14,14 @@ module.exports = (sequelize, DataTypes) => {
       chatroomId: {
         type: DataTypes.INTEGER,
         references: {
-          model: "Chatrooms",
+          model: "chatrooms",
           key: "id",
         },
       },
       posterUserId: {
         type: DataTypes.INTEGER,
         references: {
-          model: "Users",
+          model: "users",
           key: "id",
         },
       },
