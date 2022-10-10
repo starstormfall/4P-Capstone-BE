@@ -207,7 +207,7 @@
           }
         }
       },
-      "put": {
+      "delete": {
         "description": "",
         "parameters": [
           {
@@ -258,9 +258,6 @@
             "schema": {
               "type": "object",
               "properties": {
-                "userId": {
-                  "example": "any"
-                },
                 "postId": {
                   "example": "any"
                 }
@@ -277,7 +274,7 @@
           }
         }
       },
-      "put": {
+      "delete": {
         "description": "",
         "parameters": [
           {

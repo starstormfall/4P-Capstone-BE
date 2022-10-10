@@ -4,8 +4,8 @@ module.exports = (sequelize, DataTypes) => {
   class Crowd extends Model {
     static associate(models) {
       // define association here
-      this.belongsTo(models.User);
-      this.belongsTo(models.Pin);
+      this.belongsTo(models.user);
+      this.belongsTo(models.pin);
     }
   }
   Crowd.init(
@@ -31,7 +31,7 @@ module.exports = (sequelize, DataTypes) => {
     },
     {
       sequelize,
-      modelName: "Crowd",
+      modelName: "crowd",
       underscored: true,
     }
   );

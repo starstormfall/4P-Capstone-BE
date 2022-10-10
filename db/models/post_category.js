@@ -4,8 +4,8 @@ module.exports = (sequelize, DataTypes) => {
   class PostCategory extends Model {
     static associate(models) {
       // define association here
-      this.belongsTo(models.Post);
-      this.belongsTo(models.Category);
+      this.belongsTo(models.post);
+      this.belongsTo(models.category);
     }
   }
   PostCategory.init(
@@ -27,7 +27,7 @@ module.exports = (sequelize, DataTypes) => {
     },
     {
       sequelize,
-      modelName: "PostCategory",
+      modelName: "postCategory",
       underscored: true,
     }
   );
