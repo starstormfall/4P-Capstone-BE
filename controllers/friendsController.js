@@ -5,6 +5,8 @@ const { Op } = require("sequelize");
 
 //maybe filter on backend for pending vs confirmed?
 const getFriendList = async (req, res) => {
+  // #swagger.tags = ['Friend']
+
   const { userId } = req.params;
   try {
     const userFriends = await friendship.findAll({
@@ -39,6 +41,7 @@ const getFriendList = async (req, res) => {
 
 //when current logged in user clicks add friend. Controller first checks if record exists in table. If doesn't exist, friend request is sent to the other user. If exists, then message is returned.
 const requestFriend = async (req, res) => {
+  // #swagger.tags = ['Friend']
   const { userId } = req.params;
   const { friendId, postId, reason } = req.body;
   try {
@@ -107,6 +110,8 @@ const requestFriend = async (req, res) => {
 //When friend request is accepted, update friendship table status from pending to confirmed. First, find the particular friendship pair with PK. Then update, then return with the post and user (hopefully).
 //if frontend can pass the friendship Id, it will be easy to query. If cannot, then change to friendId instead.
 const updateFriendStatus = async (req, res) => {
+  // #swagger.tags = ['Friend']
+
   const { userId } = req.params;
   const { friendId, friendshipId } = req.body;
   try {
@@ -148,6 +153,8 @@ const updateFriendStatus = async (req, res) => {
 //When friend deleted, find the particular friendship pair with PK. Then destroy. Return the destroyed friendship Id.
 //if frontend can pass the friendship Id, it will be easy to query. If cannot, then change to friendId instead.
 const deleteFriend = async (req, res) => {
+  // #swagger.tags = ['Friend']
+
   const { userId } = req.params;
   const { friendId, friendshipId } = req.body;
   try {

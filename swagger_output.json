@@ -125,6 +125,9 @@
     },
     "/friends/{userId}/allfriends": {
       "get": {
+        "tags": [
+          "Friend"
+        ],
         "description": "",
         "parameters": [
           {
@@ -146,6 +149,9 @@
     },
     "/friends/{userId}/addfriend": {
       "post": {
+        "tags": [
+          "Friend"
+        ],
         "description": "",
         "parameters": [
           {
@@ -185,6 +191,9 @@
     },
     "/friends/{userId}": {
       "put": {
+        "tags": [
+          "Friend"
+        ],
         "description": "",
         "parameters": [
           {
@@ -221,6 +230,9 @@
     },
     "/friends/{userId}/removefriend": {
       "delete": {
+        "tags": [
+          "Friend"
+        ],
         "description": "",
         "parameters": [
           {
