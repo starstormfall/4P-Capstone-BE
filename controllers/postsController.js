@@ -58,7 +58,7 @@ const getAllForum = async (req, res) => {
 };
 
 const getAssocThread = async (req, res) => {
-  // #swagger.tags = ['User']
+  // #swagger.tags = ['Post']
 
   const { postId } = req.params;
   console.log("postId", req.params);

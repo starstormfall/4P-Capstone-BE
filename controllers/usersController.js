@@ -31,6 +31,7 @@ const getAll = async (req, res) => {
 
 // create one user
 const insertOne = async (req, res) => {
+  // #swagger.tags = ['User']
   const { email } = req.body;
   try {
     const newUser = await user.findOrCreate({
@@ -44,6 +45,7 @@ const insertOne = async (req, res) => {
 
 // update user's informations
 const updateOneUser = async (req, res) => {
+  // #swagger.tags = ['User']
   const { userId } = req.params;
   const { email, name, nationality, score, lastLogin, photoLink, loginStreak } =
     req.body;
@@ -75,6 +77,7 @@ const updateOneUser = async (req, res) => {
 
 // get all user's favourites
 const getAllFavourite = async (req, res) => {
+  // #swagger.tags = ['User']
   const { userId } = req.params;
   console.log(favourite);
 
@@ -126,45 +129,21 @@ const addLikes = async (req, res) => {
 
 // create favourites for user
 const addFavourites = async (req, res) => {
+  // #swagger.tags = ['User']
   const { userId } = req.params;
   const { postId } = req.body;
   try {
-    const addFavourites = await favourite.findOrCreate({
+    const [addFavourites, created] = await favourite.findOrCreate({
       where: { userId: userId, postId: postId },
     });
-    return res.json(addFavourites);
-  } catch (err) {
-    return res.status(400).json({ error: true, msg: err });
-  }
-};
-
-//delete likes for user
-const deleteLikes = async (req, res) => {
-  const { userId, postId } = req.body;
-  try {
-    const removeLikes = await like.destroy({
-      where: {
-        userId: userId,
-        postId: postId,
-      },
-    });
-    return res.json(removeLikes);
-  } catch (err) {
-    return res.status(400).json({ error: true, msg: err });
-  }
-};
-
-//delete favourites for user
-const deleteFavourites = async (req, res) => {
-  const { userId, postId } = req.body;
-  try {
-    const removeFavourites = await favourite.destroy({
-      where: {
-        userId: userId,
-        postId: postId,
-      },
-    });
-    return res.json(removeFavourites);
+    console.log("created", created);
+    console.log("addFavourites", addFavourites);
+    if (created) {
+      return res.json(addFavourites);
+    } else {
+      const updateFavourites = await addFavourites.destroy();
+      return res.json(updateFavourites);
+    }
   } catch (err) {
     return res.status(400).json({ error: true, msg: err });
   }
@@ -265,6 +244,7 @@ const deleteFavourites = async (req, res) => {
 //     return res.status(400).json({ error: true, msg: err });
 //   }
 // };
+
 module.exports = {
   getOnePk,
   getAll,
@@ -274,6 +254,4 @@ module.exports = {
   getAllLikes,
   addLikes,
   addFavourites,
-  deleteLikes,
-  deleteFavourites,
 };
