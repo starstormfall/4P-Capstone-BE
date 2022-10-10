@@ -176,9 +176,6 @@
               "properties": {
                 "userId": {
                   "example": "any"
-                },
-                "postId": {
-                  "example": "any"
                 }
               }
             }
@@ -193,7 +190,7 @@
           }
         }
       },
-      "put": {
+      "delete": {
         "description": "",
         "parameters": [
           {
@@ -263,7 +260,7 @@
           }
         }
       },
-      "put": {
+      "delete": {
         "description": "",
         "parameters": [
           {
