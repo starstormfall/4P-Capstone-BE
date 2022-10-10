@@ -258,9 +258,6 @@
             "schema": {
               "type": "object",
               "properties": {
-                "userId": {
-                  "example": "any"
-                },
                 "postId": {
                   "example": "any"
                 }

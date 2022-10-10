@@ -1,4 +1,6 @@
-const { User, Favourite, Like } = require("../db/models");
+const { user, favourite, like } = require("../db/models");
+const { Op } = require("sequelize");
+const e = require("express");
 
 // get one user
 const getOnePk = async (req, res) => {
@@ -6,11 +8,9 @@ const getOnePk = async (req, res) => {
 
   const { userId } = req.params;
   console.log(userId);
-  console.log(User);
-  console.log(Favourite);
-  console.log(Like);
+
   try {
-    const userInfo = await User.findByPk(userId);
+    const userInfo = await user.findByPk(userId);
     console.log(userInfo);
     return res.json(userInfo);
   } catch (err) {
@@ -22,7 +22,7 @@ const getOnePk = async (req, res) => {
 const getAll = async (req, res) => {
   // #swagger.tags = ['User']
   try {
-    const allUser = await User.findAll();
+    const allUser = await user.findAll();
     return res.json(allUser);
   } catch (err) {
     return res.status(400).json({ error: true, msg: err });
@@ -33,7 +33,7 @@ const getAll = async (req, res) => {
 const insertOne = async (req, res) => {
   const { email } = req.body;
   try {
-    const newUser = await User.findOrCreate({
+    const newUser = await user.findOrCreate({
       where: { email: email },
     });
     return res.json(newUser);
@@ -50,7 +50,7 @@ const updateOneUser = async (req, res) => {
   console.log("request body", req.body);
   try {
     // const currentUser = await User.findByPk(userId);
-    const currentUser = await User.findOne({
+    const currentUser = await user.findOne({
       where: { email: email },
     });
     console.log(currentUser);
@@ -76,10 +76,10 @@ const updateOneUser = async (req, res) => {
 // get all user's favourites
 const getAllFavourite = async (req, res) => {
   const { userId } = req.params;
-  console.log(Favourite);
+  console.log(favourite);
 
   try {
-    const allFavourites = await Favourite.findAll({
+    const allFavourites = await favourite.findAll({
       where: { userId: userId },
     });
     return res.json(allFavourites);
@@ -92,7 +92,7 @@ const getAllFavourite = async (req, res) => {
 const getAllLikes = async (req, res) => {
   const { postId } = req.params;
   try {
-    const allLikes = await Like.findAll({
+    const allLikes = await like.findAll({
       where: { postId: postId },
     });
     return res.json(allLikes);
@@ -106,18 +106,19 @@ const addLikes = async (req, res) => {
   const { postId } = req.params;
   const { userId } = req.body;
   console.log(postId);
-  console.log(Like);
+  console.log(like);
   try {
-    const [addLikes, created] = await Like.findorCreate({
-      where: { userId: userId },
-      defaults: {
-        postId: postId,
-      },
+    const [addLikes, created] = await like.findOrCreate({
+      where: { userId: userId, postId: postId },
     });
     console.log("created", created);
     console.log("addLikes", addLikes);
-
-    return res.json(addLikes);
+    if (created) {
+      return res.json(addLikes);
+    } else {
+      const updateLikes = await addLikes.destroy();
+      return res.json(updateLikes);
+    }
   } catch (err) {
     return res.status(400).json({ error: true, msg: err });
   }
@@ -125,9 +126,10 @@ const addLikes = async (req, res) => {
 
 // create favourites for user
 const addFavourites = async (req, res) => {
-  const { userId, postId } = req.body;
+  const { userId } = req.params;
+  const { postId } = req.body;
   try {
-    const addFavourites = await Favourite.findorCreate({
+    const addFavourites = await favourite.findOrCreate({
       where: { userId: userId, postId: postId },
     });
     return res.json(addFavourites);
@@ -140,7 +142,7 @@ const addFavourites = async (req, res) => {
 const deleteLikes = async (req, res) => {
   const { userId, postId } = req.body;
   try {
-    const removeLikes = await Like.destroy({
+    const removeLikes = await like.destroy({
       where: {
         userId: userId,
         postId: postId,
@@ -156,7 +158,7 @@ const deleteLikes = async (req, res) => {
 const deleteFavourites = async (req, res) => {
   const { userId, postId } = req.body;
   try {
-    const removeFavourites = await Favourite.destroy({
+    const removeFavourites = await favourite.destroy({
       where: {
         userId: userId,
         postId: postId,
@@ -168,20 +170,24 @@ const deleteFavourites = async (req, res) => {
   }
 };
 
-// const updateLikes = async (req, res) => {
-//   const { userId, postId } = req.params;
+//working
+// const addLikes = async (req, res) => {
+//   const { postId } = req.params;
+//   const { userId } = req.body;
+//   // console.log("post and user id", postId, userId);
 //   try {
 //     const likeExists = await Like.findOne({
 //       where: { userId: userId, postId: postId },
 //     });
-
+//     console.log(likeExists);
 //     if (likeExists) {
-//       const removeLikes = await Like.destory();
+//       const removeLikes = await likeExists.destroy();
 //       return res.json(removeLikes);
 //     } else {
+//       console.log("post and user id", postId, userId);
 //       const addLikes = await Like.create({
-//         userId: userId,
-//         postId: postId,
+//         userId: 1,
+//         postId: 4,
 //       });
 //       return res.json(addLikes);
 //     }
