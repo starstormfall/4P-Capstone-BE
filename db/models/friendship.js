@@ -4,12 +4,12 @@ module.exports = (sequelize, DataTypes) => {
   class Friendship extends Model {
     static associate(models) {
       // define association here
-      this.belongsTo(models.Post);
-      this.belongsTo(models.User, {
+      this.belongsTo(models.post);
+      this.belongsTo(models.user, {
         as: "initiatedUser",
         foreignKey: "initiatedUserId",
       });
-      this.belongsTo(models.User, {
+      this.belongsTo(models.user, {
         as: "addedUser",
         foreignKey: "addedUserId",
       });
@@ -43,7 +43,7 @@ module.exports = (sequelize, DataTypes) => {
     },
     {
       sequelize,
-      modelName: "Friendship",
+      modelName: "friendship",
       underscored: true,
     }
   );

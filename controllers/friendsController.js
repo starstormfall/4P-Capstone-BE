@@ -1,4 +1,4 @@
-const { Friendship, User, Post } = require("../db/models");
+const { friendship, user, post } = require("../db/models");
 const { Op } = require("sequelize");
 
 // get all friends of current logged in user. Includes the details of the friends, and the post where they connected with.
@@ -7,7 +7,7 @@ const { Op } = require("sequelize");
 const getFriendList = async (req, res) => {
   const { userId } = req.params;
   try {
-    const userFriends = await Friendship.findAll({
+    const userFriends = await friendship.findAll({
       where: {
         [Op.or]: [{ initiatedUserId: userId }, { addedUserId: userId }],
       },
@@ -15,16 +15,16 @@ const getFriendList = async (req, res) => {
 
       include: [
         {
-          model: Post,
+          model: post,
           attributes: ["content"],
         },
         {
-          model: User,
+          model: user,
           as: "addedUser",
           attributes: ["name", "photoLink"],
         },
         {
-          model: User,
+          model: user,
           as: "initiatedUser",
           attributes: ["name", "photoLink"],
         },
@@ -42,12 +42,21 @@ const requestFriend = async (req, res) => {
   const { userId } = req.params;
   const { friendId, postId, reason } = req.body;
   try {
-    const existFriend = await Friendship.findOne({
+    const existFriend = await friendship.findOne({
       where: {
+        // [Op.or]: [
+        //   {
+        //     [Op.and]: [{ initiatedUserId: userId }, { addedUserId: friendId }],
+
+        //     [Op.and]: [{ initiatedUserId: friendId }, { addedUserId: userId }],
+        //   },
+        // ],
+
         [Op.or]: [
           {
             [Op.and]: [{ initiatedUserId: userId }, { addedUserId: friendId }],
-
+          },
+          {
             [Op.and]: [{ initiatedUserId: friendId }, { addedUserId: userId }],
           },
         ],
@@ -58,8 +67,9 @@ const requestFriend = async (req, res) => {
       return res.json(
         "Friend already exists or pending acceptance of friend request."
       );
+      // return res.json(existFriend);
     } else {
-      const newRequest = await Friendship.create({
+      const newRequest = await friendship.create({
         postId: postId,
         initiatedUserId: userId,
         addedUserId: friendId,
@@ -67,8 +77,24 @@ const requestFriend = async (req, res) => {
         status: "pending",
       });
 
-      const newRequestFriend = await Friendship.findByPk(newRequest.id, {
-        include: [Post, User],
+      const newRequestFriend = await friendship.findByPk(newRequest.id, {
+        // include: [Post, User],
+        include: [
+          {
+            model: post,
+            attributes: ["content"],
+          },
+          {
+            model: user,
+            as: "addedUser",
+            attributes: ["name", "photoLink"],
+          },
+          {
+            model: user,
+            as: "initiatedUser",
+            attributes: ["name", "photoLink"],
+          },
+        ],
       });
 
       return res.json(newRequestFriend);
@@ -84,8 +110,24 @@ const updateFriendStatus = async (req, res) => {
   const { userId } = req.params;
   const { friendId, friendshipId } = req.body;
   try {
-    const friendRequest = await Friendship.findByPk(friendshipId, {
-      include: [Post, User],
+    const friendRequest = await friendship.findByPk(friendshipId, {
+      // include: [post, user],
+      include: [
+        {
+          model: post,
+          attributes: ["content"],
+        },
+        {
+          model: user,
+          as: "addedUser",
+          attributes: ["name", "photoLink"],
+        },
+        {
+          model: user,
+          as: "initiatedUser",
+          attributes: ["name", "photoLink"],
+        },
+      ],
     });
 
     const friendResponse = await friendRequest.update({
@@ -109,7 +151,7 @@ const deleteFriend = async (req, res) => {
   const { userId } = req.params;
   const { friendId, friendshipId } = req.body;
   try {
-    const unfriendRequest = await Friendship.findByPk(friendshipId);
+    const unfriendRequest = await friendship.findByPk(friendshipId);
 
     await unfriendRequest.destroy();
 
