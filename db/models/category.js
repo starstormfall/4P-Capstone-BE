@@ -4,8 +4,8 @@ module.exports = (sequelize, DataTypes) => {
   class Category extends Model {
     static associate(models) {
       // define association here
-      this.belongsToMany(models.post, { through: "post_categories" });
-      this.hasMany(models.hashtag);
+      this.belongsToMany(models.Post, { through: "post_categories" });
+      this.hasMany(models.Hashtag);
     }
   }
   Category.init(
@@ -14,7 +14,7 @@ module.exports = (sequelize, DataTypes) => {
     },
     {
       sequelize,
-      modelName: "category",
+      modelName: "Category",
       underscored: true,
     }
   );

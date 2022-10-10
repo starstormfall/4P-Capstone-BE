@@ -19,9 +19,18 @@ router.put(`/`, controllers.updateOneUser);
 router.get(`/:userId/favourite`, controllers.getAllFavourite);
 
 // get all likes belonging to post
+router.get(`/:postId/allLikes`, controllers.getAllLikes);
 
 // update likes for user
+router.post(`/:postId/like`, controllers.addLikes);
 
 // update favourites for user
+router.post(`/:userId/favourites`, controllers.addFavourites);
+
+// delete likes for user
+router.put(`/:postId/like`, controllers.deleteLikes);
+
+//delete favourites for user
+router.put(`/:userId/favourites`, controllers.deleteFavourites);
 
 module.exports = router;

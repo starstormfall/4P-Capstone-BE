@@ -4,8 +4,8 @@ module.exports = (sequelize, DataTypes) => {
   class Favourite extends Model {
     static associate(models) {
       // define association here
-      this.belongsTo(models.user);
-      this.belongsTo(models.post);
+      this.belongsTo(models.User);
+      this.belongsTo(models.Post);
     }
   }
   Favourite.init(
@@ -27,7 +27,7 @@ module.exports = (sequelize, DataTypes) => {
     },
     {
       sequelize,
-      modelName: "favourite",
+      modelName: "Favourite",
       underscored: true,
     }
   );

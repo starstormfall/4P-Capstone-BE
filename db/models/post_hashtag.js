@@ -4,8 +4,8 @@ module.exports = (sequelize, DataTypes) => {
   class PostHashtag extends Model {
     static associate(models) {
       // define association here
-      this.belongsTo(models.post);
-      this.belongsTo(models.hashtag);
+      this.belongsTo(models.Post);
+      this.belongsTo(models.Hashtag);
     }
   }
   PostHashtag.init(
@@ -27,7 +27,7 @@ module.exports = (sequelize, DataTypes) => {
     },
     {
       sequelize,
-      modelName: "postHashtag",
+      modelName: "PostHashtag",
       underscored: true,
     }
   );

@@ -4,20 +4,20 @@ module.exports = (sequelize, DataTypes) => {
   class User extends Model {
     static associate(models) {
       // define association here
-      this.hasMany(models.crowd);
-      this.hasMany(models.post);
-      this.belongsToMany(models.post, { through: models.favourite });
-      this.belongsToMany(models.post, { through: models.like });
-      this.hasMany(models.friendship, {
+      this.hasMany(models.Crowd);
+      this.hasMany(models.Post);
+      this.belongsToMany(models.Post, { through: models.Favourite });
+      this.belongsToMany(models.Post, { through: models.Like });
+      this.hasMany(models.Friendship, {
         as: "initiatedUser",
         foreignKey: "initiatedUserId",
       });
-      this.hasMany(models.friendship, {
+      this.hasMany(models.Friendship, {
         as: "addedUser",
         foreignKey: "addedUserId",
       });
-      this.belongsToMany(models.chatroom, { through: models.chatroomUser });
-      this.hasMany(models.message);
+      this.belongsToMany(models.Chatroom, { through: "chatroom_users" });
+      this.hasMany(models.Message);
     }
   }
   User.init(
@@ -32,7 +32,7 @@ module.exports = (sequelize, DataTypes) => {
     },
     {
       sequelize,
-      modelName: "user",
+      modelName: "User",
       underscored: true,
     }
   );

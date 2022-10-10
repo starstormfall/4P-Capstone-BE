@@ -4,8 +4,8 @@ module.exports = (sequelize, DataTypes) => {
   class Area extends Model {
     static associate(models) {
       // define association here
-      this.hasMany(models.post);
-      this.hasMany(models.pin);
+      this.hasMany(models.Post);
+      this.hasMany(models.Pin);
     }
   }
   Area.init(
@@ -14,7 +14,7 @@ module.exports = (sequelize, DataTypes) => {
     },
     {
       sequelize,
-      modelName: "area",
+      modelName: "Area",
       underscored: true,
     }
   );

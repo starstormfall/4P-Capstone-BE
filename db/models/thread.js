@@ -4,7 +4,7 @@ module.exports = (sequelize, DataTypes) => {
   class Thread extends Model {
     static associate(models) {
       // define association here
-      this.belongsToMany(models.post, { through: models.threadPost });
+      this.belongsToMany(models.Post, { through: "thread_posts" });
     }
   }
   Thread.init(
@@ -13,7 +13,7 @@ module.exports = (sequelize, DataTypes) => {
     },
     {
       sequelize,
-      modelName: "thread",
+      modelName: "Thread",
       underscored: true,
     }
   );

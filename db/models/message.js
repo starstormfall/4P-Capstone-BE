@@ -4,8 +4,8 @@ module.exports = (sequelize, DataTypes) => {
   class Message extends Model {
     static associate(models) {
       // define association here
-      this.belongsTo(models.chatroom);
-      this.belongsTo(models.user);
+      this.belongsTo(models.Chatroom);
+      this.belongsTo(models.User);
     }
   }
   Message.init(
@@ -28,7 +28,7 @@ module.exports = (sequelize, DataTypes) => {
     },
     {
       sequelize,
-      modelName: "message",
+      modelName: "Message",
       underscored: true,
     }
   );

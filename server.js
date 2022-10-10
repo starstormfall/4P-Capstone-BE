@@ -29,13 +29,13 @@ app.use(express.json());
 const chatsRouter = require("./routers/chatsRouter");
 const friendsRouter = require("./routers/friendsRouter");
 // const mapsRouter = require("./routers/mapsRouter");
-// const postsRouter = require("./routers/postsRouter");
+const postsRouter = require("./routers/postsRouter");
 const usersRouters = require("./routers/usersRouter");
 app.use("/chats", chatsRouter);
 app.use("/friends", friendsRouter);
 // app.use("/maps", mapsRouter);
 app.use("/users", usersRouters);
-// app.use("/posts", postsRouter);
+app.use("/posts", postsRouter);
 
 //Enable Routers here.
 app.use("/doc", swaggerUi.serve, swaggerUi.setup(swaggerFile));
