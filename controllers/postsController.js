@@ -1,21 +1,31 @@
-const { Post, User, Like, Pin, Thread } = require("../db/models");
+const { post, thread, threadPost } = require("../db/models");
 const { Op } = require("sequelize");
+
+// for ref of tags : // #swagger.tags = ['Post']
+// for ref specifying fields: /* #swagger.parameters['photos'] = {
+// 	      in: 'query',
+//         description: 'photos',
+//         type: 'boolean'
+//         } */
 
 // query for get; body for post
 // get all explore posts or photos only with boolean query
 const getAllExplore = async (req, res) => {
   // #swagger.tags = ['Post']
   /* #swagger.parameters['photos'] = {
-	      in: 'query',
-        description: 'photos',
+	      in: 'query',       
         type: 'boolean'
         } */
-  const { photos } = req.query;
-  console.log("photos", photos, req.query);
+  /* #swagger.parameters['number'] = {
+	      in: 'query',      
+        type: 'integer'
+        } */
+  const { photos, number } = req.query;
+
   try {
     if (photos) {
-      console.log("did this run?");
-      const photos = await Post.findAll({
+      // console.log("did this run?");
+      const data = await post.findAll({
         attributes: ["photo_link"],
         where: {
           explorePost: {
@@ -26,10 +36,17 @@ const getAllExplore = async (req, res) => {
           },
         },
       });
-      return res.json(photos);
+
+      const shuffled = data.sort(() => 0.5 - Math.random());
+      const selected = shuffled.slice(0, number);
+
+      const photosUrl = [];
+
+      selected.forEach((post) => photosUrl.push(post.dataValues.photo_link));
+
+      return res.json(photosUrl);
     } else {
-      console.log("OR did this run?");
-      const posts = await Post.findAll({
+      const posts = await post.findAll({
         where: {
           explorePost: {
             [Op.ne]: null,
@@ -43,10 +60,22 @@ const getAllExplore = async (req, res) => {
   }
 };
 
+const getAllThread = async (req, res) => {
+  // #swagger.tags = ['Post']
+  try {
+    const allThread = await thread.findAll();
+
+    return res.json(allThread);
+  } catch (err) {
+    return res.status(400).json({ error: true, msg: err });
+  }
+};
+
 const getAllForum = async (req, res) => {
   // #swagger.tags = ['Post']
   try {
-    const forum = await Post.findAll({
+    const forum = await post.findAll({
+      include: thread,
       where: {
         forumPost: true,
       },
@@ -59,16 +88,31 @@ const getAllForum = async (req, res) => {
 
 const getAssocThread = async (req, res) => {
   // #swagger.tags = ['Post']
+  /* #swagger.parameters['postId'] = {
+	      in: 'path',
+        type: 'integer'
+        } */
 
   const { postId } = req.params;
-  console.log("postId", req.params);
+
   try {
-    const thread = await Post.findAll({
+    const assocThread = await threadPost.findAll({
+      include: thread,
       where: {
-        id: postId,
+        postId: postId,
       },
     });
-    return res.json(thread);
+
+    const threadList = [];
+
+    assocThread.forEach((threadTitle) =>
+      threadList.push({
+        threadId: threadTitle.thread.id,
+        threadTitle: threadTitle.thread.topic,
+      })
+    );
+
+    return res.json(assocThread);
   } catch (err) {
     return res.status(400).json({ error: true, msg: err });
   }
@@ -76,6 +120,7 @@ const getAssocThread = async (req, res) => {
 
 module.exports = {
   getAllExplore,
+  getAllThread,
   getAllForum,
   getAssocThread,
 };

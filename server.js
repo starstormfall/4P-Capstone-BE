@@ -26,16 +26,18 @@ app.use(cors());
 app.use(express.json());
 
 //import routers
-// const chatsRouter = require("./routers/chatsRouter");
-// const friendsRouter = require("./routers/friendsRouter");
+const chatsRouter = require("./routers/chatsRouter");
+const friendsRouter = require("./routers/friendsRouter");
 // const mapsRouter = require("./routers/mapsRouter");
 const postsRouter = require("./routers/postsRouter");
 const usersRouters = require("./routers/usersRouter");
-// app.use("/chats", chatsRouter);
-// app.use("/friends", friendsRouter);
+const infoRouter = require("./routers/infoRouter");
+app.use("/chats", chatsRouter);
+app.use("/friends", friendsRouter);
 // app.use("/maps", mapsRouter);
 app.use("/users", usersRouters);
 app.use("/posts", postsRouter);
+app.use("/info", infoRouter);
 
 //Enable Routers here.
 app.use("/doc", swaggerUi.serve, swaggerUi.setup(swaggerFile));

@@ -93,6 +93,7 @@ const getAllFavourite = async (req, res) => {
 
 // get all post's likes
 const getAllLikes = async (req, res) => {
+  // #swagger.tags = ['User']
   const { postId } = req.params;
   try {
     const allLikes = await like.findAll({
@@ -106,6 +107,7 @@ const getAllLikes = async (req, res) => {
 
 // create likes for user
 const addLikes = async (req, res) => {
+  // #swagger.tags = ['User']
   const { postId } = req.params;
   const { userId } = req.body;
   console.log(postId);
