@@ -1,9 +1,9 @@
-const { Chatroom, Message, Chatroom_User, User } = require("../db/models");
+const { chatroom, message, chatroom_User, user } = require("../db/models");
 
 const getAll = async (req, res) => {
   const { userId } = req.params;
   try {
-    const allChatrooms = await Chatroom_User.findAll({
+    const allChatrooms = await chatroom_User.findAll({
       where: {
         userId: userId,
       },
@@ -23,7 +23,9 @@ const createChatRoom = async (req, res) => {};
 
 const editRoomDetails = async (req, res) => {};
 
-const getAllMessages = async (req, res) => {};
+const getAllMessages = async (req, res) => {
+  //to do tomorrow
+};
 
 const addMessage = async (req, res) => {};
 
