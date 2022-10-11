@@ -31,6 +31,7 @@ const getAll = async (req, res) => {
 
 // create one user
 const insertOne = async (req, res) => {
+  // #swagger.tags = ['User']
   const { email } = req.body;
   try {
     const newUser = await user.findOrCreate({
@@ -44,6 +45,7 @@ const insertOne = async (req, res) => {
 
 // update user's informations
 const updateOneUser = async (req, res) => {
+  // #swagger.tags = ['User']
   const { userId } = req.params;
   const { email, name, nationality, score, lastLogin, photoLink, loginStreak } =
     req.body;
@@ -75,6 +77,7 @@ const updateOneUser = async (req, res) => {
 
 // get all user's favourites
 const getAllFavourite = async (req, res) => {
+  // #swagger.tags = ['User']
   const { userId } = req.params;
   console.log(favourite);
 
@@ -90,6 +93,7 @@ const getAllFavourite = async (req, res) => {
 
 // get all post's likes
 const getAllLikes = async (req, res) => {
+  // #swagger.tags = ['User']
   const { postId } = req.params;
   try {
     const allLikes = await like.findAll({
@@ -103,6 +107,7 @@ const getAllLikes = async (req, res) => {
 
 // create likes for user
 const addLikes = async (req, res) => {
+  // #swagger.tags = ['User']
   const { postId } = req.params;
   const { userId } = req.body;
   console.log(postId);
@@ -126,6 +131,7 @@ const addLikes = async (req, res) => {
 
 // create favourites for user
 const addFavourites = async (req, res) => {
+  // #swagger.tags = ['User']
   const { userId } = req.params;
   const { postId } = req.body;
   try {
@@ -140,6 +146,7 @@ const addFavourites = async (req, res) => {
 
 //delete likes for user
 const deleteLikes = async (req, res) => {
+  // #swagger.tags = ['User']
   const { userId, postId } = req.body;
   try {
     const removeLikes = await like.destroy({
@@ -156,6 +163,7 @@ const deleteLikes = async (req, res) => {
 
 //delete favourites for user
 const deleteFavourites = async (req, res) => {
+  // #swagger.tags = ['User']
   const { userId, postId } = req.body;
   try {
     const removeFavourites = await favourite.destroy({

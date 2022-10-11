@@ -65,6 +65,9 @@
     },
     "/users/": {
       "post": {
+        "tags": [
+          "User"
+        ],
         "description": "",
         "parameters": [
           {
@@ -90,6 +93,9 @@
         }
       },
       "put": {
+        "tags": [
+          "User"
+        ],
         "description": "",
         "parameters": [
           {
@@ -135,6 +141,9 @@
     },
     "/users/{userId}/favourite": {
       "get": {
+        "tags": [
+          "User"
+        ],
         "description": "",
         "parameters": [
           {
@@ -156,6 +165,9 @@
     },
     "/users/{postId}/allLikes": {
       "get": {
+        "tags": [
+          "User"
+        ],
         "description": "",
         "parameters": [
           {
@@ -177,6 +189,9 @@
     },
     "/users/{postId}/like": {
       "post": {
+        "tags": [
+          "User"
+        ],
         "description": "",
         "parameters": [
           {
@@ -208,6 +223,9 @@
         }
       },
       "delete": {
+        "tags": [
+          "User"
+        ],
         "description": "",
         "parameters": [
           {
@@ -244,6 +262,9 @@
     },
     "/users/{userId}/favourites": {
       "post": {
+        "tags": [
+          "User"
+        ],
         "description": "",
         "parameters": [
           {
@@ -275,6 +296,9 @@
         }
       },
       "delete": {
+        "tags": [
+          "User"
+        ],
         "description": "",
         "parameters": [
           {
@@ -319,8 +343,12 @@
           {
             "name": "photos",
             "in": "query",
-            "description": "photos",
             "type": "boolean"
+          },
+          {
+            "name": "number",
+            "in": "query",
+            "type": "integer"
           }
         ],
         "responses": {
@@ -334,6 +362,23 @@
       }
     },
     "/posts/forum": {
+      "get": {
+        "tags": [
+          "Post"
+        ],
+        "description": "",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "400": {
+            "description": "Bad Request"
+          }
+        }
+      }
+    },
+    "/posts/thread": {
       "get": {
         "tags": [
           "Post"
@@ -364,6 +409,57 @@
             "type": "integer"
           }
         ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "400": {
+            "description": "Bad Request"
+          }
+        }
+      }
+    },
+    "/info/areas": {
+      "get": {
+        "tags": [
+          "Info"
+        ],
+        "description": "",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "400": {
+            "description": "Bad Request"
+          }
+        }
+      }
+    },
+    "/info/categories": {
+      "get": {
+        "tags": [
+          "Info"
+        ],
+        "description": "",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "400": {
+            "description": "Bad Request"
+          }
+        }
+      }
+    },
+    "/info/hashtags": {
+      "get": {
+        "tags": [
+          "Info"
+        ],
+        "description": "",
+        "parameters": [],
         "responses": {
           "200": {
             "description": "OK"
