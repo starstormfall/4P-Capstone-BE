@@ -10,4 +10,6 @@ router.get(`/categories`, controllers.getAllCategories);
 
 router.get(`/hashtags`, controllers.getAllHashtags);
 
+router.get(`/photos`, controllers.getPhotos);
+
 module.exports = router;
