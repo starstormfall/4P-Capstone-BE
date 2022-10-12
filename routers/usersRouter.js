@@ -2,8 +2,8 @@ const { Router } = require("express");
 const controllers = require("../controllers/usersController");
 const router = Router();
 
-// get one user by Id
-router.get(`/:userId`, controllers.getOnePk);
+// get one user by EMAIL
+router.get(`/:email`, controllers.getOne);
 
 // get all users
 router.get(`/all`, controllers.getAll);
@@ -26,11 +26,5 @@ router.post(`/:postId/like`, controllers.addLikes);
 
 // update favourites for user
 router.post(`/:userId/favourites`, controllers.addFavourites);
-
-// delete likes for user
-router.delete(`/:postId/like`, controllers.deleteLikes);
-
-//delete favourites for user
-router.delete(`/:userId/favourites`, controllers.deleteFavourites);
 
 module.exports = router;
