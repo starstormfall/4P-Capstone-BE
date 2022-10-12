@@ -714,6 +714,29 @@
           }
         }
       }
+    },
+    "/info/photos": {
+      "get": {
+        "tags": [
+          "Info"
+        ],
+        "description": "",
+        "parameters": [
+          {
+            "name": "number",
+            "in": "query",
+            "type": "integer"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "400": {
+            "description": "Bad Request"
+          }
+        }
+      }
     }
   },
   "definitions": {
