@@ -77,8 +77,34 @@
     "/chats/createchatroom": {
       "post": {
         "description": "",
-        "parameters": [],
-        "responses": {}
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "roomName": {
+                  "example": "any"
+                },
+                "hostUserId": {
+                  "example": "any"
+                },
+                "usersToAdd": {
+                  "example": "any"
+                }
+              }
+            }
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "Created"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
       }
     },
     "/chats/{chatroomId}/": {
@@ -106,17 +132,10 @@
             "type": "string"
           }
         ],
-        "responses": {
-          "200": {
-            "description": "OK"
-          },
-          "400": {
-            "description": "Bad Request"
-          }
-        }
+        "responses": {}
       }
     },
-    "/chats/{chatroomId}/onemessage": {
+    "/chats/chatroom/{chatroomId}/onemessage": {
       "post": {
         "description": "",
         "parameters": [

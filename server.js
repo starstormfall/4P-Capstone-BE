@@ -1,5 +1,6 @@
 const cors = require("cors");
 const express = require("express");
+const { Server } = require("socket.io");
 require("dotenv").config();
 // const { auth } = require("express-oauth2-jwt-bearer");
 const bodyParser = require("body-parser");
@@ -39,9 +40,19 @@ app.use("/users", usersRouters);
 app.use("/posts", postsRouter);
 app.use("/info", infoRouter);
 
+const chatController = require("./controllers/chatsController");
+
 //Enable Routers here.
 app.use("/doc", swaggerUi.serve, swaggerUi.setup(swaggerFile));
 
-app.listen(PORT, () => {
+const httpServer = app.listen(PORT, () => {
   console.log(`Express app listening on port ${PORT}!`);
 });
+
+const socketIo = new Server(httpServer, {
+  cors: {
+    origin: "*",
+  },
+});
+
+require("./socket")(socketIo, chatController);

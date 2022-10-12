@@ -5,7 +5,11 @@ module.exports = (sequelize, DataTypes) => {
     static associate(models) {
       // define association here
       this.belongsTo(models.chatroom);
-      this.belongsTo(models.user);
+      // this.belongsTo(models.user);
+      this.belongsTo(models.user, {
+        as: "posterUser",
+        foreignKey: "posterUserId",
+      });
     }
   }
   Message.init(

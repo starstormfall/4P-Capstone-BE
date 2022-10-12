@@ -3,14 +3,15 @@ const { chatroom, message, chatroomUser, user } = require("../db/models");
 const getAll = async (req, res) => {
   const { userId } = req.params;
   try {
-    const allChatrooms = await Chatroom_User.findAll({
+    const allChatrooms = await chatroomUser.findAll({
       where: {
         userId: userId,
       },
+      include: [chatroom],
     });
 
     return res.status(201).json({
-      user,
+      allChatrooms,
     });
   } catch (error) {
     return res.status(500).json({ error: error.message });
@@ -19,32 +20,142 @@ const getAll = async (req, res) => {
 
 const getChatRoom = async (req, res) => {};
 
-const createChatRoom = async (req, res) => {};
+const createChatRoom = async (req, res) => {
+  const { roomName, hostUserId, usersToAdd } = req.body;
 
-const editRoomDetails = async (req, res) => {};
-
-const getAllMessages = async (req, res) => {
-  console.log("this is running");
-  const { chatroomId } = req.params;
   try {
-    const data = await message.findAll({
-      where: { chatroomId: chatroomId },
-      // include: [
-      //   {
-      //     model: user,
-      //     as: "poster_user",
-      //     attributes: ["name", "photoLink"],
-      //   },
-      // ],
+    const newRoom = await chatroom.create({
+      roomName: roomName,
+      hostUserId: hostUserId,
+      active: true,
     });
 
-    return res.json(data);
-  } catch (err) {
-    return res.status(400).json({ error: true, msg: err });
+    //usersToAdd is to be an array of userIds of the friends to add, including the host.
+    const newUserObj = usersToAdd.map((user) => ({
+      chatroomId: newRoom.id,
+      userId: Number(user),
+    }));
+
+    const newUsers = await chatroomUser.bulkCreate(newUserObj);
+
+    return res.status(201).json({
+      newUsers,
+      newRoom,
+    });
+  } catch (error) {
+    return res.status(500).json({ error: error.message });
   }
 };
 
-const addMessage = async (req, res) => {};
+// const editRoomDetails = async (req, res) => {
+//   const { usersToAdd } = req.body;
+
+//   try {
+//     const newUsers = await chatroomUser.bulkCreate(usersToAdd);
+
+//     return res.status(201).json({
+//       newUsers,
+//     });
+//   } catch (error) {
+//     return res.status(500).json({ error: error.message });
+//   }
+// };
+
+const editRoomDetails = async (data) => {
+  const chatroomToDeactivate = await chatroom.findByPk(data.chatroomId);
+
+  await chatroomToDeactivate.update({
+    active: false,
+  });
+
+  return "Chat has been deactivated by host.";
+};
+
+const addMembers = async (data) => {
+  const newUsers = await chatroomUser.bulkCreate(data);
+  console.log(newUsers);
+
+  return `${newUsers.length} new friends added to chat`;
+};
+// const getAllMessages = async (req, res) => {
+//   const { chatroomId } = req.params;
+//   try {
+//     const data = await message.findAll({
+//       where: { chatroomId: chatroomId },
+//       include: [
+//         {
+//           model: user,
+//           as: "posterUser",
+//           attributes: ["name", "photoLink"],
+//         },
+//       ],
+//     });
+
+//     return res.json(data);
+//   } catch (err) {
+//     return res.status(400).json({ error: true, msg: err });
+//   }
+// };
+
+const getAllMessages = async (chatroomId) => {
+  //call the messages model.
+  //return the all messages, with includes
+  const allMessages = await message.findAll({
+    where: { chatroomId: chatroomId },
+    include: [
+      {
+        model: user,
+        as: "posterUser",
+        attributes: ["name", "photoLink"],
+      },
+    ],
+  });
+
+  return allMessages;
+};
+
+const addMessage = async (data) => {
+  //create new row in messages table with new chat message
+  await message.create({
+    message: data.message,
+    chatroomId: data.chatroomId,
+    posterUserId: data.posterUserId,
+    createdAt: data.createdAt,
+    updatedAt: data.updatedAt,
+  });
+
+  //get all the messages related to the chatroom, and return to socketio.
+  const allNewMessages = await message.findAll({
+    where: { chatroomId: data.chatroomId },
+    include: [
+      {
+        model: user,
+        as: "posterUser",
+        attributes: ["name", "photoLink"],
+      },
+    ],
+  });
+
+  return allNewMessages;
+};
+
+const deleteChatAccess = async (data) => {
+  const itemToDestroy = await chatroomUser.findOne({
+    where: { chatroomId: data.chatroomId, userId: data.userId },
+    include: [
+      {
+        model: user,
+        attributes: ["name"],
+      },
+    ],
+  });
+
+  await itemToDestroy.destroy();
+
+  return `User ${itemToDestroy.user.name} has left the chatroom.`;
+};
+
+// const addMessage = async (req, res) => {};
 
 module.exports = {
   getAll,
@@ -53,4 +164,6 @@ module.exports = {
   editRoomDetails,
   getAllMessages,
   addMessage,
+  deleteChatAccess,
+  addMembers,
 };
