@@ -293,7 +293,7 @@
         }
       }
     },
-    "/users/{userId}": {
+    "/users/{email}": {
       "get": {
         "tags": [
           "User"
@@ -301,7 +301,7 @@
         "description": "",
         "parameters": [
           {
-            "name": "userId",
+            "name": "email",
             "in": "path",
             "required": true,
             "type": "string"
@@ -492,43 +492,6 @@
             "description": "Bad Request"
           }
         }
-      },
-      "delete": {
-        "tags": [
-          "User"
-        ],
-        "description": "",
-        "parameters": [
-          {
-            "name": "postId",
-            "in": "path",
-            "required": true,
-            "type": "string"
-          },
-          {
-            "name": "body",
-            "in": "body",
-            "schema": {
-              "type": "object",
-              "properties": {
-                "userId": {
-                  "example": "any"
-                },
-                "postId": {
-                  "example": "any"
-                }
-              }
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "OK"
-          },
-          "400": {
-            "description": "Bad Request"
-          }
-        }
       }
     },
     "/users/{userId}/favourites": {
@@ -550,43 +513,6 @@
             "schema": {
               "type": "object",
               "properties": {
-                "postId": {
-                  "example": "any"
-                }
-              }
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "OK"
-          },
-          "400": {
-            "description": "Bad Request"
-          }
-        }
-      },
-      "delete": {
-        "tags": [
-          "User"
-        ],
-        "description": "",
-        "parameters": [
-          {
-            "name": "userId",
-            "in": "path",
-            "required": true,
-            "type": "string"
-          },
-          {
-            "name": "body",
-            "in": "body",
-            "schema": {
-              "type": "object",
-              "properties": {
-                "userId": {
-                  "example": "any"
-                },
                 "postId": {
                   "example": "any"
                 }
@@ -731,6 +657,29 @@
         ],
         "description": "",
         "parameters": [],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "400": {
+            "description": "Bad Request"
+          }
+        }
+      }
+    },
+    "/info/photos": {
+      "get": {
+        "tags": [
+          "Info"
+        ],
+        "description": "",
+        "parameters": [
+          {
+            "name": "number",
+            "in": "query",
+            "type": "integer"
+          }
+        ],
         "responses": {
           "200": {
             "description": "OK"

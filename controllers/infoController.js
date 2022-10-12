@@ -1,4 +1,5 @@
-const { category, area, hashtag } = require("../db/models");
+const { category, area, hashtag, post } = require("../db/models");
+const { Op } = require("sequelize");
 
 // for ref of tags : // #swagger.tags = ['Post']
 // for ref specifying fields: /* #swagger.parameters['photos'] = {
@@ -21,7 +22,10 @@ const getAllAreas = async (req, res) => {
 const getAllCategories = async (req, res) => {
   // #swagger.tags = ['Info']
   try {
-    const allCategories = await category.findAll();
+    console.log(category);
+    const allCategories = await category.findAll({
+      attributes: { exclude: ["updatedAt", "createdAt"] },
+    });
 
     return res.json(allCategories);
   } catch (err) {
@@ -40,8 +44,47 @@ const getAllHashtags = async (req, res) => {
   }
 };
 
+const getPhotos = async (req, res) => {
+  // #swagger.tags = ['Info']
+  /* #swagger.parameters['number'] = {
+	      in: 'query',      
+        type: 'integer'
+        } */
+  const { number } = req.query;
+
+  try {
+    console.log(post);
+    const data = await post.findAll({
+      attributes: ["photo_link"],
+      raw: true,
+      where: {
+        explorePost: {
+          [Op.ne]: null,
+        },
+        photoLink: {
+          [Op.ne]: null,
+        },
+      },
+    });
+
+    console.log(data);
+
+    const shuffled = data.sort(() => 0.5 - Math.random());
+    const selected = shuffled.slice(0, number);
+
+    const photosUrl = [];
+
+    selected.forEach((post) => photosUrl.push(post.photo_link));
+
+    return res.json(photosUrl);
+  } catch (err) {
+    return res.status(400).json({ error: true, msg: err });
+  }
+};
+
 module.exports = {
   getAllAreas,
   getAllCategories,
   getAllHashtags,
+  getPhotos,
 };

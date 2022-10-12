@@ -1,16 +1,18 @@
 const { user, favourite, like } = require("../db/models");
-const { Op } = require("sequelize");
+
 const e = require("express");
 
 // get one user
-const getOnePk = async (req, res) => {
+const getOne = async (req, res) => {
   // #swagger.tags = ['User']
 
-  const { userId } = req.params;
-  console.log(userId);
+  const { email } = req.params;
+  console.log(email);
 
   try {
-    const userInfo = await user.findByPk(userId);
+    const userInfo = await user.findOne({
+      where: { email: email },
+    });
     console.log(userInfo);
     return res.json(userInfo);
   } catch (err) {
@@ -135,44 +137,17 @@ const addFavourites = async (req, res) => {
   const { userId } = req.params;
   const { postId } = req.body;
   try {
-    const addFavourites = await favourite.findOrCreate({
+    const [addFavourites, created] = await favourite.findOrCreate({
       where: { userId: userId, postId: postId },
     });
-    return res.json(addFavourites);
-  } catch (err) {
-    return res.status(400).json({ error: true, msg: err });
-  }
-};
-
-//delete likes for user
-const deleteLikes = async (req, res) => {
-  // #swagger.tags = ['User']
-  const { userId, postId } = req.body;
-  try {
-    const removeLikes = await like.destroy({
-      where: {
-        userId: userId,
-        postId: postId,
-      },
-    });
-    return res.json(removeLikes);
-  } catch (err) {
-    return res.status(400).json({ error: true, msg: err });
-  }
-};
-
-//delete favourites for user
-const deleteFavourites = async (req, res) => {
-  // #swagger.tags = ['User']
-  const { userId, postId } = req.body;
-  try {
-    const removeFavourites = await favourite.destroy({
-      where: {
-        userId: userId,
-        postId: postId,
-      },
-    });
-    return res.json(removeFavourites);
+    console.log("created", created);
+    console.log("addFavourites", addFavourites);
+    if (created) {
+      return res.json(addFavourites);
+    } else {
+      const updateFavourites = await addFavourites.destroy();
+      return res.json(updateFavourites);
+    }
   } catch (err) {
     return res.status(400).json({ error: true, msg: err });
   }
@@ -273,8 +248,9 @@ const deleteFavourites = async (req, res) => {
 //     return res.status(400).json({ error: true, msg: err });
 //   }
 // };
+
 module.exports = {
-  getOnePk,
+  getOne,
   getAll,
   insertOne,
   updateOneUser,
@@ -282,6 +258,4 @@ module.exports = {
   getAllLikes,
   addLikes,
   addFavourites,
-  deleteLikes,
-  deleteFavourites,
 };
