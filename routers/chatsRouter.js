@@ -19,7 +19,7 @@ router.put(`/:chatroomId/`, controllers.editRoomDetails);
 // integrate with socket so will look into it.
 
 // get all messages in a chatroom
-router.get(`/:chatroomId/allmessage`, controllers.getAllMessages);
+router.get(`/chatroom/:chatroomId/allmessage`, controllers.getAllMessages);
 
 // update message by user
 router.post(`/:chatroomId/onemessage`, controllers.addMessage);

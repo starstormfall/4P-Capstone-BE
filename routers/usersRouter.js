@@ -2,8 +2,8 @@ const { Router } = require("express");
 const controllers = require("../controllers/usersController");
 const router = Router();
 
-// get one user by Id
-router.get(`/:userId`, controllers.getOnePk);
+// get one user by EMAIL
+router.get(`/:email`, controllers.getOne);
 
 // get all users
 router.get(`/all`, controllers.getAll);

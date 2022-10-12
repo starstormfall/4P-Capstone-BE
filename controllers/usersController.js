@@ -3,14 +3,16 @@ const { user, favourite, like } = require("../db/models");
 const e = require("express");
 
 // get one user
-const getOnePk = async (req, res) => {
+const getOne = async (req, res) => {
   // #swagger.tags = ['User']
 
-  const { userId } = req.params;
-  console.log(userId);
+  const { email } = req.params;
+  console.log(email);
 
   try {
-    const userInfo = await user.findByPk(userId);
+    const userInfo = await user.findOne({
+      where: { email: email },
+    });
     console.log(userInfo);
     return res.json(userInfo);
   } catch (err) {
@@ -248,7 +250,7 @@ const addFavourites = async (req, res) => {
 // };
 
 module.exports = {
-  getOnePk,
+  getOne,
   getAll,
   insertOne,
   updateOneUser,

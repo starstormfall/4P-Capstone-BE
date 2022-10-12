@@ -18,7 +18,9 @@
       "name": "Friend"
     }
   ],
-  "schemes": ["http"],
+  "schemes": [
+    "http"
+  ],
   "paths": {
     "/chats/": {
       "get": {
@@ -93,41 +95,12 @@
         "responses": {}
       }
     },
-    "/chats/{chatroomId}/allmessage": {
+    "/chats/chatroom/{chatroomId}/allmessage": {
       "get": {
         "description": "",
         "parameters": [
           {
             "name": "chatroomId",
-            "in": "path",
-            "required": true,
-            "type": "string"
-          }
-        ],
-        "responses": {}
-      }
-    },
-    "/chats/{chatroomId}/onemessage": {
-      "post": {
-        "description": "",
-        "parameters": [
-          {
-            "name": "chatroomId",
-            "in": "path",
-            "required": true,
-            "type": "string"
-          }
-        ],
-        "responses": {}
-      }
-    },
-    "/friends/{userId}/allfriends": {
-      "get": {
-        "tags": ["Friend"],
-        "description": "",
-        "parameters": [
-          {
-            "name": "userId",
             "in": "path",
             "required": true,
             "type": "string"
@@ -141,198 +114,6 @@
             "description": "Bad Request"
           }
         }
-      }
-    },
-    "/friends/{userId}/addfriend": {
-      "post": {
-        "tags": ["Friend"],
-        "description": "",
-        "parameters": [
-          {
-            "name": "userId",
-            "in": "path",
-            "required": true,
-            "type": "string"
-          },
-          {
-            "name": "body",
-            "in": "body",
-            "schema": {
-              "type": "object",
-              "properties": {
-                "friendId": {
-                  "example": "any"
-                },
-                "postId": {
-                  "example": "any"
-                },
-                "reason": {
-                  "example": "any"
-                }
-              }
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "OK"
-          },
-          "400": {
-            "description": "Bad Request"
-          }
-        }
-      }
-    },
-    "/friends/{userId}": {
-      "put": {
-        "tags": ["Friend"],
-        "description": "",
-        "parameters": [
-          {
-            "name": "userId",
-            "in": "path",
-            "required": true,
-            "type": "string"
-          },
-          {
-            "name": "body",
-            "in": "body",
-            "schema": {
-              "type": "object",
-              "properties": {
-                "friendId": {
-                  "example": "any"
-                },
-                "friendshipId": {
-                  "example": "any"
-                }
-              }
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "OK"
-          },
-          "400": {
-            "description": "Bad Request"
-          }
-        }
-      }
-    },
-    "/friends/{userId}/removefriend": {
-      "delete": {
-        "tags": ["Friend"],
-        "description": "",
-        "parameters": [
-          {
-            "name": "userId",
-            "in": "path",
-            "required": true,
-            "type": "string"
-          },
-          {
-            "name": "body",
-            "in": "body",
-            "schema": {
-              "type": "object",
-              "properties": {
-                "friendId": {
-                  "example": "any"
-                },
-                "friendshipId": {
-                  "example": "any"
-                }
-              }
-            }
-          }
-        ],
-  "paths": {
-    "/chats/": {
-      "get": {
-        "description": "",
-        "parameters": [],
-        "responses": {
-          "200": {
-            "description": "OK"
-          }
-        }
-      }
-    },
-    "/chats/{userId}/allchat": {
-      "get": {
-        "description": "",
-        "parameters": [
-          {
-            "name": "userId",
-            "in": "path",
-            "required": true,
-            "type": "string"
-          }
-        ],
-        "responses": {
-          "201": {
-            "description": "Created"
-          },
-          "500": {
-            "description": "Internal Server Error"
-          }
-        }
-      }
-    },
-    "/chats/{userId}/{chatroomId}": {
-      "get": {
-        "description": "",
-        "parameters": [
-          {
-            "name": "userId",
-            "in": "path",
-            "required": true,
-            "type": "string"
-          },
-          {
-            "name": "chatroomId",
-            "in": "path",
-            "required": true,
-            "type": "string"
-          }
-        ],
-        "responses": {}
-      }
-    },
-    "/chats/createchatroom": {
-      "post": {
-        "description": "",
-        "parameters": [],
-        "responses": {}
-      }
-    },
-    "/chats/{chatroomId}/": {
-      "put": {
-        "description": "",
-        "parameters": [
-          {
-            "name": "chatroomId",
-            "in": "path",
-            "required": true,
-            "type": "string"
-          }
-        ],
-        "responses": {}
-      }
-    },
-    "/chats/{chatroomId}/allmessage": {
-      "get": {
-        "description": "",
-        "parameters": [
-          {
-            "name": "chatroomId",
-            "in": "path",
-            "required": true,
-            "type": "string"
-          }
-        ],
-        "responses": {}
       }
     },
     "/chats/{chatroomId}/onemessage": {
@@ -493,13 +274,15 @@
         }
       }
     },
-    "/users/{userId}": {
+    "/users/{email}": {
       "get": {
-        "tags": ["User"],
+        "tags": [
+          "User"
+        ],
         "description": "",
         "parameters": [
           {
-            "name": "userId",
+            "name": "email",
             "in": "path",
             "required": true,
             "type": "string"
@@ -517,7 +300,9 @@
     },
     "/users/all": {
       "get": {
-        "tags": ["User"],
+        "tags": [
+          "User"
+        ],
         "description": "",
         "parameters": [],
         "responses": {
@@ -688,43 +473,6 @@
             "description": "Bad Request"
           }
         }
-      },
-      "delete": {
-        "tags": [
-          "User"
-        ],
-        "description": "",
-        "parameters": [
-          {
-            "name": "postId",
-            "in": "path",
-            "required": true,
-            "type": "string"
-          },
-          {
-            "name": "body",
-            "in": "body",
-            "schema": {
-              "type": "object",
-              "properties": {
-                "userId": {
-                  "example": "any"
-                },
-                "postId": {
-                  "example": "any"
-                }
-              }
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "OK"
-          },
-          "400": {
-            "description": "Bad Request"
-          }
-        }
       }
     },
     "/users/{userId}/favourites": {
@@ -761,50 +509,13 @@
             "description": "Bad Request"
           }
         }
-      },
-      "delete": {
-        "tags": [
-          "User"
-        ],
-        "description": "",
-        "parameters": [],
-        "responses": {
-          "200": {
-            "description": "OK"
-          },
-          {
-            "name": "body",
-            "in": "body",
-            "schema": {
-              "type": "object",
-              "properties": {
-                "userId": {
-                  "example": "any"
-                },
-                "postId": {
-                  "example": "any"
-                }
-              }
-            }
-    },
-    "/posts/thread": {
-      "get": {
-        "tags": ["Post"],
-        "description": "",
-        "parameters": [],
-        "responses": {
-          "200": {
-            "description": "OK"
-          },
-          "400": {
-            "description": "Bad Request"
-          }
-        }
       }
     },
-    "/posts/{postId}": {
+    "/posts/explore": {
       "get": {
-        "tags": ["Post"],
+        "tags": [
+          "Post"
+        ],
         "description": "",
         "parameters": [
           {
@@ -828,24 +539,11 @@
         }
       }
     },
-    "/info/areas": {
+    "/posts/forum": {
       "get": {
-        "tags": ["Info"],
-        "description": "",
-        "parameters": [],
-        "responses": {
-          "200": {
-            "description": "OK"
-          },
-          "400": {
-            "description": "Bad Request"
-          }
-        }
-      }
-    },
-    "/posts/thread": {
-      "get": {
-        "tags": ["Post"],
+        "tags": [
+          "Post"
+        ],
         "description": "",
         "parameters": [],
         "responses": {
@@ -938,51 +636,6 @@
         "tags": [
           "Info"
         ],
-        "description": "",
-        "parameters": [],
-        "responses": {
-          "200": {
-            "description": "OK"
-          },
-          "400": {
-            "description": "Bad Request"
-          }
-        }
-      }
-    },
-    "/info/areas": {
-      "get": {
-        "tags": ["Info"],
-        "description": "",
-        "parameters": [],
-        "responses": {
-          "200": {
-            "description": "OK"
-          },
-          "400": {
-            "description": "Bad Request"
-          }
-        }
-      }
-    },
-    "/info/categories": {
-      "get": {
-        "tags": ["Info"],
-        "description": "",
-        "parameters": [],
-        "responses": {
-          "200": {
-            "description": "OK"
-          },
-          "400": {
-            "description": "Bad Request"
-          }
-        }
-      }
-    },
-    "/info/hashtags": {
-      "get": {
-        "tags": ["Info"],
         "description": "",
         "parameters": [],
         "responses": {
