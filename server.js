@@ -40,6 +40,8 @@ app.use("/users", usersRouters);
 app.use("/posts", postsRouter);
 app.use("/info", infoRouter);
 
+const chatController = require("./controllers/chatsController");
+
 //Enable Routers here.
 app.use("/doc", swaggerUi.serve, swaggerUi.setup(swaggerFile));
 
@@ -53,38 +55,4 @@ const socketIo = new Server(httpServer, {
   },
 });
 
-socketIo.on("connection", (socket) => {
-  // once backend receives a "join_room" message, then join (data.room), i.e. lobbyId
-  socket.on("join_chatroom", async (data) => {
-    console.log("room is joined");
-    console.log(data.room);
-    await socket.join(data.room);
-    socket.emit("room joined", data.room);
-  });
-
-  // socket.on("send_message", (data) => {
-  //   socket.to(data.room).emit("received_message", data);
-  // });
-
-  // socket.on("join_question", (data) => {
-  //   socket.join(data.question);
-  // });
-  // socket.on("send_question_message", (data) => {
-  //   console.log(data);
-  //   socket.to(data.questionId).emit("received_question_message", data);
-  // });
-
-  // socket.on("update_lobby_number", (data) => {
-  //   socket.to(data.room).emit("received_update_request", data);
-  // });
-
-  // socket.on("something_has_updated", (data) => {
-  //   socket.to(data.room).emit("update_the_frontend", data);
-  // });
-
-  socket.on("reply", () => console.log("replied"));
-  console.log(`${socket.id} user just connected!`);
-  socket.on("disconnect", () => {
-    console.log(`${socket.id} user just disconnected!`);
-  });
-});
+require("./socket")(socketIo, chatController);
