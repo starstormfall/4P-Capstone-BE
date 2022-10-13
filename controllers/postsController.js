@@ -1,4 +1,10 @@
-const { post, thread, threadPost, postCategory } = require("../db/models");
+const {
+  post,
+  thread,
+  threadPost,
+  postCategory,
+  postHashtag,
+} = require("../db/models");
 const { Op } = require("sequelize");
 
 // for ref of tags : // #swagger.tags = ['Post']
@@ -17,7 +23,12 @@ const getAllExplore = async (req, res) => {
 //         } */
   /* #swagger.parameters['categoryIds'] = {
 // 	      in: 'query',
-//         description: '1: Food, 2: Sightseeing, 3: Accomodation, 4: Fashion 
+//         description: '1: Food, 2: Sightseeing, 3: Accomodation, 4: Fashion',
+//         type: 'array'
+//         } */
+  /* #swagger.parameters['hashtagIds'] = {
+// 	      in: 'query',
+//         description: '1: cafe, 2: desserts, 3: food, 4: drinks, 5: sights, 6: manmade, 7: sightseeing, 8: stay, 9: beauty, 10: ootd', 
 //         type: 'array'
 //         } */
 
@@ -46,9 +57,49 @@ const getAllExplore = async (req, res) => {
               postId: areaPostsIds,
               categoryId: categoryIds.split(","),
             },
+            include: post,
           });
-          console.log("did this run here?", categoryPosts);
-          return res.json(categoryPosts);
+
+          const areaCategoryPosts = [];
+          const areaCategoryPostsIds = [];
+
+          categoryPosts.forEach((post) => {
+            !areaCategoryPosts.includes(post)
+              ? areaCategoryPosts.push(post.post)
+              : null;
+            !areaCategoryPostsIds.includes(post.post.id)
+              ? areaCategoryPostsIds.push(post.post.id)
+              : null;
+          });
+
+          if (hashtagIds) {
+            console.log("did this run??", areaCategoryPostsIds);
+
+            const hashtagPosts = await postHashtag.findAll({
+              where: {
+                postId: areaCategoryPostsIds,
+                hashtagId: hashtagIds.split(","),
+              },
+              include: post,
+            });
+
+            const areaCategoryHashtagPosts = [];
+            const areaCategoryHashtagPostsIds = [];
+
+            hashtagPosts.forEach((post) => {
+              !areaCategoryHashtagPosts.includes(post)
+                ? areaCategoryHashtagPosts.push(post.post)
+                : null;
+              !areaCategoryHashtagPostsIds.includes(post.post.id)
+                ? areaCategoryHashtagPostsIds.push(post.post.id)
+                : null;
+            });
+            console.log(areaCategoryHashtagPostsIds);
+
+            return res.json(areaCategoryHashtagPosts);
+          }
+
+          return res.json(areaCategoryPosts);
         }
 
         return res.json(areaPosts);

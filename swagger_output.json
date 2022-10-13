@@ -273,13 +273,6 @@
         }
       }
     },
-    "/maps/allAreas": {
-      "get": {
-        "description": "",
-        "parameters": [],
-        "responses": {}
-      }
-    },
     "/maps/allPins/{areaId}": {
       "get": {
         "description": "",
@@ -299,48 +292,6 @@
             "description": "Bad Request"
           }
         }
-      }
-    },
-    "/maps/onePin": {
-      "get": {
-        "description": "",
-        "parameters": [],
-        "responses": {}
-      }
-    },
-    "/maps/getCrowd": {
-      "get": {
-        "description": "",
-        "parameters": [],
-        "responses": {}
-      }
-    },
-    "/maps/{pinId}/oneCrowd": {
-      "get": {
-        "description": "",
-        "parameters": [
-          {
-            "name": "pinId",
-            "in": "path",
-            "required": true,
-            "type": "string"
-          }
-        ],
-        "responses": {}
-      }
-    },
-    "/maps/{pinId}/createCrowdData": {
-      "post": {
-        "description": "",
-        "parameters": [
-          {
-            "name": "pinId",
-            "in": "path",
-            "required": true,
-            "type": "string"
-          }
-        ],
-        "responses": {}
       }
     },
     "/users/{email}": {
@@ -604,13 +555,14 @@
           {
             "name": "categoryIds",
             "in": "query",
-            "description": "1: Food, 2: Sightseeing, 3: Accomodation, 4: Fashion ",
+            "description": "1: Food, 2: Sightseeing, 3: Accomodation, 4: Fashion",
             "type": "array"
           },
           {
             "name": "hashtagIds",
             "in": "query",
-            "type": "string"
+            "description": "1: cafe, 2: desserts, 3: food, 4: drinks, 5: sights, 6: manmade, 7: sightseeing, 8: stay, 9: beauty, 10: ootd",
+            "type": "array"
           },
           {
             "name": "source",
