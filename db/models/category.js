@@ -6,6 +6,7 @@ module.exports = (sequelize, DataTypes) => {
       // define association here
       this.belongsToMany(models.post, { through: "post_categories" });
       this.hasMany(models.hashtag);
+      this.hasMany(models.postCategory);
     }
   }
   Category.init(

@@ -28,17 +28,6 @@
     "http"
   ],
   "paths": {
-    "/chats/": {
-      "get": {
-        "description": "",
-        "parameters": [],
-        "responses": {
-          "200": {
-            "description": "OK"
-          }
-        }
-      }
-    },
     "/chats/{userId}/allchat": {
       "get": {
         "tags": [
@@ -273,15 +262,93 @@
         }
       }
     },
-    "/maps/allPins/{areaId}": {
+    "/maps/allPins": {
       "get": {
+        "tags": [
+          "Map"
+        ],
         "description": "",
         "parameters": [
           {
             "name": "areaId",
+            "in": "query",
+            "type": "string"
+          },
+          {
+            "name": "categoryId",
+            "in": "query",
+            "type": "string"
+          },
+          {
+            "name": "hashtagId",
+            "in": "query",
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "400": {
+            "description": "Bad Request"
+          }
+        }
+      }
+    },
+    "/maps/onePin/{pinId}": {
+      "get": {
+        "tags": [
+          "Map"
+        ],
+        "description": "",
+        "parameters": [
+          {
+            "name": "pinId",
             "in": "path",
             "required": true,
             "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "400": {
+            "description": "Bad Request"
+          }
+        }
+      }
+    },
+    "/maps/{pinId}/createCrowdData": {
+      "post": {
+        "tags": [
+          "Map"
+        ],
+        "description": "",
+        "parameters": [
+          {
+            "name": "pinId",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "userId": {
+                  "example": "any"
+                },
+                "crowdSize": {
+                  "example": "any"
+                },
+                "crowdIntensity": {
+                  "example": "any"
+                }
+              }
+            }
           }
         ],
         "responses": {

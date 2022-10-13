@@ -13,6 +13,8 @@ module.exports = (sequelize, DataTypes) => {
       this.belongsToMany(models.thread, { through: "thread_posts" });
       this.hasMany(models.friendship);
       this.belongsTo(models.pin);
+      this.hasMany(models.postCategory);
+      this.hasMany(models.postHashtag);
     }
   }
   Post.init(
