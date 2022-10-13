@@ -1,4 +1,10 @@
-const { post, thread, threadPost } = require("../db/models");
+const {
+  post,
+  thread,
+  threadPost,
+  postCategory,
+  postHashtag,
+} = require("../db/models");
 const { Op } = require("sequelize");
 
 // for ref of tags : // #swagger.tags = ['Post']
@@ -8,43 +14,96 @@ const { Op } = require("sequelize");
 //         type: 'boolean'
 //         } */
 
-// query for get; body for post
-// get all explore posts or photos only with boolean query
 const getAllExplore = async (req, res) => {
   // #swagger.tags = ['Post']
-  /* #swagger.parameters['photos'] = {
-	      in: 'query',       
-        type: 'boolean'
-        } */
-  /* #swagger.parameters['number'] = {
-	      in: 'query',      
-        type: 'integer'
-        } */
-  const { photos, number } = req.query;
+  /* #swagger.parameters['areaId'] = {
+// 	      in: 'query',
+//         description: '1: Tokyo, 2: Hokkaido, 3: Osaka ',
+//         type: 'integer'
+//         } */
+  /* #swagger.parameters['categoryIds'] = {
+// 	      in: 'query',
+//         description: '1: Food, 2: Sightseeing, 3: Accomodation, 4: Fashion',
+//         type: 'array'
+//         } */
+  /* #swagger.parameters['hashtagIds'] = {
+// 	      in: 'query',
+//         description: '1: cafe, 2: desserts, 3: food, 4: drinks, 5: sights, 6: manmade, 7: sightseeing, 8: stay, 9: beauty, 10: ootd', 
+//         type: 'array'
+//         } */
+
+  const { areaId, categoryIds, hashtagIds, source } = req.query;
 
   try {
-    if (photos) {
-      // console.log("did this run?");
-      const data = await post.findAll({
-        attributes: ["photo_link"],
-        where: {
-          explorePost: {
-            [Op.ne]: null,
+    if (Object.keys(req.query).length > 0) {
+      if (areaId) {
+        const areaPosts = await post.findAll({
+          where: {
+            explorePost: {
+              [Op.ne]: null,
+            },
+            areaId: areaId,
           },
-          photoLink: {
-            [Op.ne]: null,
-          },
-        },
-      });
+          raw: true,
+        });
 
-      const shuffled = data.sort(() => 0.5 - Math.random());
-      const selected = shuffled.slice(0, number);
+        // list of postIds within an area
+        const areaPostsIds = [];
+        areaPosts.forEach((post) => areaPostsIds.push(post.id));
 
-      const photosUrl = [];
+        if (categoryIds) {
+          const categoryPosts = await postCategory.findAll({
+            where: {
+              postId: areaPostsIds,
+              categoryId: categoryIds.split(","),
+            },
+            include: post,
+          });
 
-      selected.forEach((post) => photosUrl.push(post.dataValues.photo_link));
+          const areaCategoryPosts = [];
+          const areaCategoryPostsIds = [];
 
-      return res.json(photosUrl);
+          categoryPosts.forEach((post) => {
+            !areaCategoryPosts.includes(post)
+              ? areaCategoryPosts.push(post.post)
+              : null;
+            !areaCategoryPostsIds.includes(post.post.id)
+              ? areaCategoryPostsIds.push(post.post.id)
+              : null;
+          });
+
+          if (hashtagIds) {
+            console.log("did this run??", areaCategoryPostsIds);
+
+            const hashtagPosts = await postHashtag.findAll({
+              where: {
+                postId: areaCategoryPostsIds,
+                hashtagId: hashtagIds.split(","),
+              },
+              include: post,
+            });
+
+            const areaCategoryHashtagPosts = [];
+            const areaCategoryHashtagPostsIds = [];
+
+            hashtagPosts.forEach((post) => {
+              !areaCategoryHashtagPosts.includes(post)
+                ? areaCategoryHashtagPosts.push(post.post)
+                : null;
+              !areaCategoryHashtagPostsIds.includes(post.post.id)
+                ? areaCategoryHashtagPostsIds.push(post.post.id)
+                : null;
+            });
+            console.log(areaCategoryHashtagPostsIds);
+
+            return res.json(areaCategoryHashtagPosts);
+          }
+
+          return res.json(areaCategoryPosts);
+        }
+
+        return res.json(areaPosts);
+      }
     } else {
       const posts = await post.findAll({
         where: {

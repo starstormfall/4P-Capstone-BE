@@ -21,13 +21,35 @@ const getAllAreas = async (req, res) => {
 
 const getAllCategories = async (req, res) => {
   // #swagger.tags = ['Info']
+
   try {
-    console.log(category);
     const allCategories = await category.findAll({
       attributes: { exclude: ["updatedAt", "createdAt"] },
     });
-
     return res.json(allCategories);
+  } catch (err) {
+    return res.status(400).json({ error: true, msg: err });
+  }
+};
+
+const getAssocHashtags = async (req, res) => {
+  // #swagger.tags = ['Info']
+  /* #swagger.parameters['categoryIds'] = {
+    in: 'query',
+    type: 'array'
+    } */
+
+  const { categoryIds } = req.query;
+
+  try {
+    const assocHashtags = await hashtag.findAll({
+      where: {
+        categoryId: categoryIds.split(","),
+      },
+    });
+
+    console.log(assocHashtags);
+    return res.json(assocHashtags);
   } catch (err) {
     return res.status(400).json({ error: true, msg: err });
   }
@@ -35,10 +57,22 @@ const getAllCategories = async (req, res) => {
 
 const getAllHashtags = async (req, res) => {
   // #swagger.tags = ['Info']
+
   try {
     const allHashtags = await hashtag.findAll();
 
     return res.json(allHashtags);
+  } catch (err) {
+    return res.status(400).json({ error: true, msg: err });
+  }
+};
+
+const getSources = async (req, res) => {
+  // #swagger.tags = ['Info']
+  try {
+    const source = ["instagram", "review", "forum"];
+
+    return res.json(source);
   } catch (err) {
     return res.status(400).json({ error: true, msg: err });
   }
@@ -86,5 +120,7 @@ module.exports = {
   getAllAreas,
   getAllCategories,
   getAllHashtags,
+  getAssocHashtags,
   getPhotos,
+  getSources,
 };
