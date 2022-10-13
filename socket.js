@@ -34,7 +34,7 @@ module.exports = (socketIo, chatController) => {
 
       console.log(deletedUser);
 
-      socket.disconnect();
+      // socket.disconnect();
       socket
         .to(`${data.chatroomId}`)
         .emit("received_admin_message", deletedUser);

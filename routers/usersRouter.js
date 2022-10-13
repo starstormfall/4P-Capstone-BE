@@ -11,8 +11,8 @@ router.get(`/all`, controllers.getAll);
 // create new user (findOrCreate) (store email(res.body) from auth0??)
 router.post(`/`, controllers.insertOne);
 
-// update user data?? (likes and favourites??)
-router.put(`/`, controllers.updateOneUser);
+// update user data??
+router.put(`/update/:userId`, controllers.updateOneUser);
 
 // store in user pref router...
 // get all favourites belonging to user
