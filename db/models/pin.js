@@ -11,8 +11,8 @@ module.exports = (sequelize, DataTypes) => {
   }
   Pin.init(
     {
-      lat: DataTypes.INTEGER,
-      lng: DataTypes.INTEGER,
+      lat: DataTypes.FLOAT,
+      lng: DataTypes.FLOAT,
       placeName: DataTypes.STRING,
       areaId: {
         type: DataTypes.INTEGER,
