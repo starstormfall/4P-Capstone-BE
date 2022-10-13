@@ -18,7 +18,24 @@ const getAll = async (req, res) => {
   }
 };
 
-const getChatRoom = async (req, res) => {};
+const getChatRoom = async (req, res) => {
+  const { chatroomId } = req.params;
+
+  try {
+    const allUsers = await chatroomUser.findAll({
+      where: {
+        chatroomId: chatroomId,
+      },
+      include: [user],
+    });
+
+    return res.status(201).json({
+      allUsers,
+    });
+  } catch (error) {
+    return res.status(500).json({ error: error.message });
+  }
+};
 
 const createChatRoom = async (req, res) => {
   const { roomName, hostUserId, usersToAdd } = req.body;
@@ -121,6 +138,12 @@ const addMessage = async (data) => {
     chatroomId: data.chatroomId,
     posterUserId: data.posterUserId,
     createdAt: data.createdAt,
+    updatedAt: data.updatedAt,
+  });
+
+  //Find and update current chatroom with updatedAt
+  const chatroomToUpdateDate = await chatroom.findByPk(data.chatroomId);
+  await chatroomToUpdateDate.update({
     updatedAt: data.updatedAt,
   });
 
