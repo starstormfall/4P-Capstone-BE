@@ -32,6 +32,262 @@ module.exports = {
         created_at: new Date(),
         updated_at: new Date(),
       },
+      {
+        prefecture: "Aichi",
+        created_at: new Date(),
+        updated_at: new Date(),
+      },
+      {
+        prefecture: "Akita",
+        created_at: new Date(),
+        updated_at: new Date(),
+      },
+      {
+        prefecture: "Aomori",
+        created_at: new Date(),
+        updated_at: new Date(),
+      },
+
+      {
+        prefecture: "Chiba",
+        created_at: new Date(),
+        updated_at: new Date(),
+      },
+
+      {
+        prefecture: "Ehime",
+        created_at: new Date(),
+        updated_at: new Date(),
+      },
+
+      {
+        prefecture: "Fukuoka",
+        created_at: new Date(),
+        updated_at: new Date(),
+      },
+
+      {
+        prefecture: "Fukushima",
+        created_at: new Date(),
+        updated_at: new Date(),
+      },
+      {
+        prefecture: "Fukui",
+        created_at: new Date(),
+        updated_at: new Date(),
+      },
+
+      {
+        prefecture: "Gifu",
+        created_at: new Date(),
+        updated_at: new Date(),
+      },
+
+      {
+        prefecture: "Gunma",
+        created_at: new Date(),
+        updated_at: new Date(),
+      },
+      {
+        prefecture: "Hiroshima",
+        created_at: new Date(),
+        updated_at: new Date(),
+      },
+      {
+        prefecture: "Hyogo",
+        created_at: new Date(),
+        updated_at: new Date(),
+      },
+      {
+        prefecture: "Ibaraki",
+        created_at: new Date(),
+        updated_at: new Date(),
+      },
+      {
+        prefecture: "Ishikawa",
+        created_at: new Date(),
+        updated_at: new Date(),
+      },
+
+      {
+        prefecture: "Iwate",
+        created_at: new Date(),
+        updated_at: new Date(),
+      },
+
+      {
+        prefecture: "Kagoshima",
+        created_at: new Date(),
+        updated_at: new Date(),
+      },
+
+      {
+        prefecture: "Kagawa",
+        created_at: new Date(),
+        updated_at: new Date(),
+      },
+
+      {
+        prefecture: "Kumamoto",
+        created_at: new Date(),
+        updated_at: new Date(),
+      },
+
+      {
+        prefecture: "Kanagawa",
+        created_at: new Date(),
+        updated_at: new Date(),
+      },
+
+      {
+        prefecture: "Kochi",
+        created_at: new Date(),
+        updated_at: new Date(),
+      },
+
+      {
+        prefecture: "Kyoto",
+        created_at: new Date(),
+        updated_at: new Date(),
+      },
+
+      {
+        prefecture: "Mie",
+        created_at: new Date(),
+        updated_at: new Date(),
+      },
+
+      {
+        prefecture: "Miyagi",
+        created_at: new Date(),
+        updated_at: new Date(),
+      },
+
+      {
+        prefecture: "Miyazaki",
+        created_at: new Date(),
+        updated_at: new Date(),
+      },
+
+      {
+        prefecture: "Nara",
+        created_at: new Date(),
+        updated_at: new Date(),
+      },
+
+      {
+        prefecture: "Nagano",
+        created_at: new Date(),
+        updated_at: new Date(),
+      },
+
+      {
+        prefecture: "Nagasaki",
+        created_at: new Date(),
+        updated_at: new Date(),
+      },
+
+      {
+        prefecture: "Niigata",
+        created_at: new Date(),
+        updated_at: new Date(),
+      },
+
+      {
+        prefecture: "Oita",
+        created_at: new Date(),
+        updated_at: new Date(),
+      },
+
+      {
+        prefecture: "Okinawa",
+        created_at: new Date(),
+        updated_at: new Date(),
+      },
+
+      {
+        prefecture: "Okayama",
+        created_at: new Date(),
+        updated_at: new Date(),
+      },
+
+      {
+        prefecture: "Saga",
+        created_at: new Date(),
+        updated_at: new Date(),
+      },
+
+      {
+        prefecture: "Shiga",
+        created_at: new Date(),
+        updated_at: new Date(),
+      },
+
+      {
+        prefecture: "Shimane",
+        created_at: new Date(),
+        updated_at: new Date(),
+      },
+
+      {
+        prefecture: "Saitama",
+        created_at: new Date(),
+        updated_at: new Date(),
+      },
+
+      {
+        prefecture: "Shizuoka",
+        created_at: new Date(),
+        updated_at: new Date(),
+      },
+
+      {
+        prefecture: "Tochigi",
+        created_at: new Date(),
+        updated_at: new Date(),
+      },
+
+      {
+        prefecture: "Tottori",
+        created_at: new Date(),
+        updated_at: new Date(),
+      },
+
+      {
+        prefecture: "Tokushima",
+        created_at: new Date(),
+        updated_at: new Date(),
+      },
+
+      {
+        prefecture: "Toyama",
+        created_at: new Date(),
+        updated_at: new Date(),
+      },
+
+      {
+        prefecture: "Wakayama",
+        created_at: new Date(),
+        updated_at: new Date(),
+      },
+
+      {
+        prefecture: "Yamaguchi",
+        created_at: new Date(),
+        updated_at: new Date(),
+      },
+
+      {
+        prefecture: "Yamanashi",
+        created_at: new Date(),
+        updated_at: new Date(),
+      },
+
+      {
+        prefecture: "Yamagata",
+        created_at: new Date(),
+        updated_at: new Date(),
+      },
     ]);
     await queryInterface.bulkInsert("users", [
       {

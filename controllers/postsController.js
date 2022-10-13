@@ -1,4 +1,4 @@
-const { post, thread, threadPost } = require("../db/models");
+const { post, thread, threadPost, postCategory } = require("../db/models");
 const { Op } = require("sequelize");
 
 // for ref of tags : // #swagger.tags = ['Post']
@@ -17,7 +17,7 @@ const getAllExplore = async (req, res) => {
 //         } */
   /* #swagger.parameters['categoryIds'] = {
 // 	      in: 'query',
-//         description: '1: Food, 2: Sightseeing, 3: Accomodation, 4: Fashion ',
+//         description: '1: Food, 2: Sightseeing, 3: Accomodation, 4: Fashion 
 //         type: 'array'
 //         } */
 
@@ -40,12 +40,17 @@ const getAllExplore = async (req, res) => {
         const areaPostsIds = [];
         areaPosts.forEach((post) => areaPostsIds.push(post.id));
 
-        if (category) {
-          const categoryName = await category.find;
-
-          const categoryPosts = await areaPosts.getCategories();
+        if (categoryIds) {
+          const categoryPosts = await postCategory.findAll({
+            where: {
+              postId: areaPostsIds,
+              categoryId: categoryIds.split(","),
+            },
+          });
+          console.log("did this run here?", categoryPosts);
           return res.json(categoryPosts);
         }
+
         return res.json(areaPosts);
       }
     } else {
