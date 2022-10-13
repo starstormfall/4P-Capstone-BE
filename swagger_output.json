@@ -24,15 +24,11 @@
       "name": "Map"
     }
   ],
-  "schemes": [
-    "http"
-  ],
+  "schemes": ["http"],
   "paths": {
     "/chats/{userId}/allchat": {
       "get": {
-        "tags": [
-          "Chat"
-        ],
+        "tags": ["Chat"],
         "description": "",
         "parameters": [
           {
@@ -54,9 +50,7 @@
     },
     "/chats/{userId}/{chatroomId}": {
       "get": {
-        "tags": [
-          "Chat"
-        ],
+        "tags": ["Chat"],
         "description": "",
         "parameters": [
           {
@@ -84,9 +78,7 @@
     },
     "/chats/createchatroom": {
       "post": {
-        "tags": [
-          "Chat"
-        ],
+        "tags": ["Chat"],
         "description": "",
         "parameters": [
           {
@@ -120,9 +112,7 @@
     },
     "/friends/{userId}/allfriends": {
       "get": {
-        "tags": [
-          "Friend"
-        ],
+        "tags": ["Friend"],
         "description": "",
         "parameters": [
           {
@@ -144,9 +134,7 @@
     },
     "/friends/{userId}/addfriend": {
       "post": {
-        "tags": [
-          "Friend"
-        ],
+        "tags": ["Friend"],
         "description": "",
         "parameters": [
           {
@@ -186,9 +174,7 @@
     },
     "/friends/{userId}": {
       "put": {
-        "tags": [
-          "Friend"
-        ],
+        "tags": ["Friend"],
         "description": "",
         "parameters": [
           {
@@ -225,9 +211,7 @@
     },
     "/friends/{userId}/removefriend": {
       "delete": {
-        "tags": [
-          "Friend"
-        ],
+        "tags": ["Friend"],
         "description": "",
         "parameters": [
           {
@@ -264,9 +248,7 @@
     },
     "/maps/allPins": {
       "get": {
-        "tags": [
-          "Map"
-        ],
+        "tags": ["Map"],
         "description": "",
         "parameters": [
           {
@@ -297,9 +279,7 @@
     },
     "/maps/onePin/{pinId}": {
       "get": {
-        "tags": [
-          "Map"
-        ],
+        "tags": ["Map"],
         "description": "",
         "parameters": [
           {
@@ -321,9 +301,7 @@
     },
     "/maps/{pinId}/createCrowdData": {
       "post": {
-        "tags": [
-          "Map"
-        ],
+        "tags": ["Map"],
         "description": "",
         "parameters": [
           {
@@ -363,9 +341,7 @@
     },
     "/users/{email}": {
       "get": {
-        "tags": [
-          "User"
-        ],
+        "tags": ["User"],
         "description": "",
         "parameters": [
           {
@@ -387,9 +363,7 @@
     },
     "/users/all": {
       "get": {
-        "tags": [
-          "User"
-        ],
+        "tags": ["User"],
         "description": "",
         "parameters": [],
         "responses": {
@@ -404,9 +378,7 @@
     },
     "/users/": {
       "post": {
-        "tags": [
-          "User"
-        ],
+        "tags": ["User"],
         "description": "",
         "parameters": [
           {
@@ -434,9 +406,7 @@
     },
     "/users/update/{userId}": {
       "put": {
-        "tags": [
-          "User"
-        ],
+        "tags": ["User"],
         "description": "",
         "parameters": [
           {
@@ -488,9 +458,7 @@
     },
     "/users/{userId}/favourite": {
       "get": {
-        "tags": [
-          "User"
-        ],
+        "tags": ["User"],
         "description": "",
         "parameters": [
           {
@@ -512,9 +480,7 @@
     },
     "/users/{postId}/allLikes": {
       "get": {
-        "tags": [
-          "User"
-        ],
+        "tags": ["User"],
         "description": "",
         "parameters": [
           {
@@ -536,9 +502,7 @@
     },
     "/users/{postId}/like": {
       "post": {
-        "tags": [
-          "User"
-        ],
+        "tags": ["User"],
         "description": "",
         "parameters": [
           {
@@ -572,9 +536,7 @@
     },
     "/users/{userId}/favourites": {
       "post": {
-        "tags": [
-          "User"
-        ],
+        "tags": ["User"],
         "description": "",
         "parameters": [
           {
@@ -608,20 +570,31 @@
     },
     "/posts/explore": {
       "get": {
-        "tags": [
-          "Post"
-        ],
+        "tags": ["Post"],
         "description": "",
         "parameters": [
           {
-            "name": "photos",
+            "name": "areaId",
             "in": "query",
-            "type": "boolean"
+            "description": "1: Tokyo, 2: Hokkaido, 3: Osaka ",
+            "type": "integer"
           },
           {
-            "name": "number",
+            "name": "categoryIds",
             "in": "query",
-            "type": "integer"
+            "description": "1: Food, 2: Sightseeing, 3: Accomodation, 4: Fashion",
+            "type": "array"
+          },
+          {
+            "name": "hashtagIds",
+            "in": "query",
+            "description": "1: cafe, 2: desserts, 3: food, 4: drinks, 5: sights, 6: manmade, 7: sightseeing, 8: stay, 9: beauty, 10: ootd",
+            "type": "array"
+          },
+          {
+            "name": "source",
+            "in": "query",
+            "type": "string"
           }
         ],
         "responses": {
@@ -636,9 +609,7 @@
     },
     "/posts/forum": {
       "get": {
-        "tags": [
-          "Post"
-        ],
+        "tags": ["Post"],
         "description": "",
         "parameters": [],
         "responses": {
@@ -653,9 +624,7 @@
     },
     "/posts/thread": {
       "get": {
-        "tags": [
-          "Post"
-        ],
+        "tags": ["Post"],
         "description": "",
         "parameters": [],
         "responses": {
@@ -670,9 +639,7 @@
     },
     "/posts/{postId}": {
       "get": {
-        "tags": [
-          "Post"
-        ],
+        "tags": ["Post"],
         "description": "",
         "parameters": [
           {
@@ -694,9 +661,7 @@
     },
     "/info/areas": {
       "get": {
-        "tags": [
-          "Info"
-        ],
+        "tags": ["Info"],
         "description": "",
         "parameters": [],
         "responses": {
@@ -711,9 +676,7 @@
     },
     "/info/categories": {
       "get": {
-        "tags": [
-          "Info"
-        ],
+        "tags": ["Info"],
         "description": "",
         "parameters": [],
         "responses": {
@@ -726,11 +689,30 @@
         }
       }
     },
+    "/info/categories/hashtags": {
+      "get": {
+        "tags": ["Info"],
+        "description": "",
+        "parameters": [
+          {
+            "name": "categoryIds",
+            "in": "query",
+            "type": "array"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "400": {
+            "description": "Bad Request"
+          }
+        }
+      }
+    },
     "/info/hashtags": {
       "get": {
-        "tags": [
-          "Info"
-        ],
+        "tags": ["Info"],
         "description": "",
         "parameters": [],
         "responses": {
@@ -745,9 +727,7 @@
     },
     "/info/photos": {
       "get": {
-        "tags": [
-          "Info"
-        ],
+        "tags": ["Info"],
         "description": "",
         "parameters": [
           {
@@ -756,6 +736,21 @@
             "type": "integer"
           }
         ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "400": {
+            "description": "Bad Request"
+          }
+        }
+      }
+    },
+    "/info/sources": {
+      "get": {
+        "tags": ["Info"],
+        "description": "",
+        "parameters": [],
         "responses": {
           "200": {
             "description": "OK"
