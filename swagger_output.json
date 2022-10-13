@@ -538,14 +538,26 @@
         "description": "",
         "parameters": [
           {
-            "name": "photos",
+            "name": "areaId",
             "in": "query",
-            "type": "boolean"
+            "description": "1: Tokyo, 2: Hokkaido, 3: Osaka ",
+            "type": "integer"
           },
           {
-            "name": "number",
+            "name": "categoryIds",
             "in": "query",
-            "type": "integer"
+            "description": "1: Food, 2: Sightseeing, 3: Accomodation, 4: Fashion ",
+            "type": "array"
+          },
+          {
+            "name": "hashtagIds",
+            "in": "query",
+            "type": "string"
+          },
+          {
+            "name": "source",
+            "in": "query",
+            "type": "string"
           }
         ],
         "responses": {
@@ -650,6 +662,29 @@
         }
       }
     },
+    "/info/categories/hashtags": {
+      "get": {
+        "tags": [
+          "Info"
+        ],
+        "description": "",
+        "parameters": [
+          {
+            "name": "categoryIds",
+            "in": "query",
+            "type": "array"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "400": {
+            "description": "Bad Request"
+          }
+        }
+      }
+    },
     "/info/hashtags": {
       "get": {
         "tags": [
@@ -680,6 +715,23 @@
             "type": "integer"
           }
         ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "400": {
+            "description": "Bad Request"
+          }
+        }
+      }
+    },
+    "/info/sources": {
+      "get": {
+        "tags": [
+          "Info"
+        ],
+        "description": "",
+        "parameters": [],
         "responses": {
           "200": {
             "description": "OK"

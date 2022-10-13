@@ -16,7 +16,7 @@ const swaggerFile = require("./swagger_output.json");
 
 //set up Routers here.
 
-const PORT = process.env.PORT;
+const PORT = process.env.PORT || 8080;
 const app = express();
 app.use(bodyParser.json());
 
@@ -45,7 +45,7 @@ const chatController = require("./controllers/chatsController");
 //Enable Routers here.
 app.use("/doc", swaggerUi.serve, swaggerUi.setup(swaggerFile));
 
-const httpServer = app.listen(PORT, () => {
+const httpServer = app.listen(PORT, "0.0.0.0", () => {
   console.log(`Express app listening on port ${PORT}!`);
 });
 

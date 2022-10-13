@@ -8,43 +8,46 @@ const { Op } = require("sequelize");
 //         type: 'boolean'
 //         } */
 
-// query for get; body for post
-// get all explore posts or photos only with boolean query
 const getAllExplore = async (req, res) => {
   // #swagger.tags = ['Post']
-  /* #swagger.parameters['photos'] = {
-	      in: 'query',       
-        type: 'boolean'
-        } */
-  /* #swagger.parameters['number'] = {
-	      in: 'query',      
-        type: 'integer'
-        } */
-  const { photos, number } = req.query;
+  /* #swagger.parameters['areaId'] = {
+// 	      in: 'query',
+//         description: '1: Tokyo, 2: Hokkaido, 3: Osaka ',
+//         type: 'integer'
+//         } */
+  /* #swagger.parameters['categoryIds'] = {
+// 	      in: 'query',
+//         description: '1: Food, 2: Sightseeing, 3: Accomodation, 4: Fashion ',
+//         type: 'array'
+//         } */
+
+  const { areaId, categoryIds, hashtagIds, source } = req.query;
 
   try {
-    if (photos) {
-      // console.log("did this run?");
-      const data = await post.findAll({
-        attributes: ["photo_link"],
-        where: {
-          explorePost: {
-            [Op.ne]: null,
+    if (Object.keys(req.query).length > 0) {
+      if (areaId) {
+        const areaPosts = await post.findAll({
+          where: {
+            explorePost: {
+              [Op.ne]: null,
+            },
+            areaId: areaId,
           },
-          photoLink: {
-            [Op.ne]: null,
-          },
-        },
-      });
+          raw: true,
+        });
 
-      const shuffled = data.sort(() => 0.5 - Math.random());
-      const selected = shuffled.slice(0, number);
+        // list of postIds within an area
+        const areaPostsIds = [];
+        areaPosts.forEach((post) => areaPostsIds.push(post.id));
 
-      const photosUrl = [];
+        if (category) {
+          const categoryName = await category.find;
 
-      selected.forEach((post) => photosUrl.push(post.dataValues.photo_link));
-
-      return res.json(photosUrl);
+          const categoryPosts = await areaPosts.getCategories();
+          return res.json(categoryPosts);
+        }
+        return res.json(areaPosts);
+      }
     } else {
       const posts = await post.findAll({
         where: {
