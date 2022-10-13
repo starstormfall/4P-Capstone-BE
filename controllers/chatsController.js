@@ -1,6 +1,7 @@
 const { chatroom, message, chatroomUser, user } = require("../db/models");
 
 const getAll = async (req, res) => {
+  // #swagger.tags = ['Chat']
   const { userId } = req.params;
   try {
     const allChatrooms = await chatroomUser.findAll({
@@ -19,6 +20,7 @@ const getAll = async (req, res) => {
 };
 
 const getChatRoom = async (req, res) => {
+  // #swagger.tags = ['Chat']
   const { chatroomId } = req.params;
 
   try {
@@ -38,6 +40,7 @@ const getChatRoom = async (req, res) => {
 };
 
 const createChatRoom = async (req, res) => {
+  // #swagger.tags = ['Chat']
   const { roomName, hostUserId, usersToAdd } = req.body;
 
   try {
@@ -119,6 +122,7 @@ const getAllMessages = async (chatroomId) => {
   //return the all messages, with includes
   const allMessages = await message.findAll({
     where: { chatroomId: chatroomId },
+    order: [["createdAt", "ASC"]],
     include: [
       {
         model: user,
