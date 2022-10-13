@@ -28,17 +28,6 @@
     "http"
   ],
   "paths": {
-    "/chats/": {
-      "get": {
-        "description": "",
-        "parameters": [],
-        "responses": {
-          "200": {
-            "description": "OK"
-          }
-        }
-      }
-    },
     "/chats/{userId}/allchat": {
       "get": {
         "tags": [
@@ -273,19 +262,48 @@
         }
       }
     },
-    "/maps/allAreas": {
+    "/maps/allPins": {
       "get": {
-        "description": "",
-        "parameters": [],
-        "responses": {}
-      }
-    },
-    "/maps/allPins/{areaId}": {
-      "get": {
+        "tags": [
+          "Map"
+        ],
         "description": "",
         "parameters": [
           {
             "name": "areaId",
+            "in": "query",
+            "type": "string"
+          },
+          {
+            "name": "categoryId",
+            "in": "query",
+            "type": "string"
+          },
+          {
+            "name": "hashtagId",
+            "in": "query",
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "400": {
+            "description": "Bad Request"
+          }
+        }
+      }
+    },
+    "/maps/onePin/{pinId}": {
+      "get": {
+        "tags": [
+          "Map"
+        ],
+        "description": "",
+        "parameters": [
+          {
+            "name": "pinId",
             "in": "path",
             "required": true,
             "type": "string"
@@ -301,36 +319,11 @@
         }
       }
     },
-    "/maps/onePin": {
-      "get": {
-        "description": "",
-        "parameters": [],
-        "responses": {}
-      }
-    },
-    "/maps/getCrowd": {
-      "get": {
-        "description": "",
-        "parameters": [],
-        "responses": {}
-      }
-    },
-    "/maps/{pinId}/oneCrowd": {
-      "get": {
-        "description": "",
-        "parameters": [
-          {
-            "name": "pinId",
-            "in": "path",
-            "required": true,
-            "type": "string"
-          }
-        ],
-        "responses": {}
-      }
-    },
     "/maps/{pinId}/createCrowdData": {
       "post": {
+        "tags": [
+          "Map"
+        ],
         "description": "",
         "parameters": [
           {
@@ -338,9 +331,34 @@
             "in": "path",
             "required": true,
             "type": "string"
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "userId": {
+                  "example": "any"
+                },
+                "crowdSize": {
+                  "example": "any"
+                },
+                "crowdIntensity": {
+                  "example": "any"
+                }
+              }
+            }
           }
         ],
-        "responses": {}
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "400": {
+            "description": "Bad Request"
+          }
+        }
       }
     },
     "/users/{email}": {

@@ -2,8 +2,6 @@ const { Router } = require("express");
 const controllers = require("../controllers/chatsController");
 const router = Router();
 
-router.get("/", (req, res) => res.send("This is chat controller!"));
-
 // get all chatrooms of user
 router.get(`/:userId/allchat`, controllers.getAll);
 
