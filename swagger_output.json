@@ -16,6 +16,12 @@
     },
     {
       "name": "Friend"
+    },
+    {
+      "name": "Chat"
+    },
+    {
+      "name": "Map"
     }
   ],
   "schemes": [
@@ -35,6 +41,9 @@
     },
     "/chats/{userId}/allchat": {
       "get": {
+        "tags": [
+          "Chat"
+        ],
         "description": "",
         "parameters": [
           {
@@ -56,6 +65,9 @@
     },
     "/chats/{userId}/{chatroomId}": {
       "get": {
+        "tags": [
+          "Chat"
+        ],
         "description": "",
         "parameters": [
           {
@@ -83,6 +95,9 @@
     },
     "/chats/createchatroom": {
       "post": {
+        "tags": [
+          "Chat"
+        ],
         "description": "",
         "parameters": [
           {
@@ -112,48 +127,6 @@
             "description": "Internal Server Error"
           }
         }
-      }
-    },
-    "/chats/{chatroomId}/": {
-      "put": {
-        "description": "",
-        "parameters": [
-          {
-            "name": "chatroomId",
-            "in": "path",
-            "required": true,
-            "type": "string"
-          }
-        ],
-        "responses": {}
-      }
-    },
-    "/chats/chatroom/{chatroomId}/allmessage": {
-      "get": {
-        "description": "",
-        "parameters": [
-          {
-            "name": "chatroomId",
-            "in": "path",
-            "required": true,
-            "type": "string"
-          }
-        ],
-        "responses": {}
-      }
-    },
-    "/chats/chatroom/{chatroomId}/onemessage": {
-      "post": {
-        "description": "",
-        "parameters": [
-          {
-            "name": "chatroomId",
-            "in": "path",
-            "required": true,
-            "type": "string"
-          }
-        ],
-        "responses": {}
       }
     },
     "/friends/{userId}/allfriends": {
@@ -300,6 +273,76 @@
         }
       }
     },
+    "/maps/allAreas": {
+      "get": {
+        "description": "",
+        "parameters": [],
+        "responses": {}
+      }
+    },
+    "/maps/allPins/{areaId}": {
+      "get": {
+        "description": "",
+        "parameters": [
+          {
+            "name": "areaId",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "400": {
+            "description": "Bad Request"
+          }
+        }
+      }
+    },
+    "/maps/onePin": {
+      "get": {
+        "description": "",
+        "parameters": [],
+        "responses": {}
+      }
+    },
+    "/maps/getCrowd": {
+      "get": {
+        "description": "",
+        "parameters": [],
+        "responses": {}
+      }
+    },
+    "/maps/{pinId}/oneCrowd": {
+      "get": {
+        "description": "",
+        "parameters": [
+          {
+            "name": "pinId",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {}
+      }
+    },
+    "/maps/{pinId}/createCrowdData": {
+      "post": {
+        "description": "",
+        "parameters": [
+          {
+            "name": "pinId",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {}
+      }
+    },
     "/users/{email}": {
       "get": {
         "tags": [
@@ -369,13 +412,21 @@
             "description": "Bad Request"
           }
         }
-      },
+      }
+    },
+    "/users/update/{userId}": {
       "put": {
         "tags": [
           "User"
         ],
         "description": "",
         "parameters": [
+          {
+            "name": "userId",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
           {
             "name": "body",
             "in": "body",

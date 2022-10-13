@@ -29,13 +29,13 @@ app.use(express.json());
 //import routers
 const chatsRouter = require("./routers/chatsRouter");
 const friendsRouter = require("./routers/friendsRouter");
-// const mapsRouter = require("./routers/mapsRouter");
+const mapsRouter = require("./routers/mapsRouter");
 const postsRouter = require("./routers/postsRouter");
 const usersRouters = require("./routers/usersRouter");
 const infoRouter = require("./routers/infoRouter");
 app.use("/chats", chatsRouter);
 app.use("/friends", friendsRouter);
-// app.use("/maps", mapsRouter);
+app.use("/maps", mapsRouter);
 app.use("/users", usersRouters);
 app.use("/posts", postsRouter);
 app.use("/info", infoRouter);

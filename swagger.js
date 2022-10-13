@@ -20,6 +20,12 @@ const doc = {
     {
       name: "Friend",
     },
+    {
+      name: "Chat",
+    },
+    {
+      name: "Map",
+    },
   ],
   definitions: {
     User: {
