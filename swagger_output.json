@@ -681,6 +681,30 @@
         }
       }
     },
+    "/posts/thread/{threadId}": {
+      "get": {
+        "tags": [
+          "Post"
+        ],
+        "description": "",
+        "parameters": [
+          {
+            "name": "threadId",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "400": {
+            "description": "Bad Request"
+          }
+        }
+      }
+    },
     "/posts/{postId}": {
       "get": {
         "tags": [

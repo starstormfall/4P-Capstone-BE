@@ -1,4 +1,5 @@
 const {
+  user,
   post,
   thread,
   threadPost,
@@ -130,6 +131,20 @@ const getAllThread = async (req, res) => {
   }
 };
 
+const getOneThread = async (req, res) => {
+  // #swagger.tags = ['Post']
+  const { threadId } = req.params;
+  try {
+    const oneThread = await threadPost.findAll({
+      where: { threadId: threadId },
+      include: [{ model: post, include: user }, { model: thread }],
+    });
+    return res.json(oneThread);
+  } catch (err) {
+    return res.status(400).json({ error: true, msg: err });
+  }
+};
+
 const getAllForum = async (req, res) => {
   // #swagger.tags = ['Post']
   try {
@@ -182,4 +197,5 @@ module.exports = {
   getAllThread,
   getAllForum,
   getAssocThread,
+  getOneThread,
 };

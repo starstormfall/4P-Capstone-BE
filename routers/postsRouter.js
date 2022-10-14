@@ -9,6 +9,8 @@ router.get(`/forum`, controllers.getAllForum);
 
 router.get(`/thread`, controllers.getAllThread);
 
+router.get(`/thread/:threadId`, controllers.getOneThread);
+
 // //get entries associatied to individual explore entry
 router.get(`/:postId`, controllers.getAssocThread);
 
