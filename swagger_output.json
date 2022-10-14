@@ -283,6 +283,11 @@
             "name": "hashtagId",
             "in": "query",
             "type": "string"
+          },
+          {
+            "name": "type",
+            "in": "query",
+            "type": "string"
           }
         ],
         "responses": {
