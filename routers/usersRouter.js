@@ -21,10 +21,11 @@ router.get(`/:userId/favourite`, controllers.getAllFavourite);
 // get all likes belonging to post
 router.get(`/:postId/allLikes`, controllers.getAllLikes);
 
+// from hb : moved to postsController
 // update likes for user
-router.post(`/:postId/like`, controllers.addLikes);
+// router.post(`/:userId/:postId/like`, controllers.addLikes);
 
 // update favourites for user
-router.post(`/:userId/favourites`, controllers.addFavourites);
+router.post(`/:userId/post/:postId/favourites`, controllers.addFavourites);
 
 module.exports = router;

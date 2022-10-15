@@ -107,35 +107,36 @@ const getAllLikes = async (req, res) => {
   }
 };
 
+// from hb: moved over to postsController
 // create likes for user
-const addLikes = async (req, res) => {
-  // #swagger.tags = ['User']
-  const { postId } = req.params;
-  const { userId } = req.body;
-  console.log(postId);
-  console.log(like);
-  try {
-    const [addLikes, created] = await like.findOrCreate({
-      where: { userId: userId, postId: postId },
-    });
-    console.log("created", created);
-    console.log("addLikes", addLikes);
-    if (created) {
-      return res.json(addLikes);
-    } else {
-      const updateLikes = await addLikes.destroy();
-      return res.json(updateLikes);
-    }
-  } catch (err) {
-    return res.status(400).json({ error: true, msg: err });
-  }
-};
+// const addLikes = async (req, res) => {
+//   // #swagger.tags = ['User']
+//   const { userId, postId } = req.params;
+//   // const { userId } = req.body;
+//   console.log(postId);
+//   console.log(like);
+//   try {
+//     const [addLikes, created] = await like.findOrCreate({
+//       where: { userId: userId, postId: postId },
+//     });
+//     console.log("created", created);
+//     console.log("addLikes", addLikes);
+//     if (created) {
+//       return res.json(addLikes);
+//     } else {
+//       const updateLikes = await addLikes.destroy();
+//       return res.json(updateLikes);
+//     }
+//   } catch (err) {
+//     return res.status(400).json({ error: true, msg: err });
+//   }
+// };
 
 // create favourites for user
 const addFavourites = async (req, res) => {
   // #swagger.tags = ['User']
-  const { userId } = req.params;
-  const { postId } = req.body;
+  const { userId, postId } = req.params;
+  // const { postId } = req.body;
   try {
     const [addFavourites, created] = await favourite.findOrCreate({
       where: { userId: userId, postId: postId },
@@ -256,6 +257,6 @@ module.exports = {
   updateOneUser,
   getAllFavourite,
   getAllLikes,
-  addLikes,
+  // addLikes,
   addFavourites,
 };

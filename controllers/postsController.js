@@ -4,6 +4,8 @@ const {
   threadPost,
   postCategory,
   postHashtag,
+  user,
+  like,
 } = require("../db/models");
 const { Op } = require("sequelize");
 
@@ -37,7 +39,7 @@ const getAllExplore = async (req, res) => {
   try {
     if (Object.keys(req.query).length > 0) {
       if (areaId) {
-        const areaPosts = await post.findAll({
+        const areaPostsArray = await post.findAll({
           where: {
             explorePost: {
               [Op.ne]: null,
@@ -49,7 +51,11 @@ const getAllExplore = async (req, res) => {
 
         // list of postIds within an area
         const areaPostsIds = [];
-        areaPosts.forEach((post) => areaPostsIds.push(post.id));
+        const areaPosts = {};
+        areaPostsArray.forEach((post) => {
+          areaPostsIds.push(post.id);
+          areaPosts[post.id] = post;
+        });
 
         if (categoryIds) {
           const categoryPosts = await postCategory.findAll({
@@ -60,21 +66,17 @@ const getAllExplore = async (req, res) => {
             include: post,
           });
 
-          const areaCategoryPosts = [];
+          const areaCategoryPosts = {};
           const areaCategoryPostsIds = [];
 
           categoryPosts.forEach((post) => {
-            !areaCategoryPosts.includes(post)
-              ? areaCategoryPosts.push(post.post)
-              : null;
+            areaCategoryPosts[post.post.id] = post.post;
             !areaCategoryPostsIds.includes(post.post.id)
               ? areaCategoryPostsIds.push(post.post.id)
               : null;
           });
 
           if (hashtagIds) {
-            console.log("did this run??", areaCategoryPostsIds);
-
             const hashtagPosts = await postHashtag.findAll({
               where: {
                 postId: areaCategoryPostsIds,
@@ -83,18 +85,15 @@ const getAllExplore = async (req, res) => {
               include: post,
             });
 
-            const areaCategoryHashtagPosts = [];
+            const areaCategoryHashtagPosts = {};
             const areaCategoryHashtagPostsIds = [];
 
             hashtagPosts.forEach((post) => {
-              !areaCategoryHashtagPosts.includes(post)
-                ? areaCategoryHashtagPosts.push(post.post)
-                : null;
+              areaCategoryHashtagPosts[post.post.id] = post.post;
               !areaCategoryHashtagPostsIds.includes(post.post.id)
                 ? areaCategoryHashtagPostsIds.push(post.post.id)
                 : null;
             });
-            console.log(areaCategoryHashtagPostsIds);
 
             return res.json(areaCategoryHashtagPosts);
           }
@@ -105,13 +104,16 @@ const getAllExplore = async (req, res) => {
         return res.json(areaPosts);
       }
     } else {
-      const posts = await post.findAll({
+      const postsArray = await post.findAll({
         where: {
           explorePost: {
             [Op.ne]: null,
           },
         },
+        raw: true,
       });
+      const posts = {};
+      postsArray.forEach((post) => (posts[post.id] = post));
       return res.json(posts);
     }
   } catch (err) {
@@ -156,22 +158,63 @@ const getAssocThread = async (req, res) => {
 
   try {
     const assocThread = await threadPost.findAll({
-      include: thread,
+      // include: thread,
       where: {
         postId: postId,
       },
     });
 
-    const threadList = [];
+    const threads = [];
 
-    assocThread.forEach((threadTitle) =>
-      threadList.push({
-        threadId: threadTitle.thread.id,
-        threadTitle: threadTitle.thread.topic,
-      })
+    for (const postId of assocThread) {
+      const assocThread = await postId.getThread();
+      threads.push(assocThread);
+    }
+
+    return res.json(threads);
+  } catch (err) {
+    return res.status(400).json({ error: true, msg: err });
+  }
+};
+
+const addLikes = async (req, res) => {
+  // #swagger.tags = ['Post']
+  /* #swagger.parameters['postId'] = {
+	      in: 'path',
+        type: 'integer'
+        } */
+  /* #swagger.parameters['userId'] = {
+	      in: 'path',
+        type: 'integer'
+        } */
+  const { userId, postId } = req.params;
+  try {
+    const [addLikes, created] = await like.findOrCreate({
+      where: { userId: userId, postId: postId },
+    });
+
+    if (!created) {
+      await addLikes.destroy();
+    }
+
+    const likes = await like.findAndCountAll({
+      where: {
+        postId: postId,
+      },
+    });
+
+    const updateLikeCount = await post.update(
+      { likeCount: likes.count, updatedAt: new Date() },
+      {
+        where: {
+          id: postId,
+        },
+      }
     );
 
-    return res.json(assocThread);
+    const updatedPostLikeCount = await post.findByPk(postId);
+
+    return res.json(updatedPostLikeCount);
   } catch (err) {
     return res.status(400).json({ error: true, msg: err });
   }
@@ -182,4 +225,5 @@ module.exports = {
   getAllThread,
   getAllForum,
   getAssocThread,
+  addLikes,
 };

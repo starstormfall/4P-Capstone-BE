@@ -9,8 +9,11 @@ router.get(`/forum`, controllers.getAllForum);
 
 router.get(`/thread`, controllers.getAllThread);
 
-// //get entries associatied to individual explore entry
-router.get(`/:postId`, controllers.getAssocThread);
+// get entries associatied to individual explore entry
+router.get(`/:postId/threads`, controllers.getAssocThread);
+
+// to add likes to post and retrieve updated like count
+router.put(`/:postId/:userId/like`, controllers.addLikes);
 
 // //create entry (Comment && New Explore entry && New Forum)
 // //include Forumname to update in controller

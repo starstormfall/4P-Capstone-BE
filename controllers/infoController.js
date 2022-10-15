@@ -48,7 +48,6 @@ const getAssocHashtags = async (req, res) => {
       },
     });
 
-    console.log(assocHashtags);
     return res.json(assocHashtags);
   } catch (err) {
     return res.status(400).json({ error: true, msg: err });
@@ -87,7 +86,6 @@ const getPhotos = async (req, res) => {
   const { number } = req.query;
 
   try {
-    console.log(post);
     const data = await post.findAll({
       attributes: ["photo_link"],
       raw: true,
@@ -100,8 +98,6 @@ const getPhotos = async (req, res) => {
         },
       },
     });
-
-    console.log(data);
 
     const shuffled = data.sort(() => 0.5 - Math.random());
     const selected = shuffled.slice(0, number);

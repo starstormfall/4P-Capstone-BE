@@ -467,43 +467,7 @@
         }
       }
     },
-    "/users/{postId}/like": {
-      "post": {
-        "tags": [
-          "User"
-        ],
-        "description": "",
-        "parameters": [
-          {
-            "name": "postId",
-            "in": "path",
-            "required": true,
-            "type": "string"
-          },
-          {
-            "name": "body",
-            "in": "body",
-            "schema": {
-              "type": "object",
-              "properties": {
-                "userId": {
-                  "example": "any"
-                }
-              }
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "OK"
-          },
-          "400": {
-            "description": "Bad Request"
-          }
-        }
-      }
-    },
-    "/users/{userId}/favourites": {
+    "/users/{userId}/post/{postId}/favourites": {
       "post": {
         "tags": [
           "User"
@@ -517,16 +481,10 @@
             "type": "string"
           },
           {
-            "name": "body",
-            "in": "body",
-            "schema": {
-              "type": "object",
-              "properties": {
-                "postId": {
-                  "example": "any"
-                }
-              }
-            }
+            "name": "postId",
+            "in": "path",
+            "required": true,
+            "type": "string"
           }
         ],
         "responses": {
@@ -614,7 +572,7 @@
         }
       }
     },
-    "/posts/{postId}": {
+    "/posts/{postId}/threads": {
       "get": {
         "tags": [
           "Post"
@@ -623,6 +581,36 @@
         "parameters": [
           {
             "name": "postId",
+            "in": "path",
+            "required": true,
+            "type": "integer"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "400": {
+            "description": "Bad Request"
+          }
+        }
+      }
+    },
+    "/posts/{postId}/{userId}/like": {
+      "put": {
+        "tags": [
+          "Post"
+        ],
+        "description": "",
+        "parameters": [
+          {
+            "name": "postId",
+            "in": "path",
+            "required": true,
+            "type": "integer"
+          },
+          {
+            "name": "userId",
             "in": "path",
             "required": true,
             "type": "integer"
