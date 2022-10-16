@@ -74,13 +74,22 @@ const getAllPins = async (req, res) => {
             recordedAt = crowds[0].recordedAt;
           }
 
-          const allPosts = posts.map((post, i) => {
+          const allCats = posts.map((post, i) => {
             const { postCategories } = post;
             const allCategories = postCategories.map((category) => {
               const { categoryId } = category;
               return categoryId;
             });
             return allCategories.flat();
+          });
+
+          const allHashs = posts.map((post, i) => {
+            const { postHashtags } = post;
+            const allHashtags = postHashtags.map((hashtag) => {
+              const { hashtagId } = hashtag;
+              return hashtagId;
+            });
+            return allHashtags.flat();
           });
 
           return {
@@ -91,7 +100,8 @@ const getAllPins = async (req, res) => {
             id: pin.id,
             name: pin.placeName,
             areaId: pin.areaId,
-            categoryId: [...new Set(allPosts.flat())],
+            categoryId: [...new Set(allCats.flat())],
+            hashtagId: [...new Set(allHashs.flat())],
             latestCrowdIntensity: crowdIntensity,
             latestCrowdSize: crowdSize,
             latestCrowdTime: recordedAt,
