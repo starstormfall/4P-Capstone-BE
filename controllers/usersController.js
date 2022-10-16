@@ -87,14 +87,42 @@ const getAllFavourite = async (req, res) => {
     const allFavourites = await favourite.findAll({
       where: { userId: userId },
     });
-    return res.json(allFavourites);
+
+    const favouritePostIds = [];
+
+    allFavourites.forEach((favourite) =>
+      favouritePostIds.push(favourite.postId)
+    );
+
+    return res.json(favouritePostIds);
+  } catch (err) {
+    return res.status(400).json({ error: true, msg: err });
+  }
+};
+
+// get all user's likes
+const getAllLike = async (req, res) => {
+  // #swagger.tags = ['User']
+  const { userId } = req.params;
+  console.log(favourite);
+
+  try {
+    const allLikes = await like.findAll({
+      where: { userId: userId },
+    });
+
+    const likePostIds = [];
+
+    allLikes.forEach((like) => likePostIds.push(like.postId));
+
+    return res.json(likePostIds);
   } catch (err) {
     return res.status(400).json({ error: true, msg: err });
   }
 };
 
 // get all post's likes
-const getAllLikes = async (req, res) => {
+const getAllPostLikes = async (req, res) => {
   // #swagger.tags = ['User']
   const { postId } = req.params;
   try {
@@ -256,7 +284,8 @@ module.exports = {
   insertOne,
   updateOneUser,
   getAllFavourite,
-  getAllLikes,
+  getAllLike,
+  getAllPostLikes,
   // addLikes,
   addFavourites,
 };

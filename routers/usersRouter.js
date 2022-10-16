@@ -17,9 +17,10 @@ router.put(`/update/:userId`, controllers.updateOneUser);
 // store in user pref router...
 // get all favourites belonging to user
 router.get(`/:userId/favourite`, controllers.getAllFavourite);
+router.get(`/:userId/like`, controllers.getAllLike);
 
 // get all likes belonging to post
-router.get(`/:postId/allLikes`, controllers.getAllLikes);
+router.get(`/:postId/allLikes`, controllers.getAllPostLikes);
 
 // from hb : moved to postsController
 // update likes for user

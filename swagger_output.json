@@ -443,6 +443,30 @@
         }
       }
     },
+    "/users/{userId}/like": {
+      "get": {
+        "tags": [
+          "User"
+        ],
+        "description": "",
+        "parameters": [
+          {
+            "name": "userId",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "400": {
+            "description": "Bad Request"
+          }
+        }
+      }
+    },
     "/users/{postId}/allLikes": {
       "get": {
         "tags": [
@@ -523,6 +547,11 @@
             "type": "array"
           },
           {
+            "name": "userId",
+            "in": "query",
+            "type": "string"
+          },
+          {
             "name": "source",
             "in": "query",
             "type": "string"
@@ -561,7 +590,13 @@
           "Post"
         ],
         "description": "",
-        "parameters": [],
+        "parameters": [
+          {
+            "name": "postId",
+            "in": "query",
+            "type": "integer"
+          }
+        ],
         "responses": {
           "200": {
             "description": "OK"
@@ -572,7 +607,7 @@
         }
       }
     },
-    "/posts/{postId}/threads": {
+    "/posts/{postId}/category-hashtag": {
       "get": {
         "tags": [
           "Post"

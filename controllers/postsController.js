@@ -4,6 +4,8 @@ const {
   threadPost,
   postCategory,
   postHashtag,
+  hashtag,
+  category,
   user,
   like,
 } = require("../db/models");
@@ -34,7 +36,7 @@ const getAllExplore = async (req, res) => {
 //         type: 'array'
 //         } */
 
-  const { areaId, categoryIds, hashtagIds, source } = req.query;
+  const { userId, areaId, categoryIds, hashtagIds, source } = req.query;
 
   try {
     if (Object.keys(req.query).length > 0) {
@@ -121,12 +123,73 @@ const getAllExplore = async (req, res) => {
   }
 };
 
-const getAllThread = async (req, res) => {
+const getAllThreadInfo = async (req, res) => {
   // #swagger.tags = ['Post']
-  try {
-    const allThread = await thread.findAll();
+  /* #swagger.parameters['postId'] = {
+    in: 'query',
+    type: 'integer'
+    } */
 
-    return res.json(allThread);
+  const { postId } = req.query;
+
+  try {
+    let allThread = [];
+
+    if (Object.keys(req.query).length > 0) {
+      console.log("did this run?");
+      const assocThreadPost = await threadPost.findAll({
+        where: {
+          postId: postId,
+        },
+      });
+
+      for (const row of assocThreadPost) {
+        const assocThread = await row.getThread();
+        allThread.push(assocThread);
+      }
+    } else {
+      allThread = await thread.findAll();
+    }
+
+    const allThreadInfo = [];
+
+    for (const row of allThread) {
+      // console.log(row.topic);
+      const postsCount = await threadPost.findAndCountAll({
+        where: { threadId: row.id },
+        attributes: ["postId"],
+        raw: true,
+        include: { model: post, attributes: ["userId"] },
+      });
+
+      const lastPost = await threadPost.findAll({
+        limit: 1,
+        where: { threadId: row.id },
+        order: [["createdAt"]],
+        raw: true,
+        include: { model: post, attributes: ["content", "createdAt"] },
+      });
+
+      const users = [];
+      postsCount.rows.forEach((post) =>
+        !users.includes(post["post.userId"])
+          ? users.push(post["post.userId"])
+          : null
+      );
+
+      const threadInfo = {
+        id: row.id,
+        topic: row.topic,
+        postsCount: postsCount.count,
+        usersCount: users.length,
+        lastPost: lastPost[0]["post.content"],
+        lastPostCreatedAt: lastPost[0]["post.createdAt"],
+      };
+
+      allThreadInfo.push(threadInfo);
+    }
+
+    return res.json(allThreadInfo);
   } catch (err) {
     return res.status(400).json({ error: true, msg: err });
   }
@@ -142,36 +205,6 @@ const getAllForum = async (req, res) => {
       },
     });
     return res.json(forum);
-  } catch (err) {
-    return res.status(400).json({ error: true, msg: err });
-  }
-};
-
-const getAssocThread = async (req, res) => {
-  // #swagger.tags = ['Post']
-  /* #swagger.parameters['postId'] = {
-	      in: 'path',
-        type: 'integer'
-        } */
-
-  const { postId } = req.params;
-
-  try {
-    const assocThread = await threadPost.findAll({
-      // include: thread,
-      where: {
-        postId: postId,
-      },
-    });
-
-    const threads = [];
-
-    for (const postId of assocThread) {
-      const assocThread = await postId.getThread();
-      threads.push(assocThread);
-    }
-
-    return res.json(threads);
   } catch (err) {
     return res.status(400).json({ error: true, msg: err });
   }
@@ -220,10 +253,54 @@ const addLikes = async (req, res) => {
   }
 };
 
+const getCategoryHashtag = async (req, res) => {
+  // #swagger.tags = ['Post']
+  /* #swagger.parameters['postId'] = {
+    in: 'path',
+    type: 'integer'
+    } */
+
+  const { postId } = req.params;
+
+  try {
+    const categoriesPosts = await postCategory.findAll({
+      where: { postId: postId },
+    });
+
+    const hashtagsPosts = await postHashtag.findAll({
+      where: { postId: postId },
+    });
+
+    const categories = [];
+
+    for (const entry of categoriesPosts) {
+      const categoryNames = await entry.getCategory({
+        attributes: ["name"],
+        raw: true,
+      });
+      categories.push(categoryNames.name);
+    }
+
+    const hashtags = [];
+
+    for (const entry of hashtagsPosts) {
+      const hashtagNames = await entry.getHashtag({
+        attributes: ["name"],
+        raw: true,
+      });
+      hashtags.push(hashtagNames.name);
+    }
+
+    res.json({ categories: categories, hashtags: hashtags });
+  } catch (err) {
+    return res.status(400).json({ error: true, msg: err });
+  }
+};
+
 module.exports = {
   getAllExplore,
-  getAllThread,
+  getAllThreadInfo,
   getAllForum,
-  getAssocThread,
   addLikes,
+  getCategoryHashtag,
 };
