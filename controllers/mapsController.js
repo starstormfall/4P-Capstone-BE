@@ -11,11 +11,104 @@ const {
 
 const getAllPins = async (req, res) => {
   // #swagger.tags = ['Map']
-  const { areaId, categoryId, hashtagId } = req.query;
+  const { areaId, categoryId, hashtagId, type } = req.query;
 
   try {
     if (Object.keys(req.query).length > 0) {
-      if (areaId) {
+      if (type == "markers") {
+        const response = await pin.findAll({
+          include: [
+            { model: area, attributes: ["prefecture"] },
+            {
+              model: crowd,
+              attributes: ["recordedAt", "crowdSize", "crowdIntensity"],
+            },
+            {
+              model: post,
+              include: [
+                {
+                  model: postCategory,
+                  attributes: ["categoryId"],
+                },
+                {
+                  model: postHashtag,
+                  attributes: ["hashtagId"],
+                },
+              ],
+            },
+          ],
+          order: [
+            ["id", "ASC"],
+            [crowd, "recordedAt", "DESC"],
+            [post, "likeCount", "DESC"],
+          ],
+        });
+
+        // const response = await pin.findAll({
+        //   order: [["id", "ASC"]],
+        //   attributes: ["id", "lat", "lng", "placeName", "areaId"],
+        // });
+
+        // const allMarkers = response.map((pin) => {
+        //   return {
+        //     position: {
+        //       lat: pin.lat,
+        //       lng: pin.lng,
+        //     },
+        //     id: pin.id,
+        //     name: pin.placeName,
+        //     areaId: pin.areaId,
+        //   };
+        // });
+        // return res.json(allMarkers);
+        // console.log(response[0].dataValues.crowds);
+        const allMarkers = response.map((pin) => {
+          const { posts, crowds } = pin;
+          let crowdIntensity = "";
+          let crowdSize = "";
+          let recordedAt = "";
+
+          if (crowds[0]) {
+            crowdIntensity = crowds[0].crowdIntensity;
+            crowdSize = crowds[0].crowdSize;
+            recordedAt = crowds[0].recordedAt;
+          }
+
+          const allCats = posts.map((post, i) => {
+            const { postCategories } = post;
+            const allCategories = postCategories.map((category) => {
+              const { categoryId } = category;
+              return categoryId;
+            });
+            return allCategories.flat();
+          });
+
+          const allHashs = posts.map((post, i) => {
+            const { postHashtags } = post;
+            const allHashtags = postHashtags.map((hashtag) => {
+              const { hashtagId } = hashtag;
+              return hashtagId;
+            });
+            return allHashtags.flat();
+          });
+
+          return {
+            position: {
+              lat: pin.lat,
+              lng: pin.lng,
+            },
+            id: pin.id,
+            name: pin.placeName,
+            areaId: pin.areaId,
+            categoryId: [...new Set(allCats.flat())],
+            hashtagId: [...new Set(allHashs.flat())],
+            latestCrowdIntensity: crowdIntensity,
+            latestCrowdSize: crowdSize,
+            latestCrowdTime: recordedAt,
+          };
+        });
+        return res.json(allMarkers);
+      } else if (areaId) {
         const allPins = await pin.findAll({
           where: {
             areaId: areaId,
@@ -115,12 +208,17 @@ const getAllPins = async (req, res) => {
                 model: postCategory,
                 attributes: ["categoryId"],
               },
+              {
+                model: postHashtag,
+                attributes: ["hashtagId"],
+              },
             ],
           },
         ],
         order: [
           ["id", "ASC"],
           [crowd, "recordedAt", "DESC"],
+          [post, "likeCount", "DESC"],
         ],
 
         // include: [area, crowd, post],
