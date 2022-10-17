@@ -510,6 +510,30 @@
         }
       }
     },
+    "/users/{userId}/like": {
+      "get": {
+        "tags": [
+          "User"
+        ],
+        "description": "",
+        "parameters": [
+          {
+            "name": "userId",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "400": {
+            "description": "Bad Request"
+          }
+        }
+      }
+    },
     "/users/{postId}/allLikes": {
       "get": {
         "tags": [
@@ -534,43 +558,7 @@
         }
       }
     },
-    "/users/{postId}/like": {
-      "post": {
-        "tags": [
-          "User"
-        ],
-        "description": "",
-        "parameters": [
-          {
-            "name": "postId",
-            "in": "path",
-            "required": true,
-            "type": "string"
-          },
-          {
-            "name": "body",
-            "in": "body",
-            "schema": {
-              "type": "object",
-              "properties": {
-                "userId": {
-                  "example": "any"
-                }
-              }
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "OK"
-          },
-          "400": {
-            "description": "Bad Request"
-          }
-        }
-      }
-    },
-    "/users/{userId}/favourites": {
+    "/users/{userId}/post/{postId}/favourites": {
       "post": {
         "tags": [
           "User"
@@ -584,16 +572,10 @@
             "type": "string"
           },
           {
-            "name": "body",
-            "in": "body",
-            "schema": {
-              "type": "object",
-              "properties": {
-                "postId": {
-                  "example": "any"
-                }
-              }
-            }
+            "name": "postId",
+            "in": "path",
+            "required": true,
+            "type": "string"
           }
         ],
         "responses": {
@@ -630,6 +612,11 @@
             "in": "query",
             "description": "1: cafe, 2: desserts, 3: food, 4: drinks, 5: sights, 6: manmade, 7: sightseeing, 8: stay, 9: beauty, 10: ootd",
             "type": "array"
+          },
+          {
+            "name": "userId",
+            "in": "query",
+            "type": "string"
           },
           {
             "name": "source",
@@ -670,7 +657,13 @@
           "Post"
         ],
         "description": "",
-        "parameters": [],
+        "parameters": [
+          {
+            "name": "postId",
+            "in": "query",
+            "type": "integer"
+          }
+        ],
         "responses": {
           "200": {
             "description": "OK"
@@ -681,7 +674,7 @@
         }
       }
     },
-    "/posts/{postId}": {
+    "/posts/{postId}/category-hashtag": {
       "get": {
         "tags": [
           "Post"
@@ -690,6 +683,36 @@
         "parameters": [
           {
             "name": "postId",
+            "in": "path",
+            "required": true,
+            "type": "integer"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "400": {
+            "description": "Bad Request"
+          }
+        }
+      }
+    },
+    "/posts/{postId}/{userId}/like": {
+      "put": {
+        "tags": [
+          "Post"
+        ],
+        "description": "",
+        "parameters": [
+          {
+            "name": "postId",
+            "in": "path",
+            "required": true,
+            "type": "integer"
+          },
+          {
+            "name": "userId",
             "in": "path",
             "required": true,
             "type": "integer"
