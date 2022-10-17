@@ -4,6 +4,10 @@ const {
   threadPost,
   postCategory,
   postHashtag,
+  hashtag,
+  category,
+  user,
+  like,
 } = require("../db/models");
 const { Op } = require("sequelize");
 
@@ -32,12 +36,12 @@ const getAllExplore = async (req, res) => {
 //         type: 'array'
 //         } */
 
-  const { areaId, categoryIds, hashtagIds, source } = req.query;
+  const { userId, areaId, categoryIds, hashtagIds, source } = req.query;
 
   try {
     if (Object.keys(req.query).length > 0) {
       if (areaId) {
-        const areaPosts = await post.findAll({
+        const areaPostsArray = await post.findAll({
           where: {
             explorePost: {
               [Op.ne]: null,
@@ -49,7 +53,11 @@ const getAllExplore = async (req, res) => {
 
         // list of postIds within an area
         const areaPostsIds = [];
-        areaPosts.forEach((post) => areaPostsIds.push(post.id));
+        const areaPosts = {};
+        areaPostsArray.forEach((post) => {
+          areaPostsIds.push(post.id);
+          areaPosts[post.id] = post;
+        });
 
         if (categoryIds) {
           const categoryPosts = await postCategory.findAll({
@@ -60,21 +68,17 @@ const getAllExplore = async (req, res) => {
             include: post,
           });
 
-          const areaCategoryPosts = [];
+          const areaCategoryPosts = {};
           const areaCategoryPostsIds = [];
 
           categoryPosts.forEach((post) => {
-            !areaCategoryPosts.includes(post)
-              ? areaCategoryPosts.push(post.post)
-              : null;
+            areaCategoryPosts[post.post.id] = post.post;
             !areaCategoryPostsIds.includes(post.post.id)
               ? areaCategoryPostsIds.push(post.post.id)
               : null;
           });
 
           if (hashtagIds) {
-            console.log("did this run??", areaCategoryPostsIds);
-
             const hashtagPosts = await postHashtag.findAll({
               where: {
                 postId: areaCategoryPostsIds,
@@ -83,18 +87,15 @@ const getAllExplore = async (req, res) => {
               include: post,
             });
 
-            const areaCategoryHashtagPosts = [];
+            const areaCategoryHashtagPosts = {};
             const areaCategoryHashtagPostsIds = [];
 
             hashtagPosts.forEach((post) => {
-              !areaCategoryHashtagPosts.includes(post)
-                ? areaCategoryHashtagPosts.push(post.post)
-                : null;
+              areaCategoryHashtagPosts[post.post.id] = post.post;
               !areaCategoryHashtagPostsIds.includes(post.post.id)
                 ? areaCategoryHashtagPostsIds.push(post.post.id)
                 : null;
             });
-            console.log(areaCategoryHashtagPostsIds);
 
             return res.json(areaCategoryHashtagPosts);
           }
@@ -105,13 +106,16 @@ const getAllExplore = async (req, res) => {
         return res.json(areaPosts);
       }
     } else {
-      const posts = await post.findAll({
+      const postsArray = await post.findAll({
         where: {
           explorePost: {
             [Op.ne]: null,
           },
         },
+        raw: true,
       });
+      const posts = {};
+      postsArray.forEach((post) => (posts[post.id] = post));
       return res.json(posts);
     }
   } catch (err) {
@@ -119,12 +123,73 @@ const getAllExplore = async (req, res) => {
   }
 };
 
-const getAllThread = async (req, res) => {
+const getAllThreadInfo = async (req, res) => {
   // #swagger.tags = ['Post']
-  try {
-    const allThread = await thread.findAll();
+  /* #swagger.parameters['postId'] = {
+    in: 'query',
+    type: 'integer'
+    } */
 
-    return res.json(allThread);
+  const { postId } = req.query;
+
+  try {
+    let allThread = [];
+
+    if (Object.keys(req.query).length > 0) {
+      console.log("did this run?");
+      const assocThreadPost = await threadPost.findAll({
+        where: {
+          postId: postId,
+        },
+      });
+
+      for (const row of assocThreadPost) {
+        const assocThread = await row.getThread();
+        allThread.push(assocThread);
+      }
+    } else {
+      allThread = await thread.findAll();
+    }
+
+    const allThreadInfo = [];
+
+    for (const row of allThread) {
+      // console.log(row.topic);
+      const postsCount = await threadPost.findAndCountAll({
+        where: { threadId: row.id },
+        attributes: ["postId"],
+        raw: true,
+        include: { model: post, attributes: ["userId"] },
+      });
+
+      const lastPost = await threadPost.findAll({
+        limit: 1,
+        where: { threadId: row.id },
+        order: [["createdAt"]],
+        raw: true,
+        include: { model: post, attributes: ["content", "createdAt"] },
+      });
+
+      const users = [];
+      postsCount.rows.forEach((post) =>
+        !users.includes(post["post.userId"])
+          ? users.push(post["post.userId"])
+          : null
+      );
+
+      const threadInfo = {
+        id: row.id,
+        topic: row.topic,
+        postsCount: postsCount.count,
+        usersCount: users.length,
+        lastPost: lastPost[0]["post.content"],
+        lastPostCreatedAt: lastPost[0]["post.createdAt"],
+      };
+
+      allThreadInfo.push(threadInfo);
+    }
+
+    return res.json(allThreadInfo);
   } catch (err) {
     return res.status(400).json({ error: true, msg: err });
   }
@@ -145,33 +210,88 @@ const getAllForum = async (req, res) => {
   }
 };
 
-const getAssocThread = async (req, res) => {
+const addLikes = async (req, res) => {
   // #swagger.tags = ['Post']
   /* #swagger.parameters['postId'] = {
 	      in: 'path',
         type: 'integer'
         } */
-
-  const { postId } = req.params;
-
+  /* #swagger.parameters['userId'] = {
+	      in: 'path',
+        type: 'integer'
+        } */
+  const { userId, postId } = req.params;
   try {
-    const assocThread = await threadPost.findAll({
-      include: thread,
+    const [addLikes, created] = await like.findOrCreate({
+      where: { userId: userId, postId: postId },
+    });
+
+    if (!created) {
+      await addLikes.destroy();
+    }
+
+    const likes = await like.findAndCountAll({
       where: {
         postId: postId,
       },
     });
 
-    const threadList = [];
-
-    assocThread.forEach((threadTitle) =>
-      threadList.push({
-        threadId: threadTitle.thread.id,
-        threadTitle: threadTitle.thread.topic,
-      })
+    const updateLikeCount = await post.update(
+      { likeCount: likes.count, updatedAt: new Date() },
+      {
+        where: {
+          id: postId,
+        },
+      }
     );
 
-    return res.json(assocThread);
+    const updatedPostLikeCount = await post.findByPk(postId);
+
+    return res.json(updatedPostLikeCount);
+  } catch (err) {
+    return res.status(400).json({ error: true, msg: err });
+  }
+};
+
+const getCategoryHashtag = async (req, res) => {
+  // #swagger.tags = ['Post']
+  /* #swagger.parameters['postId'] = {
+    in: 'path',
+    type: 'integer'
+    } */
+
+  const { postId } = req.params;
+
+  try {
+    const categoriesPosts = await postCategory.findAll({
+      where: { postId: postId },
+    });
+
+    const hashtagsPosts = await postHashtag.findAll({
+      where: { postId: postId },
+    });
+
+    const categories = [];
+
+    for (const entry of categoriesPosts) {
+      const categoryNames = await entry.getCategory({
+        attributes: ["name"],
+        raw: true,
+      });
+      categories.push(categoryNames.name);
+    }
+
+    const hashtags = [];
+
+    for (const entry of hashtagsPosts) {
+      const hashtagNames = await entry.getHashtag({
+        attributes: ["name"],
+        raw: true,
+      });
+      hashtags.push(hashtagNames.name);
+    }
+
+    res.json({ categories: categories, hashtags: hashtags });
   } catch (err) {
     return res.status(400).json({ error: true, msg: err });
   }
@@ -179,7 +299,8 @@ const getAssocThread = async (req, res) => {
 
 module.exports = {
   getAllExplore,
-  getAllThread,
+  getAllThreadInfo,
   getAllForum,
-  getAssocThread,
+  addLikes,
+  getCategoryHashtag,
 };
