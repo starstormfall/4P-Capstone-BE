@@ -2,21 +2,19 @@ const { Router } = require("express");
 const controllers = require("../controllers/mapsController");
 const router = Router();
 
-// // get all areas (pass areaModel to mapsController)
-// //same as info controller getAllAreas?
-// router.get(`/allAreas`, controllers.getAll);
-
 // get one area? maybe dont need it, can use eager loading under POST controller
 // router.get(`/onearea`, controllers.getOneArea);
 
-// controller to include crowd model.
 // all pins and heatmap for each AREA!!  OK
 // nearby heatmap for sugguested nearby pinS   OK
-//get all locations(pins) (pin by categories choosen by user and sugguest to user the nearby place with similar catergories)
-router.get(`/allPins/:areaId`, controllers.getAllPins);
+//get all locations(pins) (pin by categories choosen by user and suggest to user the nearby place with similar categories)
+//Gets all pins, if there is no area selected, if there is area selected, if there is category selected, if there is hashtag selected.
+//Includes crowd and category id and hashtag id.
+router.get(`/allPins`, controllers.getAllPins);
 
-// // get one location? for post (include categories as well???)
-// router.get(`/onePin`, controllers.getOneLocation);
+//Gets one pin, when selected from explore post, or when user clicks on one spot on map.
+//Includes crowd, related posts to the same pin, category id and hashtag id.
+router.get(`/onePin/:pinId`, controllers.getOnePin);
 
 // // should be more complex... in controllers.
 
@@ -26,7 +24,8 @@ router.get(`/allPins/:areaId`, controllers.getAllPins);
 // // get one map crowd for explore post
 // router.get(`/:pinId/oneCrowd`, controllers.getOneCrowd);
 
-// // create map crowd/ map data (input by user)
-// router.post(`/:pinId/createCrowdData`, controllers.createCrowdData);
+// create map crowd/ map data (input by user).
+//Response gives latest 5 check ins for the particular pin/location. Includes crowdSize, recordedAt, crowdIntensity
+router.post(`/:pinId/createCrowdData`, controllers.createCrowdData);
 
 module.exports = router;

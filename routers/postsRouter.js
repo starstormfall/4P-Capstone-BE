@@ -12,12 +12,21 @@ router.get(`/thread`, controllers.getAllThreadInfo);
 
 router.get(`/:postId/category-hashtag`, controllers.getAreaCategoryHashtag);
 
+router.get(`/thread/:threadId`, controllers.getOneThread);
+
+
 // to add likes to post and retrieve updated like count
 router.put(`/:postId/:userId/like`, controllers.addLikes);
 
 // //create entry (Comment && New Explore entry && New Forum)
 // //include Forumname to update in controller
 // router.post(`/createEntry`, controllers.newEntry);
+
+// create new comment/post in thread (with ThreadId)
+router.post(`/create-comment/:threadId`, controllers.createThreadPost);
+
+//create new thread (at forum page?)
+router.post(`/create-thread`, controllers.createPost);
 
 //comment. update Posts && Forumname_Post table (if explore column == null. is comment)
 
