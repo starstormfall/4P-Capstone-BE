@@ -253,7 +253,7 @@ const addLikes = async (req, res) => {
   }
 };
 
-const getCategoryHashtag = async (req, res) => {
+const getAreaCategoryHashtag = async (req, res) => {
   // #swagger.tags = ['Post']
   /* #swagger.parameters['postId'] = {
     in: 'path',
@@ -268,6 +268,10 @@ const getCategoryHashtag = async (req, res) => {
     });
 
     const hashtagsPosts = await postHashtag.findAll({
+      where: { postId: postId },
+    });
+
+    const areasPosts = await postArea.findAll({
       where: { postId: postId },
     });
 
@@ -302,5 +306,5 @@ module.exports = {
   getAllThreadInfo,
   getAllForum,
   addLikes,
-  getCategoryHashtag,
+  getAreaCategoryHashtag,
 };
