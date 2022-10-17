@@ -679,6 +679,30 @@
         }
       }
     },
+    "/posts/thread/{threadId}": {
+      "get": {
+        "tags": [
+          "Post"
+        ],
+        "description": "",
+        "parameters": [
+          {
+            "name": "threadId",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "400": {
+            "description": "Bad Request"
+          }
+        }
+      }
+    },
     "/posts/{postId}/category-hashtag": {
       "get": {
         "tags": [
@@ -726,6 +750,123 @@
         "responses": {
           "200": {
             "description": "OK"
+          },
+          "400": {
+            "description": "Bad Request"
+          }
+        }
+      }
+    },
+    "/posts/create-comment/{threadId}": {
+      "post": {
+        "tags": [
+          "Post"
+        ],
+        "description": "",
+        "parameters": [
+          {
+            "name": "threadId",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "content": {
+                  "example": "any"
+                },
+                "areaId": {
+                  "example": "any"
+                },
+                "forumPost": {
+                  "example": "any"
+                },
+                "explorePost": {
+                  "example": "any"
+                },
+                "userId": {
+                  "example": "any"
+                },
+                "externalLink": {
+                  "example": "any"
+                },
+                "title": {
+                  "example": "any"
+                },
+                "photoLink": {
+                  "example": "any"
+                },
+                "locationName": {
+                  "example": "any"
+                }
+              }
+            }
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "Created"
+          },
+          "400": {
+            "description": "Bad Request"
+          }
+        }
+      }
+    },
+    "/posts/create-thread": {
+      "post": {
+        "tags": [
+          "Post"
+        ],
+        "description": "",
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "userId": {
+                  "example": "any"
+                },
+                "content": {
+                  "example": "any"
+                },
+                "areaId": {
+                  "example": "any"
+                },
+                "forumPost": {
+                  "example": "any"
+                },
+                "explorePost": {
+                  "example": "any"
+                },
+                "externalLink": {
+                  "example": "any"
+                },
+                "title": {
+                  "example": "any"
+                },
+                "photoLink": {
+                  "example": "any"
+                },
+                "locationName": {
+                  "example": "any"
+                },
+                "topic": {
+                  "example": "any"
+                }
+              }
+            }
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "Created"
           },
           "400": {
             "description": "Bad Request"

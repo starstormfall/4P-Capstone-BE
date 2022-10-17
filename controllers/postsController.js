@@ -1,4 +1,5 @@
 const {
+  user,
   post,
   thread,
   threadPost,
@@ -6,7 +7,6 @@ const {
   postHashtag,
   hashtag,
   category,
-  user,
   like,
 } = require("../db/models");
 const { Op } = require("sequelize");
@@ -195,6 +195,23 @@ const getAllThreadInfo = async (req, res) => {
   }
 };
 
+const getOneThread = async (req, res) => {
+  // #swagger.tags = ['Post']
+  const { threadId } = req.params;
+  try {
+    const oneThread = await threadPost.findAll({
+      where: { threadId: threadId },
+      include: [
+        { model: post, include: [{ model: user, attributes: ["name", "id"] }] },
+        { model: thread },
+      ],
+    });
+    return res.json(oneThread);
+  } catch (err) {
+    return res.status(400).json({ error: true, msg: err });
+  }
+};
+
 const getAllForum = async (req, res) => {
   // #swagger.tags = ['Post']
   try {
@@ -297,10 +314,121 @@ const getCategoryHashtag = async (req, res) => {
   }
 };
 
+// IF THREAD EXIST (create comment)
+const createThreadPost = async (req, res) => {
+  // #swagger.tags = ['Post']
+  console.log("add comments");
+  //validate requirements for explore post
+
+  // update in post table ()
+  const {
+    // update explore/forum/comment
+    content,
+    areaId,
+    forumPost,
+    explorePost,
+    userId,
+    externalLink,
+    title,
+    photoLink,
+    locationName,
+  } = req.body;
+  // update in threadPost table
+  const { threadId } = req.params;
+  try {
+    const addNewComment = await post.create({
+      content: content,
+      userId: userId,
+      // explore_post: forum && forum_post: true (conditionally set on frontend)
+      forumPost: forumPost,
+      explorePost: explorePost,
+      // infornation required for post to be on explore page!
+      title: title,
+      photoLink: photoLink,
+      // updated with general pref
+      areaId: areaId,
+      locationName: locationName,
+      externalLink: externalLink,
+    });
+
+    const linkNewComment = await threadPost.create({
+      postId: addNewComment.id,
+      threadId: threadId,
+    });
+
+    return res.status(201).json({
+      addNewComment,
+      linkNewComment,
+    });
+    //return to front end
+  } catch (err) {
+    console.log(err, "error");
+    return res.status(400).json({ error: true, msg: err });
+  }
+};
+
+// create thread and determine if explore or not explore
+const createPost = async (req, res) => {
+  // #swagger.tags = ['Post']
+  console.log("add comments");
+  //validate requirements for explore post
+  const {
+    userId,
+    content,
+    areaId,
+    forumPost,
+    explorePost,
+    externalLink,
+    title,
+    photoLink,
+    locationName,
+    // update thread table
+    topic,
+  } = req.body;
+  // update in threadPost table
+  try {
+    const createNewThread = await post.create({
+      content: content,
+      userId: userId,
+      // explore_post: forum && forum_post: true (conditionally set on frontend)
+      forumPost: forumPost,
+      explorePost: explorePost,
+      // infornation required for post to be on explore page!
+      title: title,
+      photoLink: photoLink,
+      // updated with general pref
+      areaId: areaId,
+      locationName: locationName,
+      externalLink: externalLink,
+    });
+
+    const newTopic = await thread.create({
+      topic: topic,
+    });
+
+    const updateTheadPost = await threadPost.create({
+      postId: createNewThread.id,
+      threadId: newTopic.id,
+    });
+
+    return res.status(201).json({
+      createNewThread,
+      updateTheadPost,
+    });
+    //return to front end
+  } catch (err) {
+    console.log(err, "error");
+    return res.status(400).json({ error: true, msg: err });
+  }
+};
+
 module.exports = {
   getAllExplore,
   getAllThreadInfo,
   getAllForum,
+  getOneThread,
+  createThreadPost,
+  createPost,
   addLikes,
   getCategoryHashtag,
 };
