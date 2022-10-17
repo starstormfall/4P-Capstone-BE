@@ -24,11 +24,15 @@
       "name": "Map"
     }
   ],
-  "schemes": ["http"],
+  "schemes": [
+    "http"
+  ],
   "paths": {
     "/chats/{userId}/allchat": {
       "get": {
-        "tags": ["Chat"],
+        "tags": [
+          "Chat"
+        ],
         "description": "",
         "parameters": [
           {
@@ -50,7 +54,9 @@
     },
     "/chats/{userId}/{chatroomId}": {
       "get": {
-        "tags": ["Chat"],
+        "tags": [
+          "Chat"
+        ],
         "description": "",
         "parameters": [
           {
@@ -78,7 +84,9 @@
     },
     "/chats/createchatroom": {
       "post": {
-        "tags": ["Chat"],
+        "tags": [
+          "Chat"
+        ],
         "description": "",
         "parameters": [
           {
@@ -112,7 +120,9 @@
     },
     "/friends/{userId}/allfriends": {
       "get": {
-        "tags": ["Friend"],
+        "tags": [
+          "Friend"
+        ],
         "description": "",
         "parameters": [
           {
@@ -134,7 +144,9 @@
     },
     "/friends/{userId}/addfriend": {
       "post": {
-        "tags": ["Friend"],
+        "tags": [
+          "Friend"
+        ],
         "description": "",
         "parameters": [
           {
@@ -174,7 +186,9 @@
     },
     "/friends/{userId}": {
       "put": {
-        "tags": ["Friend"],
+        "tags": [
+          "Friend"
+        ],
         "description": "",
         "parameters": [
           {
@@ -211,7 +225,9 @@
     },
     "/friends/{userId}/removefriend": {
       "delete": {
-        "tags": ["Friend"],
+        "tags": [
+          "Friend"
+        ],
         "description": "",
         "parameters": [
           {
@@ -248,7 +264,9 @@
     },
     "/maps/allPins": {
       "get": {
-        "tags": ["Map"],
+        "tags": [
+          "Map"
+        ],
         "description": "",
         "parameters": [
           {
@@ -284,7 +302,9 @@
     },
     "/maps/onePin/{pinId}": {
       "get": {
-        "tags": ["Map"],
+        "tags": [
+          "Map"
+        ],
         "description": "",
         "parameters": [
           {
@@ -306,7 +326,9 @@
     },
     "/maps/{pinId}/createCrowdData": {
       "post": {
-        "tags": ["Map"],
+        "tags": [
+          "Map"
+        ],
         "description": "",
         "parameters": [
           {
@@ -346,7 +368,9 @@
     },
     "/users/{email}": {
       "get": {
-        "tags": ["User"],
+        "tags": [
+          "User"
+        ],
         "description": "",
         "parameters": [
           {
@@ -368,7 +392,9 @@
     },
     "/users/all": {
       "get": {
-        "tags": ["User"],
+        "tags": [
+          "User"
+        ],
         "description": "",
         "parameters": [],
         "responses": {
@@ -383,7 +409,9 @@
     },
     "/users/": {
       "post": {
-        "tags": ["User"],
+        "tags": [
+          "User"
+        ],
         "description": "",
         "parameters": [
           {
@@ -411,7 +439,9 @@
     },
     "/users/update/{userId}": {
       "put": {
-        "tags": ["User"],
+        "tags": [
+          "User"
+        ],
         "description": "",
         "parameters": [
           {
@@ -463,7 +493,9 @@
     },
     "/users/{userId}/favourite": {
       "get": {
-        "tags": ["User"],
+        "tags": [
+          "User"
+        ],
         "description": "",
         "parameters": [
           {
@@ -485,7 +517,9 @@
     },
     "/users/{userId}/like": {
       "get": {
-        "tags": ["User"],
+        "tags": [
+          "User"
+        ],
         "description": "",
         "parameters": [
           {
@@ -507,7 +541,9 @@
     },
     "/users/{postId}/allLikes": {
       "get": {
-        "tags": ["User"],
+        "tags": [
+          "User"
+        ],
         "description": "",
         "parameters": [
           {
@@ -529,7 +565,9 @@
     },
     "/users/{userId}/post/{postId}/favourites": {
       "post": {
-        "tags": ["User"],
+        "tags": [
+          "User"
+        ],
         "description": "",
         "parameters": [
           {
@@ -557,7 +595,9 @@
     },
     "/posts/explore": {
       "get": {
-        "tags": ["Post"],
+        "tags": [
+          "Post"
+        ],
         "description": "",
         "parameters": [
           {
@@ -601,7 +641,9 @@
     },
     "/posts/forum": {
       "get": {
-        "tags": ["Post"],
+        "tags": [
+          "Post"
+        ],
         "description": "",
         "parameters": [],
         "responses": {
@@ -616,7 +658,9 @@
     },
     "/posts/thread": {
       "get": {
-        "tags": ["Post"],
+        "tags": [
+          "Post"
+        ],
         "description": "",
         "parameters": [
           {
@@ -635,9 +679,35 @@
         }
       }
     },
-    "/posts/{postId}": {
+    "/posts/thread/{threadId}": {
       "get": {
-        "tags": ["Post"],
+        "tags": [
+          "Post"
+        ],
+        "description": "",
+        "parameters": [
+          {
+            "name": "threadId",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "400": {
+            "description": "Bad Request"
+          }
+        }
+      }
+    },
+    "/posts/{postId}/category-hashtag": {
+      "get": {
+        "tags": [
+          "Post"
+        ],
         "description": "",
         "parameters": [
           {
@@ -657,9 +727,158 @@
         }
       }
     },
+    "/posts/{postId}/{userId}/like": {
+      "put": {
+        "tags": [
+          "Post"
+        ],
+        "description": "",
+        "parameters": [
+          {
+            "name": "postId",
+            "in": "path",
+            "required": true,
+            "type": "integer"
+          },
+          {
+            "name": "userId",
+            "in": "path",
+            "required": true,
+            "type": "integer"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "400": {
+            "description": "Bad Request"
+          }
+        }
+      }
+    },
+    "/posts/create-comment/{threadId}": {
+      "post": {
+        "tags": [
+          "Post"
+        ],
+        "description": "",
+        "parameters": [
+          {
+            "name": "threadId",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "content": {
+                  "example": "any"
+                },
+                "areaId": {
+                  "example": "any"
+                },
+                "forumPost": {
+                  "example": "any"
+                },
+                "explorePost": {
+                  "example": "any"
+                },
+                "userId": {
+                  "example": "any"
+                },
+                "externalLink": {
+                  "example": "any"
+                },
+                "title": {
+                  "example": "any"
+                },
+                "photoLink": {
+                  "example": "any"
+                },
+                "locationName": {
+                  "example": "any"
+                }
+              }
+            }
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "Created"
+          },
+          "400": {
+            "description": "Bad Request"
+          }
+        }
+      }
+    },
+    "/posts/create-thread": {
+      "post": {
+        "tags": [
+          "Post"
+        ],
+        "description": "",
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "userId": {
+                  "example": "any"
+                },
+                "content": {
+                  "example": "any"
+                },
+                "areaId": {
+                  "example": "any"
+                },
+                "forumPost": {
+                  "example": "any"
+                },
+                "explorePost": {
+                  "example": "any"
+                },
+                "externalLink": {
+                  "example": "any"
+                },
+                "title": {
+                  "example": "any"
+                },
+                "photoLink": {
+                  "example": "any"
+                },
+                "locationName": {
+                  "example": "any"
+                },
+                "topic": {
+                  "example": "any"
+                }
+              }
+            }
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "Created"
+          },
+          "400": {
+            "description": "Bad Request"
+          }
+        }
+      }
+    },
     "/info/areas": {
       "get": {
-        "tags": ["Info"],
+        "tags": [
+          "Info"
+        ],
         "description": "",
         "parameters": [],
         "responses": {
@@ -674,7 +893,9 @@
     },
     "/info/categories": {
       "get": {
-        "tags": ["Info"],
+        "tags": [
+          "Info"
+        ],
         "description": "",
         "parameters": [],
         "responses": {
@@ -689,7 +910,9 @@
     },
     "/info/categories/hashtags": {
       "get": {
-        "tags": ["Info"],
+        "tags": [
+          "Info"
+        ],
         "description": "",
         "parameters": [
           {
@@ -710,7 +933,9 @@
     },
     "/info/hashtags": {
       "get": {
-        "tags": ["Info"],
+        "tags": [
+          "Info"
+        ],
         "description": "",
         "parameters": [],
         "responses": {
@@ -725,7 +950,9 @@
     },
     "/info/photos": {
       "get": {
-        "tags": ["Info"],
+        "tags": [
+          "Info"
+        ],
         "description": "",
         "parameters": [
           {
@@ -746,7 +973,9 @@
     },
     "/info/sources": {
       "get": {
-        "tags": ["Info"],
+        "tags": [
+          "Info"
+        ],
         "description": "",
         "parameters": [],
         "responses": {

@@ -7,7 +7,6 @@ const {
   postHashtag,
   hashtag,
   category,
-  user,
   like,
 } = require("../db/models");
 const { Op } = require("sequelize");
