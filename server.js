@@ -2,15 +2,15 @@ const cors = require("cors");
 const express = require("express");
 const { Server } = require("socket.io");
 require("dotenv").config();
-// const { auth } = require("express-oauth2-jwt-bearer");
+const { auth } = require("express-oauth2-jwt-bearer");
 const bodyParser = require("body-parser");
 const swaggerUi = require("swagger-ui-express");
 const swaggerFile = require("./swagger_output.json");
 
-// const checkJwt = auth({
-//   audience: process.env.AUDIENCE,
-//   issuerBaseURL: process.env.ISSUER,
-// });
+const checkJwt = auth({
+  audience: process.env.AUDIENCE,
+  issuerBaseURL: process.env.ISSUER,
+});
 
 //set up Controllers here.
 
@@ -33,9 +33,9 @@ const mapsRouter = require("./routers/mapsRouter");
 const postsRouter = require("./routers/postsRouter");
 const usersRouters = require("./routers/usersRouter");
 const infoRouter = require("./routers/infoRouter");
-app.use("/chats", chatsRouter);
+app.use("/chats", checkJwt, chatsRouter);
 app.use("/friends", friendsRouter);
-app.use("/maps", mapsRouter);
+app.use("/maps", checkJwt, mapsRouter);
 app.use("/users", usersRouters);
 app.use("/posts", postsRouter);
 app.use("/info", infoRouter);
