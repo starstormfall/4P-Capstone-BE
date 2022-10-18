@@ -8,6 +8,7 @@ const {
   hashtag,
   category,
   like,
+  friendship,
 } = require("../db/models");
 const { Op } = require("sequelize");
 
@@ -202,10 +203,19 @@ const getOneThread = async (req, res) => {
     const oneThread = await threadPost.findAll({
       where: { threadId: threadId },
       include: [
-        { model: post, include: [{ model: user, attributes: ["name", "id"] }] },
+        {
+          model: post,
+          include: [
+            {
+              model: user,
+              attributes: ["name", "id", "photoLink"],
+            },
+          ],
+        },
         { model: thread },
       ],
     });
+
     return res.json(oneThread);
   } catch (err) {
     return res.status(400).json({ error: true, msg: err });
