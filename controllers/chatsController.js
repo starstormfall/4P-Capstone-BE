@@ -9,6 +9,7 @@ const getAll = async (req, res) => {
         userId: userId,
       },
       include: [chatroom],
+      order: [[chatroom, "createdAt", "DESC"]],
     });
 
     return res.status(201).json({
