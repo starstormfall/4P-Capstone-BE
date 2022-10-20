@@ -130,6 +130,11 @@
             "in": "path",
             "required": true,
             "type": "string"
+          },
+          {
+            "name": "thread",
+            "in": "query",
+            "type": "string"
           }
         ],
         "responses": {
