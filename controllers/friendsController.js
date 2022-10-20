@@ -8,6 +8,7 @@ const getFriendList = async (req, res) => {
   // #swagger.tags = ['Friend']
 
   const { userId } = req.params;
+  const { thread } = req.query;
   try {
     const userFriends = await friendship.findAll({
       where: {
@@ -32,6 +33,22 @@ const getFriendList = async (req, res) => {
         },
       ],
     });
+
+    if (thread) {
+      const friendList = {};
+
+      userFriends.forEach((friend) => {
+        friend.addedUserId !== Number(userId)
+          ? (friendList[friend.addedUserId] = friend.status)
+          : null;
+
+        friend.initiatedUserId !== Number(userId)
+          ? (friendList[friend.initiatedUserId] = friend.status)
+          : null;
+      });
+      friendList[userId] = "myself";
+      return res.json(friendList);
+    }
 
     return res.json(userFriends);
   } catch (err) {

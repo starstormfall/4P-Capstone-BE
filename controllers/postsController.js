@@ -8,7 +8,9 @@ const {
   hashtag,
   category,
   like,
-  area,
+  area, 
+  friendship,
+
 } = require("../db/models");
 const { Op } = require("sequelize");
 
@@ -203,7 +205,15 @@ const getOneThread = async (req, res) => {
     const oneThread = await threadPost.findAll({
       where: { threadId: threadId },
       include: [
-        { model: post, include: [{ model: user, attributes: ["name", "id"] }] },
+        {
+          model: post,
+          include: [
+            {
+              model: user,
+              attributes: ["name", "id", "photoLink"],
+            },
+          ],
+        },
         { model: thread },
       ],
     });
@@ -368,6 +378,8 @@ const createThreadPost = async (req, res) => {
       postId: addNewComment.id,
       threadId: threadId,
     });
+
+    // return a findall for rerendering
 
     return res.status(201).json({
       addNewComment,
