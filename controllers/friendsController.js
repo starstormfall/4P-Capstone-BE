@@ -35,24 +35,19 @@ const getFriendList = async (req, res) => {
     });
 
     if (thread) {
-      const friendsId = [];
-      const pendingFriendStatus = [];
-      const existingFriendStatus = [];
+      const friendList = {};
 
       userFriends.forEach((friend) => {
-        !friendsId.includes(friend.addedUserId)
-          ? friend.addedUserId !== userId
-            ? friendsId.push(friend.addedUserId)
-            : null
+        friend.addedUserId !== Number(userId)
+          ? (friendList[friend.addedUserId] = friend.status)
           : null;
 
-        !friendsId.includes(friend.initiatedUserId)
-          ? friend.initiatedUserId !== userId
-            ? friendsId.push(friend.initiatedUserId)
-            : null
+        friend.initiatedUserId !== Number(userId)
+          ? (friendList[friend.initiatedUserId] = friend.status)
           : null;
       });
-      return res.json(friendsId);
+      friendList[userId] = "myself";
+      return res.json(friendList);
     }
 
     return res.json(userFriends);
