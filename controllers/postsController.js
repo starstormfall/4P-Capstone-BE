@@ -366,6 +366,8 @@ const createThreadPost = async (req, res) => {
       threadId: threadId,
     });
 
+    // return a findall for rerendering
+
     return res.status(201).json({
       addNewComment,
       linkNewComment,
