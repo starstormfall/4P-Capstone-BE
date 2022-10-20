@@ -278,6 +278,70 @@ const addFavourites = async (req, res) => {
 //   }
 // };
 
+const updateUserLogin = async (req, res) => {
+  // #swagger.tags = ['User']
+  const { userId } = req.params;
+
+  try {
+    const userInfo = await user.findOne({
+      where: { id: userId },
+    });
+
+    const todayDate = new Date();
+    const lastLoginDate = new Date(userInfo.lastLogin);
+    const yesterdayDate = new Date(
+      new Date().setDate(new Date().getDate() - 1)
+    );
+
+    const currentLoginStreak = userInfo.loginStreak;
+    const currentScore = userInfo.score;
+    const pointsAdded = currentLoginStreak >= 4 ? 5 : 1;
+
+    const loginStatus = {
+      status: "",
+      updatedInfo: {},
+      scoreAdded: "",
+    };
+
+    // if current login date differs from last login date
+    if (todayDate.toDateString() !== lastLoginDate.toDateString()) {
+      // check if lastLogin date === yesterday for streak
+      if (yesterdayDate.toDateString() === lastLoginDate.toDateString()) {
+        // if last login was yesterday, then add to streak and add score based on loginstreak
+        await userInfo.update({
+          lastLogin: new Date(),
+          loginStreak: currentLoginStreak + 1,
+          score: currentScore + pointsAdded,
+        });
+
+        loginStatus["status"] = "added streak";
+        loginStatus["scoreAdded"] = pointsAdded;
+        loginStatus["updatedInfo"] = userInfo;
+      } else {
+        // else if last login is not yesterday, then reset login streak and only add 1 point
+        await userInfo.update({
+          lastLogin: new Date(),
+          loginStreak: 1,
+          score: currentScore + 1,
+        });
+        loginStatus["status"] = "reset streak";
+        loginStatus["scoreAdded"] = 1;
+        loginStatus["updatedInfo"] = userInfo;
+      }
+    } else {
+      // if current login date same as last logged in, just update date
+      await userInfo.update({ lastLogin: new Date() });
+      loginStatus["status"] = "no change";
+      loginStatus["scoreAdded"] = 0;
+      loginStatus["updatedInfo"] = userInfo;
+    }
+
+    return res.json(loginStatus);
+  } catch (err) {
+    return res.status(400).json({ error: true, msg: err });
+  }
+};
+
 module.exports = {
   getOne,
   getAll,
@@ -288,4 +352,5 @@ module.exports = {
   getAllPostLikes,
   // addLikes,
   addFavourites,
+  updateUserLogin,
 };

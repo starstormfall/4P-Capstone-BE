@@ -10,10 +10,9 @@ router.get(`/forum`, controllers.getAllForum);
 // to get assoc threads to a post : /thread?postId=1
 router.get(`/thread`, controllers.getAllThreadInfo);
 
-router.get(`/:postId/category-hashtag`, controllers.getAreaCategoryHashtag);
+router.get(`/:postId/tags`, controllers.getTags);
 
 router.get(`/thread/:threadId`, controllers.getOneThread);
-
 
 // to add likes to post and retrieve updated like count
 router.put(`/:postId/:userId/like`, controllers.addLikes);
