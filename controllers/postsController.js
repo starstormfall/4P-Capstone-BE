@@ -8,7 +8,9 @@ const {
   hashtag,
   category,
   like,
+  area, 
   friendship,
+
 } = require("../db/models");
 const { Op } = require("sequelize");
 
@@ -215,7 +217,6 @@ const getOneThread = async (req, res) => {
         { model: thread },
       ],
     });
-
     return res.json(oneThread);
   } catch (err) {
     return res.status(400).json({ error: true, msg: err });
@@ -280,7 +281,7 @@ const addLikes = async (req, res) => {
   }
 };
 
-const getCategoryHashtag = async (req, res) => {
+const getTags = async (req, res) => {
   // #swagger.tags = ['Post']
   /* #swagger.parameters['postId'] = {
     in: 'path',
@@ -297,6 +298,14 @@ const getCategoryHashtag = async (req, res) => {
     const hashtagsPosts = await postHashtag.findAll({
       where: { postId: postId },
     });
+
+    const areasPosts = await post.findByPk(postId);
+
+    console.log(areasPosts);
+
+    const areaName = await areasPosts.getArea({ raw: true });
+
+    const prefecture = areaName.prefecture;
 
     const categories = [];
 
@@ -318,7 +327,11 @@ const getCategoryHashtag = async (req, res) => {
       hashtags.push(hashtagNames.name);
     }
 
-    res.json({ categories: categories, hashtags: hashtags });
+    res.json({
+      categories: categories,
+      hashtags: hashtags,
+      prefecture: prefecture,
+    });
   } catch (err) {
     return res.status(400).json({ error: true, msg: err });
   }
@@ -442,5 +455,5 @@ module.exports = {
   createThreadPost,
   createPost,
   addLikes,
-  getCategoryHashtag,
+  getTags,
 };

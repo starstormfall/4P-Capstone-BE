@@ -12,7 +12,6 @@ module.exports = {
         type: Sequelize.INTEGER,
       },
       name: {
-        allowNull: false,
         type: Sequelize.STRING,
       },
       email: {
@@ -20,12 +19,10 @@ module.exports = {
         type: Sequelize.STRING,
       },
       nationality: {
-        allowNull: false,
         type: Sequelize.STRING,
       },
       score: Sequelize.INTEGER,
       last_login: {
-        allowNull: false,
         type: Sequelize.STRING,
       },
       login_streak: Sequelize.INTEGER,

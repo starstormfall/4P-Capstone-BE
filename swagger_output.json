@@ -496,6 +496,30 @@
         }
       }
     },
+    "/users/{userId}/login": {
+      "put": {
+        "tags": [
+          "User"
+        ],
+        "description": "",
+        "parameters": [
+          {
+            "name": "userId",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "400": {
+            "description": "Bad Request"
+          }
+        }
+      }
+    },
     "/users/{userId}/favourite": {
       "get": {
         "tags": [
@@ -684,7 +708,7 @@
         }
       }
     },
-    "/posts/thread/{threadId}": {
+    "/posts/{postId}/tags": {
       "get": {
         "tags": [
           "Post"
@@ -692,10 +716,10 @@
         "description": "",
         "parameters": [
           {
-            "name": "threadId",
+            "name": "postId",
             "in": "path",
             "required": true,
-            "type": "string"
+            "type": "integer"
           }
         ],
         "responses": {
@@ -708,7 +732,7 @@
         }
       }
     },
-    "/posts/{postId}/category-hashtag": {
+    "/posts/thread/{threadId}": {
       "get": {
         "tags": [
           "Post"
@@ -716,10 +740,10 @@
         "description": "",
         "parameters": [
           {
-            "name": "postId",
+            "name": "threadId",
             "in": "path",
             "required": true,
-            "type": "integer"
+            "type": "string"
           }
         ],
         "responses": {

@@ -14,6 +14,8 @@ router.post(`/`, controllers.insertOne);
 // update user data??
 router.put(`/update/:userId`, controllers.updateOneUser);
 
+router.put(`/:userId/login`, controllers.updateUserLogin);
+
 // store in user pref router...
 // get all favourites belonging to user
 router.get(`/:userId/favourite`, controllers.getAllFavourite);
