@@ -17,6 +17,7 @@ module.exports = {
       email: {
         allowNull: false,
         type: Sequelize.STRING,
+        unique: true,
       },
       nationality: {
         type: Sequelize.STRING,
