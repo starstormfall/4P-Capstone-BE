@@ -10,6 +10,7 @@ const {
   like,
   area,
   friendship,
+  pin,
 } = require("../db/models");
 const { Op } = require("sequelize");
 
@@ -416,38 +417,163 @@ const createPost = async (req, res) => {
     locationName,
     // update thread table
     topic,
+    // update pin table
+    oldPinId,
+    newPin,
+    exactLocation,
   } = req.body;
   // update in threadPost table
   try {
-    const createNewThread = await post.create({
-      content: content,
-      userId: userId,
-      // explore_post: forum && forum_post: true (conditionally set on frontend)
-      forumPost: forumPost,
-      explorePost: explorePost,
-      // infornation required for post to be on explore page!
-      title: title,
-      photoLink: photoLink,
-      // updated with general pref
-      areaId: areaId,
-      locationName: locationName,
-      externalLink: externalLink,
-    });
+    if (oldPinId !== null) {
+      const existingPin = await pin.findOne({
+        where: {
+          placeName: locationName,
+          areaId: areaId,
+        },
+      });
 
-    const newTopic = await thread.create({
-      topic: topic,
-    });
+      if (existingPin !== null) {
+        const createNewThread = await post.create({
+          content: content,
+          userId: userId,
+          // explore_post: forum && forum_post: true (conditionally set on frontend)
+          forumPost: forumPost,
+          explorePost: explorePost,
+          // infornation required for post to be on explore page!
+          title: title,
+          photoLink: photoLink,
+          // updated with general pref
+          areaId: areaId,
+          locationName: locationName,
+          externalLink: externalLink,
+          pinId: existingPin.id,
+        });
 
-    const updateTheadPost = await threadPost.create({
-      postId: createNewThread.id,
-      threadId: newTopic.id,
-    });
+        const newTopic = await thread.create({
+          topic: topic,
+        });
 
-    return res.status(201).json({
-      createNewThread,
-      updateTheadPost,
-    });
-    //return to front end
+        const updateTheadPost = await threadPost.create({
+          postId: createNewThread.id,
+          threadId: newTopic.id,
+        });
+
+        return res.status(201).json({
+          createNewThread,
+          updateTheadPost,
+        });
+        //return to front end
+      } else if (existingPin === null) {
+        const createNewThread = await post.create({
+          content: content,
+          userId: userId,
+          // explore_post: forum && forum_post: true (conditionally set on frontend)
+          forumPost: forumPost,
+          explorePost: explorePost,
+          // infornation required for post to be on explore page!
+          title: title,
+          photoLink: photoLink,
+          // updated with general pref
+          areaId: areaId,
+          locationName: locationName,
+          externalLink: externalLink,
+          pinId: oldPinId,
+        });
+
+        const newTopic = await thread.create({
+          topic: topic,
+        });
+
+        const updateTheadPost = await threadPost.create({
+          postId: createNewThread.id,
+          threadId: newTopic.id,
+        });
+
+        return res.status(201).json({
+          createNewThread,
+          updateTheadPost,
+        });
+        //return to front end
+      }
+    } else {
+      if (exactLocation.length !== 0) {
+        const [newCreatedPin, created] = await pin.findOrCreate({
+          where: { placeName: exactLocation, areaId: areaId },
+          defaults: {
+            lat: newPin.lat,
+            lng: newPin.lng,
+          },
+        });
+
+        const createNewThread = await post.create({
+          content: content,
+          userId: userId,
+          // explore_post: forum && forum_post: true (conditionally set on frontend)
+          forumPost: forumPost,
+          explorePost: explorePost,
+          // infornation required for post to be on explore page!
+          title: title,
+          photoLink: photoLink,
+          // updated with general pref
+          areaId: areaId,
+          locationName: locationName,
+          externalLink: externalLink,
+          pinId: newCreatedPin.id,
+        });
+
+        const newTopic = await thread.create({
+          topic: topic,
+        });
+
+        const updateTheadPost = await threadPost.create({
+          postId: createNewThread.id,
+          threadId: newTopic.id,
+        });
+
+        return res.status(201).json({
+          createNewThread,
+          updateTheadPost,
+        });
+      } else {
+        const [newCreatedPin, created] = await pin.findOrCreate({
+          where: { placeName: locationName, areaId: areaId },
+          defaults: {
+            lat: newPin.lat,
+            lng: newPin.lng,
+          },
+        });
+
+        const createNewThread = await post.create({
+          content: content,
+          userId: userId,
+          // explore_post: forum && forum_post: true (conditionally set on frontend)
+          forumPost: forumPost,
+          explorePost: explorePost,
+          // infornation required for post to be on explore page!
+          title: title,
+          photoLink: photoLink,
+          // updated with general pref
+          areaId: areaId,
+          locationName: locationName,
+          externalLink: externalLink,
+          pinId: newCreatedPin.id,
+        });
+
+        const newTopic = await thread.create({
+          topic: topic,
+        });
+
+        const updateTheadPost = await threadPost.create({
+          postId: createNewThread.id,
+          threadId: newTopic.id,
+        });
+
+        return res.status(201).json({
+          createNewThread,
+          updateTheadPost,
+        });
+      }
+    }
   } catch (err) {
     console.log(err, "error");
     return res.status(400).json({ error: true, msg: err });

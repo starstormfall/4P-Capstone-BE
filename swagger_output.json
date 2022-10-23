@@ -888,6 +888,15 @@
                 },
                 "topic": {
                   "example": "any"
+                },
+                "oldPinId": {
+                  "example": "any"
+                },
+                "newPin": {
+                  "example": "any"
+                },
+                "exactLocation": {
+                  "example": "any"
                 }
               }
             }
