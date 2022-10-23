@@ -8,9 +8,8 @@ const {
   hashtag,
   category,
   like,
-  area, 
+  area,
   friendship,
-
 } = require("../db/models");
 const { Op } = require("sequelize");
 
@@ -151,7 +150,9 @@ const getAllThreadInfo = async (req, res) => {
         allThread.push(assocThread);
       }
     } else {
-      allThread = await thread.findAll();
+      allThread = await thread.findAll({
+        order: [["id", "DESC"]],
+      });
     }
 
     const allThreadInfo = [];
@@ -168,9 +169,13 @@ const getAllThreadInfo = async (req, res) => {
       const lastPost = await threadPost.findAll({
         limit: 1,
         where: { threadId: row.id },
-        order: [["createdAt"]],
+        order: [["id", "DESC"]], // use id instead of createdAt because using incremental ID is guaranteed to be in order instead of timestamp which may be processed inaccurately
         raw: true,
-        include: { model: post, attributes: ["content", "createdAt"] },
+        include: {
+          model: post,
+          attributes: ["content", "createdAt", "userId"],
+          include: { model: user, attributes: ["name"] },
+        },
       });
 
       const users = [];
@@ -186,7 +191,9 @@ const getAllThreadInfo = async (req, res) => {
         postsCount: postsCount.count,
         usersCount: users.length,
         lastPost: lastPost[0]["post.content"],
-        lastPostCreatedAt: lastPost[0]["post.createdAt"],
+        lastPostCreatedAt: lastPost[0]["post.createdAt"].toDateString(),
+        lastPostUserId: lastPost[0]["post.userId"],
+        lastPostUserName: lastPost[0]["post.user.name"],
       };
 
       allThreadInfo.push(threadInfo);

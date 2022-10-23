@@ -1,4 +1,4 @@
-const { user, favourite, like } = require("../db/models");
+const { user, favourite, like, post } = require("../db/models");
 
 const e = require("express");
 
@@ -86,15 +86,22 @@ const getAllFavourite = async (req, res) => {
   try {
     const allFavourites = await favourite.findAll({
       where: { userId: userId },
+      include: { model: post },
     });
 
+    console.log("ALL FAVOURITES", allFavourites);
     const favouritePostIds = [];
+    const favouritePosts = {};
 
-    allFavourites.forEach((favourite) =>
-      favouritePostIds.push(favourite.postId)
-    );
+    allFavourites.forEach((favourite) => {
+      favouritePostIds.push(favourite.postId);
+      favouritePosts[favourite.postId] = favourite.post;
+    });
 
-    return res.json(favouritePostIds);
+    return res.json({
+      favouritePostIds: favouritePostIds,
+      favouritePosts: favouritePosts,
+    });
   } catch (err) {
     return res.status(400).json({ error: true, msg: err });
   }
@@ -109,13 +116,18 @@ const getAllLike = async (req, res) => {
   try {
     const allLikes = await like.findAll({
       where: { userId: userId },
+      include: { model: post },
     });
 
     const likePostIds = [];
+    const likePosts = {};
 
-    allLikes.forEach((like) => likePostIds.push(like.postId));
+    allLikes.forEach((like) => {
+      likePostIds.push(like.postId);
+      likePosts[like.postId] = like.post;
+    });
 
-    return res.json(likePostIds);
+    return res.json({ likePostIds: likePostIds, likePosts: likePosts });
   } catch (err) {
     return res.status(400).json({ error: true, msg: err });
   }
