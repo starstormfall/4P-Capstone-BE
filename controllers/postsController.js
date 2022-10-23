@@ -151,7 +151,9 @@ const getAllThreadInfo = async (req, res) => {
         allThread.push(assocThread);
       }
     } else {
-      allThread = await thread.findAll();
+      allThread = await thread.findAll({
+        order: [["id", "DESC"]],
+      });
     }
 
     const allThreadInfo = [];
@@ -168,9 +170,13 @@ const getAllThreadInfo = async (req, res) => {
       const lastPost = await threadPost.findAll({
         limit: 1,
         where: { threadId: row.id },
-        order: [["createdAt"]],
+        order: [["id", "DESC"]], // use id instead of createdAt because using incremental ID is guaranteed to be in order instead of timestamp which may be processed inaccurately
         raw: true,
-        include: { model: post, attributes: ["content", "createdAt"] },
+        include: {
+          model: post,
+          attributes: ["content", "createdAt", "userId"],
+          include: { model: user, attributes: ["name"] },
+        },
       });
 
       const users = [];
@@ -186,7 +192,9 @@ const getAllThreadInfo = async (req, res) => {
         postsCount: postsCount.count,
         usersCount: users.length,
         lastPost: lastPost[0]["post.content"],
-        lastPostCreatedAt: lastPost[0]["post.createdAt"],
+        lastPostCreatedAt: lastPost[0]["post.createdAt"].toDateString(),
+        lastPostUserId: lastPost[0]["post.userId"],
+        lastPostUserName: lastPost[0]["post.user.name"],
       };
 
       allThreadInfo.push(threadInfo);
@@ -417,43 +425,84 @@ const createPost = async (req, res) => {
   // update in threadPost table
   try {
     if (oldPinId !== null) {
-      const createNewThread = await post.create({
-        content: content,
-        userId: userId,
-        // explore_post: forum && forum_post: true (conditionally set on frontend)
-        forumPost: forumPost,
-        explorePost: explorePost,
-        // infornation required for post to be on explore page!
-        title: title,
-        photoLink: photoLink,
-        // updated with general pref
-        areaId: areaId,
-        locationName: locationName,
-        externalLink: externalLink,
-        pinId: oldPinId,
+      const existingPin = await pin.findOne({
+        where: {
+          placeName: locationName,
+          areaId: areaId,
+        },
       });
 
-      const newTopic = await thread.create({
-        topic: topic,
-      });
+      if (existingPin !== null) {
+        const createNewThread = await post.create({
+          content: content,
+          userId: userId,
+          // explore_post: forum && forum_post: true (conditionally set on frontend)
+          forumPost: forumPost,
+          explorePost: explorePost,
+          // infornation required for post to be on explore page!
+          title: title,
+          photoLink: photoLink,
+          // updated with general pref
+          areaId: areaId,
+          locationName: locationName,
+          externalLink: externalLink,
+          pinId: existingPin.id,
+        });
 
-      const updateTheadPost = await threadPost.create({
-        postId: createNewThread.id,
-        threadId: newTopic.id,
-      });
+        const newTopic = await thread.create({
+          topic: topic,
+        });
 
-      return res.status(201).json({
-        createNewThread,
-        updateTheadPost,
-      });
-      //return to front end
+        const updateTheadPost = await threadPost.create({
+          postId: createNewThread.id,
+          threadId: newTopic.id,
+        });
+
+        return res.status(201).json({
+          createNewThread,
+          updateTheadPost,
+        });
+        //return to front end
+      } else if (existingPin === null) {
+        const createNewThread = await post.create({
+          content: content,
+          userId: userId,
+          // explore_post: forum && forum_post: true (conditionally set on frontend)
+          forumPost: forumPost,
+          explorePost: explorePost,
+          // infornation required for post to be on explore page!
+          title: title,
+          photoLink: photoLink,
+          // updated with general pref
+          areaId: areaId,
+          locationName: locationName,
+          externalLink: externalLink,
+          pinId: oldPinId,
+        });
+
+        const newTopic = await thread.create({
+          topic: topic,
+        });
+
+        const updateTheadPost = await threadPost.create({
+          postId: createNewThread.id,
+          threadId: newTopic.id,
+        });
+
+        return res.status(201).json({
+          createNewThread,
+          updateTheadPost,
+        });
+        //return to front end
+      }
     } else {
       if (exactLocation.length !== 0) {
-        const createNewPin = await pin.create({
-          lat: newPin.lat,
-          lng: newPin.lng,
-          placeName: exactLocation,
-          areaId: areaId,
+        const [newCreatedPin, created] = await pin.findOrCreate({
+          where: { placeName: exactLocation, areaId: areaId },
+          defaults: {
+            lat: newPin.lat,
+            lng: newPin.lng,
+          },
         });
 
         const createNewThread = await post.create({
@@ -469,7 +518,7 @@ const createPost = async (req, res) => {
           areaId: areaId,
           locationName: locationName,
           externalLink: externalLink,
-          pinId: createNewPin.id,
+          pinId: newCreatedPin.id,
         });
 
         const newTopic = await thread.create({
@@ -486,11 +535,12 @@ const createPost = async (req, res) => {
           updateTheadPost,
         });
       } else {
-        const createNewPin = await pin.create({
-          lat: newPin.lat,
-          lng: newPin.lng,
-          placeName: locationName,
-          areaId: areaId,
+        const [newCreatedPin, created] = await pin.findOrCreate({
+          where: { placeName: locationName, areaId: areaId },
+          defaults: {
+            lat: newPin.lat,
+            lng: newPin.lng,
+          },
         });
 
         const createNewThread = await post.create({
@@ -506,7 +556,7 @@ const createPost = async (req, res) => {
           areaId: areaId,
           locationName: locationName,
           externalLink: externalLink,
-          pinId: createNewPin.id,
+          pinId: newCreatedPin.id,
         });
 
         const newTopic = await thread.create({
