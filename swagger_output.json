@@ -921,6 +921,53 @@
         }
       }
     },
+    "/posts/create-thread-from-explore": {
+      "post": {
+        "tags": [
+          "Post"
+        ],
+        "description": "",
+        "parameters": [
+          {
+            "name": "fromExplorePostId",
+            "in": "query",
+            "type": "integer"
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "userId": {
+                  "example": "any"
+                },
+                "threadTitle": {
+                  "example": "any"
+                },
+                "existingPostId": {
+                  "example": "any"
+                },
+                "content": {
+                  "example": "any"
+                },
+                "areaId": {
+                  "example": "any"
+                }
+              }
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "400": {
+            "description": "Bad Request"
+          }
+        }
+      }
+    },
     "/info/areas": {
       "get": {
         "tags": [

@@ -10,7 +10,7 @@ module.exports = {
         name: "sightseeing",
       },
       {
-        name: "accomodation",
+        name: "accommodation",
       },
       {
         name: "fashion",
