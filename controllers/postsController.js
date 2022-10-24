@@ -364,37 +364,197 @@ const createThreadPost = async (req, res) => {
     title,
     photoLink,
     locationName,
+    // update pin table
+    oldPinId,
+    newPin,
+    exactLocation,
   } = req.body;
   // update in threadPost table
   const { threadId } = req.params;
   try {
-    const addNewComment = await post.create({
-      content: content,
-      userId: userId,
-      // explore_post: forum && forum_post: true (conditionally set on frontend)
-      forumPost: forumPost,
-      explorePost: explorePost,
-      // infornation required for post to be on explore page!
-      title: title,
-      photoLink: photoLink,
-      // updated with general pref
-      areaId: areaId,
-      locationName: locationName,
-      externalLink: externalLink,
-    });
+    if (oldPinId !== null && newPin === null) {
+      // Comment to the thread with recommendation but without clicking on the map to put an exact location.
 
-    const linkNewComment = await threadPost.create({
-      postId: addNewComment.id,
-      threadId: threadId,
-    });
+      const existingPin = await pin.findOne({
+        where: {
+          placeName: locationName,
+          areaId: areaId,
+        },
+      });
 
-    // return a findall for rerendering
+      if (existingPin !== null) {
+        // The place of recommendation matches the pin existing in the table.
 
-    return res.status(201).json({
-      addNewComment,
-      linkNewComment,
-    });
-    //return to front end
+        const addNewComment = await post.create({
+          content: content,
+          userId: userId,
+          // explore_post: forum && forum_post: true (conditionally set on frontend)
+          forumPost: forumPost,
+          explorePost: explorePost,
+          // infornation required for post to be on explore page!
+          title: title,
+          photoLink: photoLink,
+          // updated with general pref
+          areaId: areaId,
+          locationName: locationName,
+          externalLink: externalLink,
+          pinId: existingPin.id,
+        });
+
+        const linkNewComment = await threadPost.create({
+          postId: addNewComment.id,
+          threadId: threadId,
+        });
+
+        // return a findall for rerendering
+
+        return res.status(201).json({
+          addNewComment,
+          linkNewComment,
+        });
+        //return to front end
+      } else if (existingPin === null) {
+        // The place of recommendation does not match any existing pin in the table.
+
+        const addNewComment = await post.create({
+          content: content,
+          userId: userId,
+          // explore_post: forum && forum_post: true (conditionally set on frontend)
+          forumPost: forumPost,
+          explorePost: explorePost,
+          // infornation required for post to be on explore page!
+          title: title,
+          photoLink: photoLink,
+          // updated with general pref
+          areaId: areaId,
+          locationName: locationName,
+          externalLink: externalLink,
+          pinId: oldPinId,
+        });
+
+        const linkNewComment = await threadPost.create({
+          postId: addNewComment.id,
+          threadId: threadId,
+        });
+
+        // return a findall for rerendering
+
+        return res.status(201).json({
+          addNewComment,
+          linkNewComment,
+        });
+        //return to front end
+      }
+    } else if (oldPinId === null && newPin === null) {
+      // Normal comment to the thread without any recommendation
+
+      const addNewComment = await post.create({
+        content: content,
+        userId: userId,
+        // explore_post: forum && forum_post: true (conditionally set on frontend)
+        forumPost: forumPost,
+        explorePost: explorePost,
+        // infornation required for post to be on explore page!
+        title: title,
+        photoLink: photoLink,
+        // updated with general pref
+        areaId: areaId,
+        locationName: locationName,
+        externalLink: externalLink,
+      });
+
+      const linkNewComment = await threadPost.create({
+        postId: addNewComment.id,
+        threadId: threadId,
+      });
+
+      // return a findall for rerendering
+
+      return res.status(201).json({
+        addNewComment,
+        linkNewComment,
+      });
+    } else {
+      // Comment to the thread with recommendation by clicking on the map or by using autocomplete to give exact location.
+
+      if (exactLocation.length !== 0) {
+        // Autocomplete was used.
+        const [newCreatedPin, created] = await pin.findOrCreate({
+          where: { placeName: exactLocation, areaId: areaId },
+          defaults: {
+            lat: newPin.lat,
+            lng: newPin.lng,
+          },
+        });
+
+        const addNewComment = await post.create({
+          content: content,
+          userId: userId,
+          // explore_post: forum && forum_post: true (conditionally set on frontend)
+          forumPost: forumPost,
+          explorePost: explorePost,
+          // infornation required for post to be on explore page!
+          title: title,
+          photoLink: photoLink,
+          // updated with general pref
+          areaId: areaId,
+          locationName: locationName,
+          externalLink: externalLink,
+          pinId: newCreatedPin.id,
+        });
+
+        const linkNewComment = await threadPost.create({
+          postId: addNewComment.id,
+          threadId: threadId,
+        });
+
+        // return a findall for rerendering
+
+        return res.status(201).json({
+          addNewComment,
+          linkNewComment,
+        });
+        //return to front end
+      } else {
+        // Autocomplete was not used, map was clicked to get the coordinates.
+        const [newCreatedPin, created] = await pin.findOrCreate({
+          where: { placeName: locationName, areaId: areaId },
+          defaults: {
+            lat: newPin.lat,
+            lng: newPin.lng,
+          },
+        });
+
+        const addNewComment = await post.create({
+          content: content,
+          userId: userId,
+          // explore_post: forum && forum_post: true (conditionally set on frontend)
+          forumPost: forumPost,
+          explorePost: explorePost,
+          // infornation required for post to be on explore page!
+          title: title,
+          photoLink: photoLink,
+          // updated with general pref
+          areaId: areaId,
+          locationName: locationName,
+          externalLink: externalLink,
+          pinId: newCreatedPin.id,
+        });
+
+        const linkNewComment = await threadPost.create({
+          postId: addNewComment.id,
+          threadId: threadId,
+        });
+
+        // return a findall for rerendering
+
+        return res.status(201).json({
+          addNewComment,
+          linkNewComment,
+        });
+        //return to front end
+      }
+    }
   } catch (err) {
     console.log(err, "error");
     return res.status(400).json({ error: true, msg: err });
@@ -426,6 +586,8 @@ const createPost = async (req, res) => {
   // update in threadPost table
   try {
     if (oldPinId !== null) {
+      // Create new thread with location name/ general location but without using map.
+
       const existingPin = await pin.findOne({
         where: {
           placeName: locationName,
@@ -434,6 +596,8 @@ const createPost = async (req, res) => {
       });
 
       if (existingPin !== null) {
+        // The location name matches the pin existing in the table.
+
         const createNewThread = await post.create({
           content: content,
           userId: userId,
@@ -465,6 +629,7 @@ const createPost = async (req, res) => {
         });
         //return to front end
       } else if (existingPin === null) {
+        // The location name does not match the pin existing in the table.
         const createNewThread = await post.create({
           content: content,
           userId: userId,
@@ -497,7 +662,9 @@ const createPost = async (req, res) => {
         //return to front end
       }
     } else {
+      // User clicked on the map or by using autocomplete to give exact location.
       if (exactLocation.length !== 0) {
+        // Autocomplete was used.
         const [newCreatedPin, created] = await pin.findOrCreate({
           where: { placeName: exactLocation, areaId: areaId },
           defaults: {
@@ -536,6 +703,8 @@ const createPost = async (req, res) => {
           updateTheadPost,
         });
       } else {
+        // Autocomplete was not used, map was clicked to get the coordinates.
+
         const [newCreatedPin, created] = await pin.findOrCreate({
           where: { placeName: locationName, areaId: areaId },
           defaults: {
