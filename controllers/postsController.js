@@ -175,7 +175,7 @@ const getAllThreadInfo = async (req, res) => {
         include: {
           model: post,
           attributes: ["content", "createdAt", "userId"],
-          include: { model: user, attributes: ["name"] },
+          include: { model: user, attributes: ["name", "photoLink"] },
         },
       });
 
@@ -195,6 +195,7 @@ const getAllThreadInfo = async (req, res) => {
         lastPostCreatedAt: lastPost[0]["post.createdAt"].toDateString(),
         lastPostUserId: lastPost[0]["post.userId"],
         lastPostUserName: lastPost[0]["post.user.name"],
+        lastPostUserPhoto: lastPost[0]["post.user.photoLink"],
       };
 
       allThreadInfo.push(threadInfo);

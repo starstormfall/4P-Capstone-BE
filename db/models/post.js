@@ -39,6 +39,7 @@ module.exports = (sequelize, DataTypes) => {
       locationName: DataTypes.STRING,
       forumPost: DataTypes.BOOLEAN,
       explorePost: DataTypes.STRING,
+      quotedExplore: DataTypes.BOOLEAN,
       externalLink: DataTypes.STRING,
       likeCount: DataTypes.INTEGER,
       userId: {
