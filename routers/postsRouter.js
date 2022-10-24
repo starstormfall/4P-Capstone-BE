@@ -27,6 +27,9 @@ router.post(`/create-comment/:threadId`, controllers.createThreadPost);
 //create new thread (at forum page?)
 router.post(`/create-thread`, controllers.createPost);
 
+//create new thread (from explore page)
+router.post(`/create-thread-from-explore`, controllers.createThreadExplore);
+
 //comment. update Posts && Forumname_Post table (if explore column == null. is comment)
 
 module.exports = router;

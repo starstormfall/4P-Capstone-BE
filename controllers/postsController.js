@@ -139,7 +139,6 @@ const getAllThreadInfo = async (req, res) => {
     let allThread = [];
 
     if (Object.keys(req.query).length > 0) {
-      console.log("did this run?");
       const assocThreadPost = await threadPost.findAll({
         where: {
           postId: postId,
@@ -309,8 +308,6 @@ const getTags = async (req, res) => {
     });
 
     const areasPosts = await post.findByPk(postId);
-
-    console.log(areasPosts);
 
     const areaName = await areasPosts.getArea({ raw: true });
 
@@ -564,7 +561,9 @@ const createThreadPost = async (req, res) => {
 // create thread and determine if explore or not explore
 const createPost = async (req, res) => {
   // #swagger.tags = ['Post']
+
   console.log("add comments");
+
   //validate requirements for explore post
   const {
     userId,
@@ -750,6 +749,44 @@ const createPost = async (req, res) => {
   }
 };
 
+const createThreadExplore = async (req, res) => {
+  // #swagger.tags = ['Post']
+  /* #swagger.parameters['fromExplorePostId'] = {
+      in: 'query',        
+       type: 'integer'
+    } */
+
+  const { fromExplorePostId } = req.query;
+  const { userId, threadTitle, content, areaId } = req.body;
+
+  try {
+    // add new thread title to thread model
+    const newThread = await thread.create({ topic: threadTitle });
+
+    // add new post to post model with quotedExplore set to true
+    const newPost = await post.create({
+      content: content,
+      areaId: areaId,
+      forumPost: true,
+      quotedExplore: true,
+      userId: userId,
+    });
+
+    // console.log("new THread", newThread);
+    // console.log("new Post", newPost);
+    // update threadPost model with new threadId and existingPostId && new threadId and newPostId
+
+    const newThreadPost = await threadPost.bulkCreate([
+      { threadId: newThread.id, postId: fromExplorePostId },
+      { threadId: newThread.id, postId: newPost.id },
+    ]);
+
+    return res.json(newThreadPost);
+  } catch (err) {
+    return res.status(400).json({ error: true, msg: err });
+  }
+};
+
 module.exports = {
   getAllExplore,
   getAllThreadInfo,
@@ -759,4 +796,5 @@ module.exports = {
   createPost,
   addLikes,
   getTags,
+  createThreadExplore,
 };
