@@ -2752,6 +2752,7 @@ module.exports = {
         user_id: 1,
         created_at: new Date("July 18, 2022 03:30:00"),
         updated_at: new Date(),
+        quoted_explore: null,
       },
       {
         title: "Tokyo is known for its vibrant neighborhoods and landmarks",
@@ -2770,6 +2771,7 @@ module.exports = {
         user_id: 1,
         created_at: new Date("July 19, 2022 08:35:00"),
         updated_at: new Date(),
+        quoted_explore: null,
       },
       {
         title: "nao_nightgraphy",
@@ -2786,6 +2788,7 @@ module.exports = {
         user_id: 1,
         created_at: new Date("July 31, 2022 06:36:30"),
         updated_at: new Date(),
+        quoted_explore: null,
       },
       {
         title: "Tokyo Imperial Palace Mega Guide",
@@ -2804,6 +2807,7 @@ module.exports = {
         user_id: 1,
         created_at: new Date("August 30, 2022 15:30:00"),
         updated_at: new Date(),
+        quoted_explore: null,
       },
       {
         title: "Ginza",
@@ -2822,6 +2826,7 @@ module.exports = {
         user_id: 1,
         created_at: new Date("September 11, 2022 16:40:00"),
         updated_at: new Date(),
+        quoted_explore: null,
       },
       {
         title:
@@ -2841,6 +2846,7 @@ module.exports = {
         user_id: 1,
         created_at: new Date("August 16, 2022 12:35:00"),
         updated_at: new Date(),
+        quoted_explore: null,
       },
       {
         title: "The Difference Between Tsukiji and Toyosu Fish Markets",
@@ -2859,6 +2865,7 @@ module.exports = {
         user_id: 1,
         created_at: new Date("October 01, 2022 20:50:00"),
         updated_at: new Date(),
+        quoted_explore: null,
       },
       {
         title: "noncafe_gram",
@@ -2876,6 +2883,7 @@ module.exports = {
         user_id: 1,
         created_at: new Date("September 9, 2022 11:15:00"),
         updated_at: new Date(),
+        quoted_explore: null,
       },
       {
         title:
@@ -2894,6 +2902,7 @@ module.exports = {
         user_id: 1,
         created_at: new Date("September 21, 2022 23:20:00"),
         updated_at: new Date(),
+        quoted_explore: null,
       },
       {
         title: "uryo1113",
@@ -2911,6 +2920,7 @@ module.exports = {
         user_id: 1,
         created_at: new Date("October 05, 2022 11:15:00"),
         updated_at: new Date(),
+        quoted_explore: null,
       },
       {
         title: "uryo1113",
@@ -2928,6 +2938,7 @@ module.exports = {
         user_id: 1,
         created_at: new Date("September 29, 2022 21:50:00"),
         updated_at: new Date(),
+        quoted_explore: null,
       },
       {
         title: "uryo1113",
@@ -2945,6 +2956,7 @@ module.exports = {
         user_id: 1,
         created_at: new Date("September 23, 2022 10:30:00"),
         updated_at: new Date(),
+        quoted_explore: null,
       },
       {
         title: "uryo1113",
@@ -2962,6 +2974,7 @@ module.exports = {
         user_id: 1,
         created_at: new Date("September 22, 2022 17:59:00"),
         updated_at: new Date(),
+        quoted_explore: null,
       },
       {
         title: "uryo1113",
@@ -2979,6 +2992,7 @@ module.exports = {
         user_id: 1,
         created_at: new Date("September 13, 2022 13:37:00"),
         updated_at: new Date(),
+        quoted_explore: null,
       },
       {
         title: "uryo1113",
@@ -2996,6 +3010,7 @@ module.exports = {
         user_id: 1,
         created_at: new Date("September 12, 2022 18:52:00"),
         updated_at: new Date(),
+        quoted_explore: null,
       },
       {
         //thread 5
@@ -3014,6 +3029,7 @@ module.exports = {
         user_id: 1,
         created_at: new Date("September 10, 2022 10:23:00"),
         updated_at: new Date(),
+        quoted_explore: null,
       },
       {
         title:
@@ -3033,6 +3049,7 @@ module.exports = {
         user_id: 1,
         created_at: new Date("October 08, 2022 10:52:00"),
         updated_at: new Date(),
+        quoted_explore: null,
       },
       {
         title: "Noboribetsu",
@@ -3050,6 +3067,7 @@ module.exports = {
         user_id: 1,
         created_at: new Date("October 2, 2022 12:00:00"),
         updated_at: new Date(),
+        quoted_explore: null,
       },
       {
         title: "sae_sekai",
@@ -3067,6 +3085,7 @@ module.exports = {
         user_id: 1,
         created_at: new Date("September 26, 2022 09:49:00"),
         updated_at: new Date(),
+        quoted_explore: null,
       },
       {
         title: "furanohitamuki",
@@ -3084,6 +3103,7 @@ module.exports = {
         user_id: 1,
         created_at: new Date("October 03, 2022 15:23:00"),
         updated_at: new Date(),
+        quoted_explore: null,
       },
       {
         title: "Furano - So this is what they mean by frolicking.",
@@ -3101,6 +3121,7 @@ module.exports = {
         user_id: 1,
         created_at: new Date("September 11, 2022 23:15:00"),
         updated_at: new Date(),
+        quoted_explore: null,
       },
       {
         //ACCOMODATION FOR HOKKAIDO
@@ -3120,6 +3141,7 @@ module.exports = {
         user_id: 1,
         created_at: new Date("October 6, 2022 10:30:00"),
         updated_at: new Date(),
+        quoted_explore: null,
       },
       {
         title:
@@ -3138,6 +3160,7 @@ module.exports = {
         user_id: 1,
         created_at: new Date("July 11, 2022 15:00:00"),
         updated_at: new Date(),
+        quoted_explore: null,
       },
       {
         title:
@@ -3157,6 +3180,7 @@ module.exports = {
         user_id: 1,
         created_at: new Date("September 30, 2022 19:23:30"),
         updated_at: new Date(),
+        quoted_explore: null,
       },
       {
         //thread 6
@@ -3175,6 +3199,7 @@ module.exports = {
         user_id: 1,
         created_at: new Date("August 14, 2022 10:25:30"),
         updated_at: new Date(),
+        quoted_explore: null,
       },
       {
         title: "uryo1113",
@@ -3193,6 +3218,7 @@ module.exports = {
         user_id: 1,
         created_at: new Date("September 02, 2022 21:40:00"),
         updated_at: new Date(),
+        quoted_explore: null,
       },
       {
         title: "uryo1113",
@@ -3210,6 +3236,7 @@ module.exports = {
         user_id: 1,
         created_at: new Date("October 02, 2022 19:26:30"),
         updated_at: new Date(),
+        quoted_explore: null,
       },
       {
         title: "uryo1113",
@@ -3227,6 +3254,7 @@ module.exports = {
         user_id: 1,
         created_at: new Date("July 02, 2022 19:30:00"),
         updated_at: new Date(),
+        quoted_explore: null,
       },
       {
         title: "uryo1113",
@@ -3244,6 +3272,7 @@ module.exports = {
         user_id: 1,
         created_at: new Date("August 19, 2022 20:12:30"),
         updated_at: new Date(),
+        quoted_explore: null,
       },
       {
         title: "uryo1113",
@@ -3261,6 +3290,7 @@ module.exports = {
         user_id: 1,
         created_at: new Date("July 05, 2022 12:10:00"),
         updated_at: new Date(),
+        quoted_explore: null,
       },
       {
         title: "My Story of Ramen Shingen",
@@ -3279,6 +3309,7 @@ module.exports = {
         user_id: 1,
         created_at: new Date("July 19, 2022 21:04:10"),
         updated_at: new Date(),
+        quoted_explore: null,
       },
       {
         title:
@@ -3297,6 +3328,7 @@ module.exports = {
         user_id: 1,
         created_at: new Date("August 13, 2022 14:15:00"),
         updated_at: new Date(),
+        quoted_explore: null,
       },
       {
         title: "Universal Studios Japan",
@@ -3314,6 +3346,7 @@ module.exports = {
         user_id: 1,
         created_at: new Date("August 29, 2022 22:19:00"),
         updated_at: new Date(),
+        quoted_explore: null,
       },
       {
         title: "Tempozan Ferris Wheel",
@@ -3331,6 +3364,7 @@ module.exports = {
         user_id: 1,
         created_at: new Date("September 29, 2022 20:19:00"),
         updated_at: new Date(),
+        quoted_explore: null,
       },
       {
         title:
@@ -3349,6 +3383,7 @@ module.exports = {
         user_id: 1,
         created_at: new Date("September 03, 2022 20:15:00"),
         updated_at: new Date(),
+        quoted_explore: null,
       },
       {
         title: "KEMA SAKURANOMIYA PARK - The Long Sakura Shoreline in Osaka",
@@ -3367,6 +3402,7 @@ module.exports = {
         user_id: 1,
         created_at: new Date("September 06, 2022 15:16:00"),
         updated_at: new Date(),
+        quoted_explore: null,
       },
       {
         title: "uryo1113",
@@ -3384,6 +3420,7 @@ module.exports = {
         user_id: 1,
         created_at: new Date("August 14, 2022 15:15:00"),
         updated_at: new Date(),
+        quoted_explore: null,
       },
       {
         title:
@@ -3402,6 +3439,7 @@ module.exports = {
         user_id: 1,
         created_at: new Date("September 29, 2022 22:19:00"),
         updated_at: new Date(),
+        quoted_explore: null,
       },
       {
         title: "Shinsekai and the Tsutenkaku Tower",
@@ -3420,6 +3458,7 @@ module.exports = {
         user_id: 1,
         created_at: new Date("September 06, 2022 16:20:00"),
         updated_at: new Date(),
+        quoted_explore: null,
       },
       {
         title: "uryo1113",
@@ -3437,6 +3476,7 @@ module.exports = {
         user_id: 1,
         created_at: new Date("August 11, 2022 10:15:00"),
         updated_at: new Date(),
+        quoted_explore: null,
       },
       {
         title: "uryo1113",
@@ -3454,6 +3494,7 @@ module.exports = {
         user_id: 1,
         created_at: new Date("August 10, 2022 16:00:00"),
         updated_at: new Date(),
+        quoted_explore: null,
       },
       {
         title: "uryo1113",
@@ -3471,6 +3512,7 @@ module.exports = {
         user_id: 1,
         created_at: new Date("August 10, 2022 15:00:00"),
         updated_at: new Date(),
+        quoted_explore: null,
       },
       {
         title: "uryo1113",
@@ -3488,6 +3530,7 @@ module.exports = {
         user_id: 1,
         created_at: new Date("August 18, 2022 15:00:00"),
         updated_at: new Date(),
+        quoted_explore: null,
       },
       {
         title: "uryo1113",
@@ -3505,6 +3548,7 @@ module.exports = {
         user_id: 1,
         created_at: new Date("August 19, 2022 11:30:00"),
         updated_at: new Date(),
+        quoted_explore: null,
       },
       {
         title: "uryo1113",
@@ -3522,6 +3566,7 @@ module.exports = {
         user_id: 1,
         created_at: new Date("August 15, 2022 23:59:00"),
         updated_at: new Date(),
+        quoted_explore: null,
       },
       {
         title: "uryo1113",
@@ -3539,6 +3584,7 @@ module.exports = {
         user_id: 1,
         created_at: new Date("August 25, 2022 15:30:00"),
         updated_at: new Date(),
+        quoted_explore: null,
       },
       {
         title: "uryo1113",
@@ -3556,6 +3602,7 @@ module.exports = {
         user_id: 1,
         created_at: new Date("August 29, 2022 06:24:00"),
         updated_at: new Date(),
+        quoted_explore: null,
       },
       {
         //Thread 8
@@ -3575,6 +3622,7 @@ module.exports = {
         user_id: 3,
         created_at: new Date("September 10, 2022 23:15:00"),
         updated_at: new Date(),
+        quoted_explore: null,
       },
       {
         //Thread 13
@@ -3594,6 +3642,7 @@ module.exports = {
         user_id: 3,
         created_at: new Date("August 12, 2022 14:15:00"),
         updated_at: new Date(),
+        quoted_explore: null,
       },
       {
         //Thread 4
@@ -3613,6 +3662,7 @@ module.exports = {
         user_id: 6,
         created_at: new Date("August 9, 2022 16:35:00"),
         updated_at: new Date(),
+        quoted_explore: null,
       },
       {
         //Thread 24
@@ -3631,6 +3681,7 @@ module.exports = {
         user_id: 3,
         created_at: new Date("September 08, 2022 12:25:00"),
         updated_at: new Date(),
+        quoted_explore: null,
       },
       {
         //Thread 27
@@ -3650,6 +3701,7 @@ module.exports = {
         user_id: 6,
         created_at: new Date("July 29, 2022 13:34:00"),
         updated_at: new Date(),
+        quoted_explore: null,
       },
       {
         //Thread 8
@@ -3668,6 +3720,7 @@ module.exports = {
         user_id: 5,
         created_at: new Date("September 14, 2022 19:45:00"),
         updated_at: new Date(),
+        quoted_explore: null,
       },
       {
         //Thread 7
@@ -3686,6 +3739,7 @@ module.exports = {
         user_id: 4,
         created_at: new Date("September 15, 2022 11:15:00"),
         updated_at: new Date(),
+        quoted_explore: null,
       },
       {
         //Thread 8
@@ -3704,6 +3758,7 @@ module.exports = {
         user_id: 4,
         created_at: new Date("September 19, 2022 16:49:00"),
         updated_at: new Date(),
+        quoted_explore: null,
       },
       {
         //Thread 01
@@ -3722,6 +3777,7 @@ module.exports = {
         user_id: 4,
         created_at: new Date("July 28, 2022 09:36:30"),
         updated_at: new Date(),
+        quoted_explore: null,
       },
       {
         //Thread 3
@@ -3740,6 +3796,7 @@ module.exports = {
         user_id: 5,
         created_at: new Date("August 03, 2022 16:42:00"),
         updated_at: new Date(),
+        quoted_explore: null,
       },
       {
         //Thread 23
@@ -3758,6 +3815,7 @@ module.exports = {
         user_id: 6,
         created_at: new Date("September 03, 2022 16:42:00"),
         updated_at: new Date(),
+        quoted_explore: null,
       },
       {
         //Thread 25
@@ -3776,6 +3834,7 @@ module.exports = {
         user_id: 3,
         created_at: new Date("September 13, 2022 18:42:00"),
         updated_at: new Date(),
+        quoted_explore: null,
       },
       {
         //Thread 14
@@ -3794,6 +3853,7 @@ module.exports = {
         user_id: 4,
         created_at: new Date("September 11, 2022 11:42:00"),
         updated_at: new Date(),
+        quoted_explore: null,
       },
       {
         //Thread 14
@@ -3812,6 +3872,7 @@ module.exports = {
         user_id: 5,
         created_at: new Date("September 02, 2022 20:15:00"),
         updated_at: new Date(),
+        quoted_explore: null,
       },
       {
         //Thread 18
@@ -3830,6 +3891,7 @@ module.exports = {
         user_id: 3,
         created_at: new Date("September 24, 2022 23:22:00"),
         updated_at: new Date(),
+        quoted_explore: null,
       },
       {
         //Thread 26
@@ -3848,6 +3910,7 @@ module.exports = {
         user_id: 3,
         created_at: new Date("July 14, 2022 23:29:00"),
         updated_at: new Date(),
+        quoted_explore: null,
       },
       {
         //Thread 14
@@ -3867,6 +3930,7 @@ module.exports = {
         user_id: 3,
         created_at: new Date("September 05, 2022 17:24:00"),
         updated_at: new Date(),
+        quoted_explore: null,
       },
       {
         //Thread 22
@@ -3885,6 +3949,7 @@ module.exports = {
         user_id: 5,
         created_at: new Date("October 04, 2022 12:25:00"),
         updated_at: new Date(),
+        quoted_explore: null,
       },
       {
         //Thread 10
@@ -3903,6 +3968,7 @@ module.exports = {
         user_id: 3,
         created_at: new Date("September 15, 2022 12:43:00"),
         updated_at: new Date(),
+        quoted_explore: null,
       },
       {
         //Thread 10
@@ -3922,6 +3988,7 @@ module.exports = {
         user_id: 6,
         created_at: new Date("October 01, 2022 19:26:30"),
         updated_at: new Date(),
+        quoted_explore: null,
       },
       {
         //Thread 17
@@ -3940,6 +4007,7 @@ module.exports = {
         user_id: 3,
         created_at: new Date("August 12, 2022 14:15:00"),
         updated_at: new Date(),
+        quoted_explore: null,
       },
       {
         //Thread 20
@@ -3958,6 +4026,7 @@ module.exports = {
         user_id: 3,
         created_at: new Date("August 24, 2022 23:22:00"),
         updated_at: new Date(),
+        quoted_explore: null,
       },
       {
         //Thread 02
@@ -3976,6 +4045,7 @@ module.exports = {
         user_id: 1,
         created_at: new Date("July 29, 2022 14:40:00"),
         updated_at: new Date(),
+        quoted_explore: null,
       },
       {
         //Thread 17
@@ -3994,6 +4064,7 @@ module.exports = {
         user_id: 4,
         created_at: new Date("August 23, 2022 18:39:00"),
         updated_at: new Date(),
+        quoted_explore: null,
       },
       {
         //Thread 17
@@ -4012,6 +4083,7 @@ module.exports = {
         user_id: 5,
         created_at: new Date("September 03, 2022 23:23:00"),
         updated_at: new Date(),
+        quoted_explore: null,
       },
       {
         //Thread 02
@@ -4030,6 +4102,7 @@ module.exports = {
         user_id: 3,
         created_at: new Date("July 22, 2022 09:35:00"),
         updated_at: new Date(),
+        quoted_explore: null,
       },
       {
         //Thread 17
@@ -4048,6 +4121,7 @@ module.exports = {
         user_id: 3,
         created_at: new Date("September 05, 2022 16:12:00"),
         updated_at: new Date(),
+        quoted_explore: null,
       },
       {
         //Thread 02
@@ -4066,6 +4140,7 @@ module.exports = {
         user_id: 3,
         created_at: new Date("July 25, 2022 12:54:00"),
         updated_at: new Date(),
+        quoted_explore: null,
       },
       {
         //Thread 17
@@ -4084,6 +4159,7 @@ module.exports = {
         user_id: 3,
         created_at: new Date("September 10, 2022 10:10:00"),
         updated_at: new Date(),
+        quoted_explore: null,
       },
       {
         //Thread 01 comment
@@ -4101,6 +4177,7 @@ module.exports = {
         user_id: 2,
         created_at: new Date("July 17, 2022 03:30:00"),
         updated_at: new Date("July 17, 2022 03:30:00"),
+        quoted_explore: null,
       },
       {
         //Thread 01 comment
@@ -4118,6 +4195,7 @@ module.exports = {
         user_id: 3,
         created_at: new Date("July 20, 2022 09:30:00"),
         updated_at: new Date("July 20, 2022 09:30:00"),
+        quoted_explore: null,
       },
       {
         //Thread 01 comment
@@ -4135,6 +4213,7 @@ module.exports = {
         user_id: 2,
         created_at: new Date("July 30, 2022 06:36:30"),
         updated_at: new Date("July 30, 2022 06:36:30"),
+        quoted_explore: null,
       },
       {
         //Thread 02 comment
@@ -4152,6 +4231,7 @@ module.exports = {
         user_id: 5,
         created_at: new Date("July 18, 2022 08:35:00"),
         updated_at: new Date("July 18, 2022 08:35:00"),
+        quoted_explore: null,
       },
       {
         //Thread 02 comment
@@ -4169,6 +4249,7 @@ module.exports = {
         user_id: 1,
         created_at: new Date("July 20, 2022 12:35:00"),
         updated_at: new Date("July 20, 2022 12:35:00"),
+        quoted_explore: null,
       },
       {
         //Thread 3 comment
@@ -4186,6 +4267,7 @@ module.exports = {
         user_id: 4,
         created_at: new Date("July 26, 2022 09:35:00"),
         updated_at: new Date("July 26, 2022 09:35:00"),
+        quoted_explore: null,
       },
       {
         //Thread 3 comment
@@ -4204,6 +4286,7 @@ module.exports = {
         user_id: 3,
         created_at: new Date("August 1, 2022 10:42:00"),
         updated_at: new Date("August 1, 2022 10:42:00"),
+        quoted_explore: null,
       },
       {
         //Thread 3 comment
@@ -4221,6 +4304,7 @@ module.exports = {
         user_id: 4,
         created_at: new Date("August 28, 2022 12:30:00"),
         updated_at: new Date("August 28, 2022 12:30:00"),
+        quoted_explore: null,
       },
       {
         //Thread 3 comment
@@ -4237,6 +4321,7 @@ module.exports = {
         user_id: 3,
         created_at: new Date("August 29, 2022 15:30:00"),
         updated_at: new Date("August 29, 2022 15:30:00"),
+        quoted_explore: null,
       },
       {
         //Thread 4 comment
@@ -4254,6 +4339,7 @@ module.exports = {
         user_id: 15,
         created_at: new Date("September 10, 2022 16:40:00"),
         updated_at: new Date("September 10, 2022 16:40:00"),
+        quoted_explore: null,
       },
       {
         //Thread 4 comment
@@ -4271,6 +4357,7 @@ module.exports = {
         user_id: 12,
         created_at: new Date("August 11, 2022 12:35:00"),
         updated_at: new Date("August 11, 2022 12:35:00"),
+        quoted_explore: null,
       },
       {
         //Thread 4 comment
@@ -4288,6 +4375,7 @@ module.exports = {
         user_id: 10,
         created_at: new Date("August 30, 2022 14:36:00"),
         updated_at: new Date("August 30, 2022 14:36:00"),
+        quoted_explore: null,
       },
       {
         //Thread 5 comment
@@ -4306,6 +4394,7 @@ module.exports = {
         user_id: 8,
         created_at: new Date("August 15, 2022 12:35:00"),
         updated_at: new Date("August 15, 2022 12:35:00"),
+        quoted_explore: true,
       },
       {
         //Thread 5 comment
@@ -4324,6 +4413,7 @@ module.exports = {
         user_id: 5,
         created_at: new Date("August 17, 2022 16:19:00"),
         updated_at: new Date("August 17, 2022 16:19:00"),
+        quoted_explore: null,
       },
       {
         //Thread 5 comment
@@ -4342,6 +4432,7 @@ module.exports = {
         user_id: 8,
         created_at: new Date("August 30, 2022 19:21:00"),
         updated_at: new Date("August 30, 2022 19:21:00"),
+        quoted_explore: null,
       },
       {
         //Thread 5 comment
@@ -4360,6 +4451,7 @@ module.exports = {
         user_id: 3,
         created_at: new Date("September 15, 2022 23:12:00"),
         updated_at: new Date("September 15, 2022 23:12:00"),
+        quoted_explore: null,
       },
       {
         //Thread 5 comment
@@ -4377,6 +4469,7 @@ module.exports = {
         user_id: 8,
         created_at: new Date("September 30, 2022 20:50:00"),
         updated_at: new Date("September 30, 2022 20:50:00"),
+        quoted_explore: null,
       },
       {
         //Thread 6 comment
@@ -4395,6 +4488,7 @@ module.exports = {
         user_id: 9,
         created_at: new Date("September 8, 2022 11:15:00"),
         updated_at: new Date("September 8, 2022 11:15:00"),
+        quoted_explore: true,
       },
       {
         //Thread 6 comment
@@ -4412,6 +4506,7 @@ module.exports = {
         user_id: 4,
         created_at: new Date("September 20, 2022 23:20:00"),
         updated_at: new Date("September 20, 2022 23:20:00"),
+        quoted_explore: null,
       },
       {
         //Thread 7 comment
@@ -4428,6 +4523,7 @@ module.exports = {
         user_id: 11,
         created_at: new Date("October 1, 2022 12:00:00"),
         updated_at: new Date("October 1, 2022 12:00:00"),
+        quoted_explore: null,
       },
       {
         //Thread 8 comment
@@ -4445,6 +4541,7 @@ module.exports = {
         user_id: 13,
         created_at: new Date("September 11, 2022 12:00:00"),
         updated_at: new Date("September 11, 2022 12:00:00"),
+        quoted_explore: null,
       },
       {
         //Thread 8 comment
@@ -4461,6 +4558,7 @@ module.exports = {
         user_id: 10,
         created_at: new Date("September 16, 2022 18:19:00"),
         updated_at: new Date("September 16, 2022 18:19:00"),
+        quoted_explore: null,
       },
       {
         //Thread 8 comment
@@ -4477,6 +4575,7 @@ module.exports = {
         user_id: 13,
         created_at: new Date("September 30, 2022 17:18:00"),
         updated_at: new Date("September 30, 2022 17:18:00"),
+        quoted_explore: null,
       },
       {
         //Thread 8 comment
@@ -4493,6 +4592,7 @@ module.exports = {
         user_id: 15,
         created_at: new Date("September 30, 2022 18:24:00"),
         updated_at: new Date("September 30, 2022 18:24:00"),
+        quoted_explore: null,
       },
       {
         //Thread 8 comment
@@ -4510,6 +4610,7 @@ module.exports = {
         user_id: 5,
         created_at: new Date("September 30, 2022 19:52:00"),
         updated_at: new Date("September 30, 2022 19:52:00"),
+        quoted_explore: null,
       },
       {
         //Thread 8 comment
@@ -4526,6 +4627,7 @@ module.exports = {
         user_id: 4,
         created_at: new Date("October 5, 2022 10:30:00"),
         updated_at: new Date("October 5, 2022 10:30:00"),
+        quoted_explore: null,
       },
       {
         //Thread 9 comment
@@ -4544,6 +4646,7 @@ module.exports = {
         user_id: 3,
         created_at: new Date("August 30, 2022 15:00:00"),
         updated_at: new Date("August 30, 2022 15:00:00"),
+        quoted_explore: true,
       },
       {
         //Thread 9 comment
@@ -4562,6 +4665,7 @@ module.exports = {
         user_id: 7,
         created_at: new Date("September 29, 2022 19:23:30"),
         updated_at: new Date("September 29, 2022 19:23:30"),
+        quoted_explore: null,
       },
       {
         //Thread 10 comment
@@ -4579,6 +4683,7 @@ module.exports = {
         user_id: 10,
         created_at: new Date("September 01, 2022 21:40:00"),
         updated_at: new Date("September 01, 2022 21:40:00"),
+        quoted_explore: null,
       },
       {
         //Thread 10 comment
@@ -4596,6 +4701,7 @@ module.exports = {
         user_id: 7,
         created_at: new Date("September 10, 2022 15:41:00"),
         updated_at: new Date("September 10, 2022 15:41:00"),
+        quoted_explore: null,
       },
       {
         //Thread 10 comment
@@ -4612,6 +4718,7 @@ module.exports = {
         user_id: 9,
         created_at: new Date("September 11, 2022 12:03:00"),
         updated_at: new Date("September 11, 2022 12:03:00"),
+        quoted_explore: null,
       },
       {
         //Thread 10 comment
@@ -4629,6 +4736,7 @@ module.exports = {
         user_id: 9,
         created_at: new Date("September 25, 2022 10:06:00"),
         updated_at: new Date("September 25, 2022 10:06:00"),
+        quoted_explore: null,
       },
       {
         //Thread 11 comment
@@ -4645,6 +4753,7 @@ module.exports = {
         user_id: 15,
         created_at: new Date("July 01, 2022 19:30:00"),
         updated_at: new Date("July 01, 2022 19:30:00"),
+        quoted_explore: null,
       },
       {
         //Thread 11 comment
@@ -4662,6 +4771,7 @@ module.exports = {
         user_id: 12,
         created_at: new Date("August 18, 2022 20:12:30"),
         updated_at: new Date("August 18, 2022 20:12:30"),
+        quoted_explore: null,
       },
       {
         //Thread 12 comment
@@ -4679,6 +4789,7 @@ module.exports = {
         user_id: 11,
         created_at: new Date("July 04, 2022 12:10:00"),
         updated_at: new Date("July 04, 2022 12:10:00"),
+        quoted_explore: null,
       },
       {
         //Thread 12 comment
@@ -4696,6 +4807,7 @@ module.exports = {
         user_id: 5,
         created_at: new Date("July 18, 2022 21:04:10"),
         updated_at: new Date("July 18, 2022 21:04:10"),
+        quoted_explore: null,
       },
       {
         //Thread 13 comment
@@ -4713,6 +4825,7 @@ module.exports = {
         user_id: 2,
         created_at: new Date("August 28, 2022 22:19:00"),
         updated_at: new Date("August 28, 2022 22:19:00"),
+        quoted_explore: null,
       },
       {
         //Thread 14 comment
@@ -4730,6 +4843,7 @@ module.exports = {
         user_id: 6,
         created_at: new Date("September 05, 2022 22:19:00"),
         updated_at: new Date("September 05, 2022 22:19:00"),
+        quoted_explore: null,
       },
       {
         //Thread 14 comment
@@ -4747,6 +4861,7 @@ module.exports = {
         user_id: 2,
         created_at: new Date("September 25, 2022 14:26:00"),
         updated_at: new Date("September 25, 2022 14:26:00"),
+        quoted_explore: null,
       },
       {
         //Thread 14 comment
@@ -4763,6 +4878,7 @@ module.exports = {
         user_id: 7,
         created_at: new Date("September 25, 2022 17:31:00"),
         updated_at: new Date("September 25, 2022 17:31:00"),
+        quoted_explore: null,
       },
       {
         //Thread 14 comment
@@ -4779,6 +4895,7 @@ module.exports = {
         user_id: 8,
         created_at: new Date("September 28, 2022 20:19:00"),
         updated_at: new Date("September 28, 2022 20:19:00"),
+        quoted_explore: null,
       },
       {
         //Thread 15 comment
@@ -4797,6 +4914,7 @@ module.exports = {
         user_id: 10,
         created_at: new Date("September 05, 2022 15:16:00"),
         updated_at: new Date("September 05, 2022 15:16:00"),
+        quoted_explore: true,
       },
       {
         //Thread 15 comment
@@ -4815,6 +4933,7 @@ module.exports = {
         user_id: 3,
         created_at: new Date("September 28, 2022 15:16:00"),
         updated_at: new Date("September 28, 2022 15:16:00"),
+        quoted_explore: null,
       },
       {
         //Thread 16 comment
@@ -4833,6 +4952,7 @@ module.exports = {
         user_id: 12,
         created_at: new Date("September 05, 2022 16:20:00"),
         updated_at: new Date("September 05, 2022 16:20:00"),
+        quoted_explore: true,
       },
       {
         //Thread 16 comment
@@ -4850,6 +4970,7 @@ module.exports = {
         user_id: 13,
         created_at: new Date("October 04, 2022 20:21:00"),
         updated_at: new Date("October 04, 2022 20:21:00"),
+        quoted_explore: null,
       },
       {
         //Thread 17 comment
@@ -4866,6 +4987,7 @@ module.exports = {
         user_id: 8,
         created_at: new Date("August 15, 2022 12:21:00"),
         updated_at: new Date("August 15, 2022 12:21:00"),
+        quoted_explore: null,
       },
       {
         //Thread 17 comment
@@ -4882,6 +5004,7 @@ module.exports = {
         user_id: 11,
         created_at: new Date("August 17, 2022 10:25:00"),
         updated_at: new Date("August 17, 2022 10:25:00"),
+        quoted_explore: null,
       },
       {
         //Thread 17 comment
@@ -4898,6 +5021,7 @@ module.exports = {
         user_id: 11,
         created_at: new Date("September 16, 2022 16:25:00"),
         updated_at: new Date("September 16, 2022 16:25:00"),
+        quoted_explore: null,
       },
       {
         //Thread 17 comment
@@ -4914,6 +5038,7 @@ module.exports = {
         user_id: 12,
         created_at: new Date("September 20, 2022 13:18:00"),
         updated_at: new Date("September 20, 2022 13:18:00"),
+        quoted_explore: null,
       },
       {
         //Thread 17 comment
@@ -4930,6 +5055,7 @@ module.exports = {
         user_id: 10,
         created_at: new Date("September 21, 2022 11:10:00"),
         updated_at: new Date("September 21, 2022 11:10:00"),
+        quoted_explore: null,
       },
       {
         //Thread 17 comment
@@ -4947,6 +5073,7 @@ module.exports = {
         user_id: 13,
         created_at: new Date("September 27, 2022 22:19:00"),
         updated_at: new Date("September 27, 2022 22:19:00"),
+        quoted_explore: null,
       },
       {
         //Thread 18 comment
@@ -4964,6 +5091,7 @@ module.exports = {
         user_id: 9,
         created_at: new Date("October 08, 2022 18:17:00"),
         updated_at: new Date("October 08, 2022 18:17:00"),
+        quoted_explore: null,
       },
       {
         //Thread 19 comment
@@ -4981,6 +5109,7 @@ module.exports = {
         user_id: 3,
         created_at: new Date("September 26, 2022 19:50:00"),
         updated_at: new Date("September 26, 2022 19:50:00"),
+        quoted_explore: null,
       },
       {
         //Thread 19 comment
@@ -4998,6 +5127,7 @@ module.exports = {
         user_id: 13,
         created_at: new Date("September 30, 2022 08:16:00"),
         updated_at: new Date("September 30, 2022 08:16:00"),
+        quoted_explore: null,
       },
       {
         //Thread 20 comment
@@ -5015,6 +5145,7 @@ module.exports = {
         user_id: 7,
         created_at: new Date("October 03, 2022 18:17:00"),
         updated_at: new Date("October 03, 2022 18:17:00"),
+        quoted_explore: null,
       },
       {
         //Thread 21 comment
@@ -5032,6 +5163,7 @@ module.exports = {
         user_id: 11,
         created_at: new Date("August 06, 2022 15:20:00"),
         updated_at: new Date("August 06, 2022 15:20:00"),
+        quoted_explore: null,
       },
       {
         //Thread 21 comment
@@ -5049,6 +5181,7 @@ module.exports = {
         user_id: 3,
         created_at: new Date("September 01, 2022 10:17:00"),
         updated_at: new Date("September 01, 2022 10:17:00"),
+        quoted_explore: null,
       },
       {
         //Thread 23 comment
@@ -5066,6 +5199,7 @@ module.exports = {
         user_id: 7,
         created_at: new Date("September 02, 2022 20:25:00"),
         updated_at: new Date("September 02, 2022 20:25:00"),
+        quoted_explore: null,
       },
       {
         //Thread 23 comment
@@ -5083,6 +5217,7 @@ module.exports = {
         user_id: 7,
         created_at: new Date("September 04, 2022 21:35:00"),
         updated_at: new Date("September 04, 2022 21:35:00"),
+        quoted_explore: null,
       },
       {
         //Thread 23 comment
@@ -5100,6 +5235,7 @@ module.exports = {
         user_id: 4,
         created_at: new Date("October 08, 2022 10:20:00"),
         updated_at: new Date("October 08, 2022 10:20:00"),
+        quoted_explore: null,
       },
       {
         //Thread 24 comment
@@ -5116,6 +5252,7 @@ module.exports = {
         user_id: 9,
         created_at: new Date("September 28, 2022 09:20:00"),
         updated_at: new Date("September 28, 2022 09:20:00"),
+        quoted_explore: null,
       },
       {
         //Thread 25 comment
@@ -5133,6 +5270,7 @@ module.exports = {
         user_id: 5,
         created_at: new Date("August 31, 2022 11:41:00"),
         updated_at: new Date("August 31, 2022 11:41:00"),
+        quoted_explore: null,
       },
       {
         //Thread 25 comment
@@ -5150,6 +5288,7 @@ module.exports = {
         user_id: 3,
         created_at: new Date("September 12, 2022 09:13:00"),
         updated_at: new Date("September 12, 2022 09:13:00"),
+        quoted_explore: null,
       },
       {
         //Thread 25 comment
@@ -5167,6 +5306,7 @@ module.exports = {
         user_id: 5,
         created_at: new Date("September 15, 2022 19:23:00"),
         updated_at: new Date("September 15, 2022 19:23:00"),
+        quoted_explore: null,
       },
       {
         //Thread 26 comment
@@ -5184,6 +5324,7 @@ module.exports = {
         user_id: 4,
         created_at: new Date("September 30, 2022 05:23:00"),
         updated_at: new Date("September 30, 2022 05:23:00"),
+        quoted_explore: null,
       },
       {
         //Thread 27 comment
@@ -5201,6 +5342,7 @@ module.exports = {
         user_id: 5,
         created_at: new Date("September 14, 2022 08:13:00"),
         updated_at: new Date("September 14, 2022 08:13:00"),
+        quoted_explore: null,
       },
     ]);
   },
