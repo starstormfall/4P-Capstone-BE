@@ -32,6 +32,7 @@ module.exports = {
       location_name: Sequelize.STRING,
       forum_post: Sequelize.BOOLEAN,
       explore_post: Sequelize.STRING,
+      quoted_explore: Sequelize.BOOLEAN,
       external_link: Sequelize.STRING,
       like_count: Sequelize.INTEGER,
       user_id: {
