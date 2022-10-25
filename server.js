@@ -36,7 +36,7 @@ const infoRouter = require("./routers/infoRouter");
 app.use("/chats", checkJwt, chatsRouter);
 app.use("/friends", checkJwt, friendsRouter);
 app.use("/maps", checkJwt, mapsRouter);
-app.use("/users", checkJwt, usersRouters);
+app.use("/users", usersRouters);
 app.use("/posts", checkJwt, postsRouter);
 app.use("/info", infoRouter);
 
