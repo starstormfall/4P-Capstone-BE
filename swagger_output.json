@@ -508,6 +508,18 @@
             "in": "path",
             "required": true,
             "type": "string"
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "currentDate": {
+                  "example": "any"
+                }
+              }
+            }
           }
         ],
         "responses": {
@@ -648,12 +660,13 @@
             "type": "array"
           },
           {
-            "name": "userId",
+            "name": "source",
             "in": "query",
-            "type": "string"
+            "description": "instagram, review, forum",
+            "type": "array"
           },
           {
-            "name": "source",
+            "name": "userId",
             "in": "query",
             "type": "string"
           }
@@ -943,9 +956,6 @@
                   "example": "any"
                 },
                 "threadTitle": {
-                  "example": "any"
-                },
-                "existingPostId": {
                   "example": "any"
                 },
                 "content": {
