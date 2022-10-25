@@ -68,20 +68,6 @@ const createChatRoom = async (req, res) => {
   }
 };
 
-// const editRoomDetails = async (req, res) => {
-//   const { usersToAdd } = req.body;
-
-//   try {
-//     const newUsers = await chatroomUser.bulkCreate(usersToAdd);
-
-//     return res.status(201).json({
-//       newUsers,
-//     });
-//   } catch (error) {
-//     return res.status(500).json({ error: error.message });
-//   }
-// };
-
 const editRoomDetails = async (data) => {
   const chatroomToDeactivate = await chatroom.findByPk(data.chatroomId);
 
@@ -94,29 +80,9 @@ const editRoomDetails = async (data) => {
 
 const addMembers = async (data) => {
   const newUsers = await chatroomUser.bulkCreate(data);
-  console.log(newUsers);
 
   return `${newUsers.length} new friends added to chat`;
 };
-// const getAllMessages = async (req, res) => {
-//   const { chatroomId } = req.params;
-//   try {
-//     const data = await message.findAll({
-//       where: { chatroomId: chatroomId },
-//       include: [
-//         {
-//           model: user,
-//           as: "posterUser",
-//           attributes: ["name", "photoLink"],
-//         },
-//       ],
-//     });
-
-//     return res.json(data);
-//   } catch (err) {
-//     return res.status(400).json({ error: true, msg: err });
-//   }
-// };
 
 const getAllMessages = async (chatroomId) => {
   //call the messages model.
@@ -162,6 +128,7 @@ const addMessage = async (data) => {
         attributes: ["name", "photoLink"],
       },
     ],
+    order: [["id", "ASC"]],
   });
 
   return allNewMessages;
@@ -182,8 +149,6 @@ const deleteChatAccess = async (data) => {
 
   return `User ${itemToDestroy.user.name} has left the chatroom.`;
 };
-
-// const addMessage = async (req, res) => {};
 
 module.exports = {
   getAll,
