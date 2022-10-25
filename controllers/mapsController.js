@@ -44,24 +44,6 @@ const getAllPins = async (req, res) => {
           ],
         });
 
-        // const response = await pin.findAll({
-        //   order: [["id", "ASC"]],
-        //   attributes: ["id", "lat", "lng", "placeName", "areaId"],
-        // });
-
-        // const allMarkers = response.map((pin) => {
-        //   return {
-        //     position: {
-        //       lat: pin.lat,
-        //       lng: pin.lng,
-        //     },
-        //     id: pin.id,
-        //     name: pin.placeName,
-        //     areaId: pin.areaId,
-        //   };
-        // });
-        // return res.json(allMarkers);
-        // console.log(response[0].dataValues.crowds);
         const allMarkers = response.map((pin) => {
           const { posts, crowds } = pin;
           let crowdIntensity = "";
@@ -141,15 +123,9 @@ const getAllPins = async (req, res) => {
 
         if (categoryId) {
           const allCategoryPins = await allPins.map((pin) => {
-            // console.log(pin.posts);
             const allPinPosts = pin.posts.map((post) => {
-              // console.log(post.postCategories);
               const allPosts = post.postCategories.map((category) => {
-                // console.log(category.categoryId);
-
                 if (Number(category.categoryId) === Number(categoryId)) {
-                  // allCategoryPins.push(pin);
-                  // console.log(pin);
                   return pin;
                 }
               });
@@ -159,8 +135,6 @@ const getAllPins = async (req, res) => {
 
             const result = allPinPosts.filter((e) => e.length !== 0);
             return result;
-
-            // pin.posts.postCategories.categoryId === categoryId;
           });
           const allCategoryPinsResult = allCategoryPins
             .filter((e) => e.length !== 0)
@@ -220,8 +194,6 @@ const getAllPins = async (req, res) => {
           [crowd, "recordedAt", "DESC"],
           [post, "likeCount", "DESC"],
         ],
-
-        // include: [area, crowd, post],
       });
 
       return res.json(allPins);
@@ -282,8 +254,6 @@ const createCrowdData = async (req, res) => {
       crowdSize: crowdSize,
       crowdIntensity: crowdIntensity,
     });
-
-    // const newCrowd = await crowd.findByPk(newCheckIn.id);
 
     const newCrowd = await crowd.findAll({
       where: {
