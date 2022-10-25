@@ -508,6 +508,18 @@
             "in": "path",
             "required": true,
             "type": "string"
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "currentDate": {
+                  "example": "any"
+                }
+              }
+            }
           }
         ],
         "responses": {
@@ -943,9 +955,6 @@
                   "example": "any"
                 },
                 "threadTitle": {
-                  "example": "any"
-                },
-                "existingPostId": {
                   "example": "any"
                 },
                 "content": {
