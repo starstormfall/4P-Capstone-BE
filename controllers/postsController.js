@@ -173,7 +173,6 @@ const getAllThreadInfo = async (req, res) => {
     const allThreadInfo = [];
 
     for (const row of allThread) {
-      // console.log(row.topic);
       const postsCount = await threadPost.findAndCountAll({
         where: { threadId: row.id },
         attributes: ["postId"],
@@ -361,7 +360,6 @@ const getTags = async (req, res) => {
 // IF THREAD EXIST (create comment)
 const createThreadPost = async (req, res) => {
   // #swagger.tags = ['Post']
-  console.log("add comments");
   //validate requirements for explore post
 
   // update in post table ()
@@ -568,7 +566,6 @@ const createThreadPost = async (req, res) => {
       }
     }
   } catch (err) {
-    console.log(err, "error");
     return res.status(400).json({ error: true, msg: err });
   }
 };
@@ -576,8 +573,6 @@ const createThreadPost = async (req, res) => {
 // create thread and determine if explore or not explore
 const createPost = async (req, res) => {
   // #swagger.tags = ['Post']
-
-  console.log("add comments");
 
   //validate requirements for explore post
   const {
@@ -759,7 +754,6 @@ const createPost = async (req, res) => {
       }
     }
   } catch (err) {
-    console.log(err, "error");
     return res.status(400).json({ error: true, msg: err });
   }
 };
@@ -788,8 +782,6 @@ const createThreadExplore = async (req, res) => {
       photoLink: photoLink,
     });
 
-    // console.log("new THread", newThread);
-    // console.log("new Post", newPost);
     // update threadPost model with new threadId and existingPostId && new threadId and newPostId
 
     const newThreadPost = await threadPost.bulkCreate([

@@ -7,13 +7,12 @@ const getOne = async (req, res) => {
   // #swagger.tags = ['User']
 
   const { email } = req.params;
-  console.log(email);
 
   try {
     const userInfo = await user.findOne({
       where: { email: email },
     });
-    console.log(userInfo);
+
     return res.json(userInfo);
   } catch (err) {
     return res.status(400).json({ error: true, msg: err });
@@ -51,13 +50,12 @@ const updateOneUser = async (req, res) => {
   const { userId } = req.params;
   const { email, name, nationality, score, lastLogin, photoLink, loginStreak } =
     req.body;
-  console.log("request body", req.body);
+
   try {
     // const currentUser = await User.findByPk(userId);
     const currentUser = await user.findOne({
       where: { email: email },
     });
-    console.log(currentUser);
 
     await currentUser.update({
       updatedAt: new Date(),
@@ -81,7 +79,6 @@ const updateOneUser = async (req, res) => {
 const getAllFavourite = async (req, res) => {
   // #swagger.tags = ['User']
   const { userId } = req.params;
-  console.log(favourite);
 
   try {
     const allFavourites = await favourite.findAll({
@@ -89,7 +86,6 @@ const getAllFavourite = async (req, res) => {
       include: { model: post },
     });
 
-    console.log("ALL FAVOURITES", allFavourites);
     const favouritePostIds = [];
     const favouritePosts = {};
 
@@ -111,7 +107,6 @@ const getAllFavourite = async (req, res) => {
 const getAllLike = async (req, res) => {
   // #swagger.tags = ['User']
   const { userId } = req.params;
-  console.log(favourite);
 
   try {
     const allLikes = await like.findAll({
@@ -147,31 +142,6 @@ const getAllPostLikes = async (req, res) => {
   }
 };
 
-// from hb: moved over to postsController
-// create likes for user
-// const addLikes = async (req, res) => {
-//   // #swagger.tags = ['User']
-//   const { userId, postId } = req.params;
-//   // const { userId } = req.body;
-//   console.log(postId);
-//   console.log(like);
-//   try {
-//     const [addLikes, created] = await like.findOrCreate({
-//       where: { userId: userId, postId: postId },
-//     });
-//     console.log("created", created);
-//     console.log("addLikes", addLikes);
-//     if (created) {
-//       return res.json(addLikes);
-//     } else {
-//       const updateLikes = await addLikes.destroy();
-//       return res.json(updateLikes);
-//     }
-//   } catch (err) {
-//     return res.status(400).json({ error: true, msg: err });
-//   }
-// };
-
 // create favourites for user
 const addFavourites = async (req, res) => {
   // #swagger.tags = ['User']
@@ -181,8 +151,7 @@ const addFavourites = async (req, res) => {
     const [addFavourites, created] = await favourite.findOrCreate({
       where: { userId: userId, postId: postId },
     });
-    console.log("created", created);
-    console.log("addFavourites", addFavourites);
+
     if (created) {
       return res.json(addFavourites);
     } else {
@@ -193,102 +162,6 @@ const addFavourites = async (req, res) => {
     return res.status(400).json({ error: true, msg: err });
   }
 };
-
-//working
-// const addLikes = async (req, res) => {
-//   const { postId } = req.params;
-//   const { userId } = req.body;
-//   // console.log("post and user id", postId, userId);
-//   try {
-//     const likeExists = await Like.findOne({
-//       where: { userId: userId, postId: postId },
-//     });
-//     console.log(likeExists);
-//     if (likeExists) {
-//       const removeLikes = await likeExists.destroy();
-//       return res.json(removeLikes);
-//     } else {
-//       console.log("post and user id", postId, userId);
-//       const addLikes = await Like.create({
-//         userId: 1,
-//         postId: 4,
-//       });
-//       return res.json(addLikes);
-//     }
-//   } catch (err) {
-//     return res.status(400).json({ error: true, msg: err });
-//   }
-// };
-
-// const updateFavourites = async (req, res) => {
-//   const { userId, postId } = req.params;
-//   try {
-//     const favouriteExists = await Favourite.findOne({
-//       where: {
-//         userId: userId,
-//         postId: postId,
-//       },
-//     });
-//     if (favouriteExists) {
-//       const removeFavourites = await Favourite.destroy();
-//       return res.json(removeFavourites);
-//     } else {
-//       const addFavourites = await Favourite.create({
-//         userId: userId,
-//         postId: postId,
-//       });
-//       return res.json(addFavourites);
-//     }
-//   } catch (err) {
-//     return res.status(400).json({ error: true, msg: err });
-//   }
-// };
-
-// const addFavourites = async (req, res) => {
-//   const { userId, postId } = req.body;
-//   try {
-//     const favouriteExists = await Favourite.findOne({
-//       where: {
-//         userId: userId,
-//         postId: postId,
-//       },
-//     });
-//     if (favouriteExists) {
-//       res.json("You have favourited the post.");
-//     } else {
-//       const addFavourites = await Favourite.create({
-//         userId: userId,
-//         postId: postId,
-//       });
-//       return res.json(addFavourites);
-//     }
-//   } catch (err) {
-//     return res.status(400).json({ error: true, msg: err });
-//   }
-// };
-
-// find by ID of the likes of the post
-// const addLikes = async (req, res) => {
-//   const { postId } = req.params;
-//   const { userId } = req.body;
-//   try {
-//     const likeExists = await Like.findOne({
-//       where: { userId: userId, postId: postId },
-//     });
-
-//     if (likeExists) {
-//       res.json("You liked the post previously.");
-//     } else {
-//       const addLikes = await Like.create({
-//         userId: userId,
-//         postId: postId,
-//       });
-//       return res.json(addLikes);
-//     }
-//   } catch (err) {
-//     return res.status(400).json({ error: true, msg: err });
-//   }
-// };
 
 const updateUserLogin = async (req, res) => {
   // #swagger.tags = ['User']
@@ -363,7 +236,6 @@ module.exports = {
   getAllFavourite,
   getAllLike,
   getAllPostLikes,
-  // addLikes,
   addFavourites,
   updateUserLogin,
 };

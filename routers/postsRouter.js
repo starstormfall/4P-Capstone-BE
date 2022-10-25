@@ -17,10 +17,6 @@ router.get(`/thread/:threadId`, controllers.getOneThread);
 // to add likes to post and retrieve updated like count
 router.put(`/:postId/:userId/like`, controllers.addLikes);
 
-// //create entry (Comment && New Explore entry && New Forum)
-// //include Forumname to update in controller
-// router.post(`/createEntry`, controllers.newEntry);
-
 // create new comment/post in thread (with ThreadId)
 router.post(`/create-comment/:threadId`, controllers.createThreadPost);
 
@@ -29,7 +25,5 @@ router.post(`/create-thread`, controllers.createPost);
 
 //create new thread (from explore page)
 router.post(`/create-thread-from-explore`, controllers.createThreadExplore);
-
-//comment. update Posts && Forumname_Post table (if explore column == null. is comment)
 
 module.exports = router;
