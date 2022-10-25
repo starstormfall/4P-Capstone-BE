@@ -293,6 +293,7 @@ const addFavourites = async (req, res) => {
 const updateUserLogin = async (req, res) => {
   // #swagger.tags = ['User']
   const { userId } = req.params;
+  const { currentDate } = req.body;
 
   try {
     const userInfo = await user.findOne({
