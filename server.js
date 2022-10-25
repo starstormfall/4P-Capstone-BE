@@ -34,10 +34,10 @@ const postsRouter = require("./routers/postsRouter");
 const usersRouters = require("./routers/usersRouter");
 const infoRouter = require("./routers/infoRouter");
 app.use("/chats", checkJwt, chatsRouter);
-app.use("/friends", friendsRouter);
+app.use("/friends", checkJwt, friendsRouter);
 app.use("/maps", checkJwt, mapsRouter);
-app.use("/users", usersRouters);
-app.use("/posts", postsRouter);
+app.use("/users", checkJwt, usersRouters);
+app.use("/posts", checkJwt, postsRouter);
 app.use("/info", infoRouter);
 
 const chatController = require("./controllers/chatsController");
