@@ -39,11 +39,26 @@ const getAllExplore = async (req, res) => {
 //         type: 'array'
 //         } */
 
+  /* #swagger.parameters['source'] = {
+// 	      in: 'query',
+//         description: 'instagram, review, forum', 
+//         type: 'array'
+//         } */
+
   const { userId, areaId, categoryIds, hashtagIds, source } = req.query;
 
   try {
     if (Object.keys(req.query).length > 0) {
-      if (areaId) {
+      if (source) {
+        const postsBySource = await post.findAll({
+          where: {
+            explorePost: source.split(","),
+          },
+        });
+        const posts = {};
+        postsBySource.forEach((post) => (posts[post.id] = post));
+        return res.json(posts);
+      } else if (areaId) {
         const areaPostsArray = await post.findAll({
           where: {
             explorePost: {
@@ -757,7 +772,7 @@ const createThreadExplore = async (req, res) => {
     } */
 
   const { fromExplorePostId } = req.query;
-  const { userId, threadTitle, content, areaId } = req.body;
+  const { userId, threadTitle, content, areaId, photoLink } = req.body;
 
   try {
     // add new thread title to thread model
@@ -770,6 +785,7 @@ const createThreadExplore = async (req, res) => {
       forumPost: true,
       quotedExplore: true,
       userId: userId,
+      photoLink: photoLink,
     });
 
     // console.log("new THread", newThread);

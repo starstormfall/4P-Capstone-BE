@@ -660,12 +660,13 @@
             "type": "array"
           },
           {
-            "name": "userId",
+            "name": "source",
             "in": "query",
-            "type": "string"
+            "description": "instagram, review, forum",
+            "type": "array"
           },
           {
-            "name": "source",
+            "name": "userId",
             "in": "query",
             "type": "string"
           }
